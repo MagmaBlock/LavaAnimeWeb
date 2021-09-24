@@ -1,7 +1,5 @@
 # 熔岩番剧库前端HTML（Demo）
-只是一个Demo，后期会再写后端和JavaScript来动态生成界面。
-
-仅使用Html+CSS框架+JavaScript来完成，主要是因为刚开始学HTML。
+只是一个Demo，使用Html+CSS框架+JavaScript来完成，主要是因为刚开始学HTML，后期会再写后端和JavaScript来动态生成界面。
 
 ## 预览
 [Github Pages](https://magmablock.github.io/Lava-Bangumi-Html/)
