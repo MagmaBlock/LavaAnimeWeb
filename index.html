@@ -11,146 +11,219 @@
   <!-- MDUI CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"
     integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous" />
-  <style>
-    .toolbar-blur {
-      -webkit-filter: blur(1px);
-      /* Chrome, Safari, Opera */
-      filter: blur(1px);
-      z-index: 1;
-    }
-
-    .mdui-card-media-covered {
-      background: rgba(0, 0, 0, .5);
-    }
-
-    /*
-      @media screen and (max-width: 350px) {
-        .lava-search {
-          width: 120px;
-        }
-      }
-*/
-  </style>
+  <link rel="stylesheet" href="./lava.css" crossorigin="anonymous">
+  <!-- 新 Bootstrap4 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+  <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+  <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <title>熔岩番剧库Demo</title>
 </head>
 
-<body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-appbar-with-toolbar">
 
-  <div class="mdui-toolbar mdui-shadow-6">
-    <div class="mdui-ripple mdui-float-left">
-      <img class="mdui-card-header-avatar" src="https://q1.qlogo.cn/g?b=qq&nk=823202450&s=640" />
-    </div>
-    <!--头像-->
-    <div class="mdui-chip mdui-ripple lava-search mdui-col-lg-2 mdui-col-md-3 mdui-col-sm-4 mdui-col-xs-6">
-      <div class="mdui-container mdui-valign">
-        <i class="mdui-icon material-icons">search</i>
-        <span class="mdui-chip-title"><input class="mdui-textfield-input" type="text" placeholder="搜索..." /></span>
+  <!--应用栏容器-->
+  <div class="mdui-appbar mdui-appbar-fixed mdui-color-theme">
+    <div class="mdui-toolbar mdui-shadow-6">
+      <!--头像-->
+      <div class="mdui-ripple mdui-float-left">
+        <img class="mdui-card-header-avatar" src="https://q1.qlogo.cn/g?b=qq&nk=823202450&s=640" />
       </div>
       <!--搜索框-->
+      <div
+        class="mdui-color-white mdui-ripple-black mdui-chip mdui-ripple mdui-valign mdui-col-lg-2 mdui-col-md-3 mdui-col-sm-4 mdui-col-xs-6">
+        <div class="mdui-container-fluid">
+          <i class="mdui-icon material-icons">search</i>
+          <span class="mdui-chip-title"><input class="mdui-textfield-input" type="text" placeholder="搜索..." /></span>
+        </div>
+      </div>
+      <!--占位格-->
+      <div class="mdui-toolbar-spacer"></div>
+
+      <!--a class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">search</i></a-->
+      <a class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">today</i></a>
+      <a class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">notifications_none</i></a>
     </div>
 
-    <div class="mdui-toolbar-spacer"></div>
-    <a class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">today</i></a>
-    <a class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">notifications_none</i></a>
-  </div>
   </div>
 
+
   <div class="mdui-container">
-    <br>
+    <!--主界面开始-->
     <div class="mdui-panel" mdui-panel>
-      <div class="mdui-panel-item mdui-panel-item-open">
-        <div class="mdui-panel-item-header  mdui-ripple">
+      <!--今日关注放送卡片-->
+      <div class="mdui-panel-item">
+        <div class="mdui-panel-item-header mdui-ripple">
           <div class="mdui-panel-item-title">今日关注放送</div>
           <div class="mdui-panel-item-summary">有4个更新</div>
           <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
         </div>
         <div class="mdui-panel-item-body mdui-container-fluid">
 
-          <ul class="mdui-list">
-            <li class="mdui-list-item mdui-ripple">
-              <div class="mdui-list-item-avatar"><img src="avatar1.jpg"/></div>
-              <div class="mdui-list-item-content">
-                <div class="mdui-list-item-title">Brunch this weekend?</div>
-                <div class="mdui-list-item-text mdui-list-item-one-line"><span class="mdui-text-color-theme-text">All Connors</span> - I'll be in your neighborhood ...</div>
+          <div class="row">
+            <!--网格布局-->
+
+            <div class="col col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+              <!--Bootstrap棚格布居-->
+              <div class="mdui-m-a-1 mdui-shadow-1 mdui-ripple mdui-hoverable mdui-center">
+                <!--MDUI卡片-->
+                <img class="mdui-img-fluid" src="https://lain.bgm.tv/pic/cover/l/17/ed/274234_iZ22k.jpg" />
+                <!-- 番剧标题 -->
+                <div class="mdui-card-content mdui-text-center mdui-text-truncate">小林家的龙女仆S</div>
               </div>
-            </li>
-            <li class="mdui-divider-inset mdui-m-y-0"></li>
-            <li class="mdui-list-item mdui-ripple">
-              <div class="mdui-list-item-avatar"><img src="avatar2.jpg"/></div>
-              <div class="mdui-list-item-content">
-                <div class="mdui-list-item-title">Summer BBQ</div>
-                <div class="mdui-list-item-text mdui-list-item-one-line"><span class="mdui-text-color-theme-text">to Alex, Scott, Jennifer</span> - Wish I could ...</div>
+            </div>
+
+            <div class="col col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+              <!--Bootstrap棚格布居-->
+              <div class="mdui-m-a-1 mdui-shadow-1 mdui-ripple mdui-hoverable mdui-center">
+                <!--MDUI卡片-->
+                <img class="mdui-img-fluid" src="https://lain.bgm.tv/pic/cover/l/ad/ee/320851_MPMXr.jpg" />
+                <!-- 番剧标题 -->
+                <div class="mdui-card-content mdui-text-center mdui-text-truncate">精灵幻想记</div>
               </div>
-            </li>
-            <li class="mdui-divider-inset mdui-m-y-0"></li>
-            <li class="mdui-list-item mdui-ripple">
-              <div class="mdui-list-item-avatar"><img src="avatar3.jpg"/></div>
-              <div class="mdui-list-item-content">
-                <div class="mdui-list-item-title">Oui oui</div>
-                <div class="mdui-list-item-text mdui-list-item-one-line"><span class="mdui-text-color-theme-text">Sandra Adams</span> - Do you have Paris reco ...</div>
+            </div>
+
+
+            <div class="col col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+              <!--Bootstrap棚格布居-->
+              <div class="mdui-m-a-1 mdui-shadow-1 mdui-ripple mdui-hoverable mdui-center">
+                <!--MDUI卡片-->
+                <img class="mdui-img-fluid" src="https://lain.bgm.tv/pic/cover/l/bf/92/306742_MvLk2.jpg" />
+                <!-- 番剧标题 -->
+                <div class="mdui-card-content mdui-text-center mdui-text-truncate">Love Live! Superstar!!</div>
               </div>
-            </li>
-          </ul>
+            </div>
 
 
-          
-          <div class="mdui-row-xs-2 mdui-row-sm-3 mdui-row-md-4 mdui-row-lg-5 mdui-grid-list">
-
-
-          <div class="mdui-col">
-            <div class="mdui-card mdui-cols">
-              <div class="mdui-card-media">
-                <img src="https://lain.bgm.tv/pic/cover/l/17/ed/274234_iZ22k.jpg" />
+            <div class="col col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+              <!--Bootstrap棚格布居-->
+              <div class="mdui-m-a-1 mdui-shadow-1 mdui-ripple mdui-hoverable mdui-center">
+                <!--MDUI卡片-->
+                <img class="mdui-img-fluid" src="https://lain.bgm.tv/pic/cover/l/17/ed/274234_iZ22k.jpg" />
+                <!-- 番剧标题 -->
+                <div class="mdui-card-content mdui-text-center mdui-text-truncate">小林家的龙女仆S</div>
               </div>
-              <div class="mdui-container">
-                <div class="mdui-typo">
-                  <strong>
-                    
-                  </strong>
-                </div>
-                <div class="mdui-chip">
-                  <span class="mdui-chip-icon">A</span>
-                  <span class="mdui-chip-title">小林家的龙女仆S</span>
-                </div>
+            </div>
 
-                <button class="mdui-btn mdui-ripple">观看</button>
-                <button class="mdui-btn mdui-ripple">action 2</button>
+
+            <div class="col col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+              <!--Bootstrap棚格布居-->
+              <div class="mdui-m-a-1 mdui-shadow-1 mdui-ripple mdui-hoverable mdui-center">
+                <!--MDUI卡片-->
+                <img class="mdui-img-fluid" src="https://lain.bgm.tv/pic/cover/l/ad/ee/320851_MPMXr.jpg" />
+                <!-- 番剧标题 -->
+                <div class="mdui-card-content mdui-text-center mdui-text-truncate">精灵幻想记</div>
+              </div>
+            </div>
+
+
+            <div class="col col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+              <!--Bootstrap棚格布居-->
+              <div class="mdui-m-a-1 mdui-shadow-1 mdui-ripple mdui-hoverable mdui-center">
+                <!--MDUI卡片-->
+                <img class="mdui-img-fluid" src="https://lain.bgm.tv/pic/cover/l/bf/92/306742_MvLk2.jpg" />
+                <!-- 番剧标题 -->
+                <div class="mdui-card-content mdui-text-center mdui-text-truncate">Love Live! Superstar!!</div>
               </div>
             </div>
           </div>
-
-          <div class="mdui-col">
-            <div class="mdui-card mdui-cols">
-              <div class="mdui-card-media">
-                <img src="https://lain.bgm.tv/pic/cover/l/17/ed/274234_iZ22k.jpg" />
-                <div class="mdui-card-media-covered">
-                  <div class="mdui-card-primary">
-                    <div class="mdui-card-primary-title">小林家的龙女仆S</div>
-                    <div class="mdui-card-primary-subtitle">第 12 话 生生流転</div>
-                  </div>
-                </div>
-              </div>
-              <div class="mdui-card-actions">
-                <button class="mdui-btn mdui-ripple">观看</button>
-                <button class="mdui-btn mdui-ripple">action 2</button>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
         </div>
       </div>
-      <br>
+
+      <div class="mdui-panel-item mdui-panel-item-open">
+        <!--今日放送卡片-->
+        <div class="mdui-panel-item-header">
+          <div class="mdui-panel-item-title">今日放送</div>
+          <div class="mdui-panel-item-summary">有7个更新</div>
+          <i class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <div class="mdui-panel-item-body">
+          <!--今日放送Body-->
+          <div class="mdui-tab mdui-tab-centered mdui-tab-full-width" mdui-tab>
+            <a href="#weekly-7" class="mdui-ripple"><i class="mdui-icon material-icons">filter_7</i></a>
+            <a href="#weekly-1" class="mdui-ripple mdui-tab-active"><i class="mdui-icon material-icons">filter_1</i></a>
+            <a href="#weekly-2" class="mdui-ripple"><i class="mdui-icon material-icons">filter_2</i></a>
+            <a href="#weekly-3" class="mdui-ripple"><i class="mdui-icon material-icons">filter_3</i></a>
+            <a href="#weekly-4" class="mdui-ripple"><i class="mdui-icon material-icons">filter_4</i></a>
+            <a href="#weekly-5" class="mdui-ripple"><i class="mdui-icon material-icons">filter_5</i></a>
+            <a href="#weekly-6" class="mdui-ripple"><i class="mdui-icon material-icons">filter_6</i></a>
+          </div>
+          <div id="weekly-7" class="mdui-p-a-2">web content</div>
+          <div id="weekly-1" class="mdui-p-a-2">
+            <ul class="mdui-list mdui-list-dense">
+              <li class="mdui-subheader">已放送</li>
+              <li class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-content">
+                  <div class="mdui-list-item-title">暗夜第六感 2041</div>
+                  <div class="mdui-list-item-text mdui-list-item-one-line mdui-text-color-theme-text">
+                    00:05 第12话</div>
+                </div>
+              </li>
+              <li class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-content">
+                  <div class="mdui-list-item-title">绯红结系</div>
+                  <div class="mdui-list-item-text mdui-list-item-one-line mdui-text-color-theme-text">
+                    21:30 第14话</div>
+                </div>
+              </li>
+              <li class="mdui-subheader">今日即将放送</li>
+              <li class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-content">
+                  <div class="mdui-list-item-title">桃子男孩渡海而来</div>
+                  <div class="mdui-list-item-text mdui-list-item-one-line mdui-text-color-theme-text">
+                    21:40 第13话</div>
+                </div>
+              </li>
+              <li class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-content">
+                  <div class="mdui-list-item-title">寒蝉鸣泣之时 卒</div>
+                  <div class="mdui-list-item-text mdui-list-item-one-line mdui-text-color-theme-text">
+                    22:30 第15话</div>
+                </div>
+              </li>
+              <li class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-content">
+                  <div class="mdui-list-item-title">白沙的水族馆</div>
+                  <div class="mdui-list-item-text mdui-list-item-one-line mdui-text-color-theme-text">
+                    00:30 第12话</div>
+                </div>
+              </li>
+              <li class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-content">
+                  <div class="mdui-list-item-title">异世界迷宫黑心企业</div>
+                  <div class="mdui-list-item-text mdui-list-item-one-line mdui-text-color-theme-text">
+                    22:00 第12话</div>
+                </div>
+              </li>
+              <li class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-content">
+                  <div class="mdui-list-item-title">我立于百万生命之上 第二季</div>
+                  <div class="mdui-list-item-text mdui-list-item-one-line mdui-text-color-theme-text">
+                    00:30 第25话</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div id="weekly-2" class="mdui-p-a-2">images content</div>
+          <div id="weekly-3" class="mdui-p-a-2">web content</div>
+          <div id="weekly-4" class="mdui-p-a-2">shopping content</div>
+          <div id="weekly-5" class="mdui-p-a-2">images content</div>
+          <div id="weekly-6" class="mdui-p-a-2">web content</div>
+        </div>
+      </div>
+
+
+
+
+
     </div>
+
+
+
   </div>
-  </div>
-
-
-
-
-
-
   <!-- MDUI JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"
     integrity="sha384-gCMZcshYKOGRX9r6wbDrvF+TcCCswSHFucUzUPwka+Gr+uHgjlYvkABr95TCOz3A"
