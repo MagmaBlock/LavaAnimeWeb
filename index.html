@@ -1,29 +1,130 @@
 <!doctype html>
 <html lang="zh-cn">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"/>
-    <meta name="renderer" content="webkit"/>
-    <meta name="force-rendering" content="webkit"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-    <!-- MDUI CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"
-      integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw"
-      crossorigin="anonymous"
-    />
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
+  <meta name="renderer" content="webkit" />
+  <meta name="force-rendering" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <!-- MDUI JavaScript -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"
-      integrity="sha384-gCMZcshYKOGRX9r6wbDrvF+TcCCswSHFucUzUPwka+Gr+uHgjlYvkABr95TCOz3A"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+  <!-- MDUI CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"
+    integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous" />
+  <title>熔岩番剧库 LavaAnime - 首页</title>
+</head>
+
+<body>
+  <style>
+    @media screen {
+      .l-banner {
+        background-image: url(./assets/background.jpg);
+        background-position-x: 50%;
+        background-size: cover;
+        height: 300px;
+      }
+
+      .l-btn {
+        margin-top: 100px;
+      }
+    }
+
+    @media screen and (min-width: 540px) {
+      .l-banner {
+        background-repeat: repeat-x;
+        background-size: contain;
+        height: 300px;
+      }
+
+      .l-btn {
+        margin-top: 100px;
+      }
+
+      @media screen and (min-width: 810px) {
+        .l-banner {
+          background-size: cover;
+          height: 500px;
+        }
+
+        .l-btn {
+          margin-top: 220px;
+        }
+      }
+
+      @media screen and (min-width: 900px) {
+        .l-banner {
+          background-size: contain;
+        }
+      }
+
+      @media screen and (min-width: 1300px) {
+        .l-banner {
+          height: 700px;
+        }
+
+        .l-btn {
+          margin-top: 300px;
+        }
+      }
+
+      @media screen and (min-width: 1900px) {
+        .l-banner {
+          height: 900px;
+        }
+
+        .l-btn {
+          margin-top: 400px;
+        }
+      }
+
+      @media screen and (min-width: 2400px) {
+        .l-banner {
+          height: 1100px;
+        }
+
+        .l-btn {
+          margin-top: 500px;
+        }
+      }
+    }
+  </style>
+  <div class="l-banner">
+    <div class="mdui-toolbar mdui-shadow-4">
+      <span class="mdui-typo-title mdui-text-color-white">熔岩番剧库 LavaAnime</span>
+      <div class="mdui-toolbar-spacer"></div>
+    </div>
+
+
+    <div class="mdui-container mdui-text-center l-btn">
+      <a href="https://pan.5t5.top/s/jqMFl"
+        class="mdui-btn mdui-text-color-white mdui-btn-raised mdui-ripple mdui-ripple-white mdui-color-deep-orange-500">全部番剧</a>
+      <a href="https://pan.5t5.top/s/KmH8"
+        class="mdui-btn mdui-btn-raised mdui-ripple mdui-ripple-white mdui-color-white">剧场版动画</a>
+    </div>
+    <a class="mdui-fab mdui-color-deep-orange-500 mdui-ripple mdui-text-color-white mdui-fab-fixed mdui-hidden-sm-down" style="position:relative;bottom: -10%;"><i class="mdui-icon material-icons">keyboard_arrow_down</i></a>
+  </div>
+
+
+
+  <div class="mdui-container mdui-m-t-2">
+    <div class="mdui-card">
+      <div class="mdui-typo mdui-container">
+        <h3>7、10月新番连载中！</h3>
+        <p>7、10月季度 20 部新番连载中！ <br>全新「番剧动画」目录，<br>
+          一个分享链接查找番剧库全部TV、OVA、WEB动画！</p>
+        <div class="mdui-card-actions">
+          <a href="https://pan.5t5.top/s/MkNfE" class="mdui-btn mdui-ripple">十月秋季番剧</a>
+          <a href="https://pan.5t5.top/s/YJsB " class="mdui-btn mdui-ripple">七月夏季番剧</a>
+          <a href="https://pan.5t5.top/s/jqMFl" class="mdui-btn mdui-ripple">全年番剧动画</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MDUI JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"
+    integrity="sha384-gCMZcshYKOGRX9r6wbDrvF+TcCCswSHFucUzUPwka+Gr+uHgjlYvkABr95TCOz3A"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>
