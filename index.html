@@ -1,151 +1,197 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-cn">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
-  <meta name="renderer" content="webkit" />
-  <meta name="force-rendering" content="webkit" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
-  <!-- MDUI CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"
-    integrity="sha384-cLRrMq39HOZdvE0j6yBojO4+1PrHfB7a9l5qLcmRm/fiWXYY+CndJPmyu5FV/9Tw" crossorigin="anonymous" />
-  <title>熔岩番剧库 LavaAnime - 首页</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 新 Bootstrap5 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
 </head>
 
-<body class="mdui-theme-layout-dark mdui-theme-primary-red mdui-theme-accent-red">
-  <style>
-    @media screen {
-      .l-banner {
-        background-image: url(./assets/background.jpg);
-        background-position-x: 50%;
-        background-size: cover;
-        height: 300px;
-      }
+<body style="background-image: linear-gradient(to right, #868f96 0%, #596164 100%);">
 
-      .l-btn {
-        margin-top: 100px;
-      }
-    }
+    <style>
+        @media screen {
+            .l-banner {
+                background-image: url(./assets/background.jpg);
+                background-position-x: 50%;
+                background-size: cover;
+                height: 300px;
 
-    @media screen and (min-width: 540px) {
-      .l-banner {
-        background-repeat: repeat-x;
-        background-size: contain;
-        height: 300px;
-      }
 
-      .l-btn {
-        margin-top: 100px;
-      }
+            }
 
-      @media screen and (min-width: 810px) {
-        .l-banner {
-          background-size: cover;
-          height: 500px;
+            .l-btn {
+                padding-top: 150px;
+                position: relative;
+            }
         }
 
-        .l-btn {
-          margin-top: 220px;
+        @media screen and (min-width: 540px) {
+            .l-banner {
+                background-repeat: repeat-x;
+                background-size: contain;
+                height: 300px;
+            }
+
+
+            @media screen and (min-width: 810px) {
+                .l-banner {
+                    background-size: cover;
+                    height: 500px;
+                }
+
+                .l-btn {
+                    padding-top: 260px;
+                }
+            }
+
+            @media screen and (min-width: 900px) {
+                .l-banner {
+                    background-size: contain;
+                }
+            }
+
+            @media screen and (min-width: 1300px) {
+                .l-banner {
+                    height: 700px;
+                }
+
+                .l-btn {
+                    padding-top: 350px;
+                }
+            }
+
+            @media screen and (min-width: 1900px) {
+                .l-banner {
+                    height: 900px;
+                }
+
+                .l-btn {
+                    padding-top: 450px;
+                }
+            }
+
+            @media screen and (min-width: 2400px) {
+                .l-banner {
+                    height: 1100px;
+                }
+
+                .l-btn {
+                    padding-top: 550px;
+                }
+            }
         }
-      }
-
-      @media screen and (min-width: 900px) {
-        .l-banner {
-          background-size: contain;
-        }
-      }
-
-      @media screen and (min-width: 1300px) {
-        .l-banner {
-          height: 700px;
-        }
-
-        .l-btn {
-          margin-top: 300px;
-        }
-      }
-
-      @media screen and (min-width: 1900px) {
-        .l-banner {
-          height: 900px;
-        }
-
-        .l-btn {
-          margin-top: 400px;
-        }
-      }
-
-      @media screen and (min-width: 2400px) {
-        .l-banner {
-          height: 1100px;
-        }
-
-        .l-btn {
-          margin-top: 500px;
-        }
-      }
-    }
-  </style>
-  <div class="l-banner">
-    <!--Banner-->
-    <div class="mdui-toolbar mdui-shadow-4">
-      <!--ToolBar-->
-      <span class="mdui-typo-title mdui-text-color-white">熔岩番剧库 LavaAnime</span>
-      <div class="mdui-toolbar-spacer"></div>
-    </div>
-
-
-    <div class="mdui-container mdui-text-center l-btn">
-      <!--Banner Bottons-->
-      <a target="_blank" href="https://pan.5t5.top/s/jqMFl"
-        class="mdui-btn mdui-text-color-white mdui-btn-raised mdui-ripple mdui-ripple-white mdui-color-theme">全部番剧</a>
-      <a target="_blank" href="https://pan.5t5.top/s/KmH8"
-        class="mdui-btn mdui-btn-raised mdui-ripple mdui-ripple-white mdui-color-white">剧场版动画</a>
-    </div>
-
-  </div>
-
-  <a href="#1"
-    class="mdui-fab mdui-color-deep-orange-500 mdui-ripple mdui-text-color-white mdui-fab-fixed mdui-hidden-sm-down"><i
-      class="mdui-icon material-icons">keyboard_arrow_down</i></a>
-  <!--大屏幕浮动按钮-->
-
-
-  <div id="1" class="mdui-container mdui-m-t-2">
-    <!--主容器-->
-
-    <div class="mdui-card">
-      <div class="mdui-card-media">
-        <div
-          style="height: 250px; background-size: cover; background-position-y: 50%; background-image: url(./assets/2021.7.10.jpg);">
+    </style>
+    <nav class="navbar navbar-dark bg-dark">
+        <!-- Navbar content -->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">熔岩番剧库 LavaAnime</a>
+        </div>
+    </nav>
+    <div class="l-banner">
+        <!--Banner-->
+        <div class="text-center l-btn">
+            <!--Banner Bottons-->
+            <a target="_blank" href="https://pan.5t5.top/s/jqMFl" class="btn btn-primary btn-sm shadow-lg">全部番剧</a>
+            <a target="_blank" href="https://pan.5t5.top/s/KmH8" class="btn btn-light btn-sm shadow-lg">剧场版动画</a>
         </div>
 
-        <div class="mdui-typo mdui-container">
-          <h3>夏秋季新番连载中</h3>
-          <p>2021 年 7 月夏、10 月秋季度《86 -不存在的战区-》、《关于前辈很烦人的事》、《无职转生 后半》、《古见同学有交流障碍症》、《迦希女王不会放弃》等 20 部新番连载中！
-            <br><br>全新「番剧动画」目录，<br>
-            一个分享链接查找番剧库全部TV、OVA、WEB动画！
-          </p>
-          <hr />
-          <p><em>若跳转到熔岩云盘登录界面请重新打开。</em></p>
-          <div class="mdui-card-actions">
-            <a target="_blank" href="https://pan.5t5.top/s/MkNfE" class="mdui-btn mdui-ripple">十月秋季番剧</a>
-            <a target="_blank" href="https://pan.5t5.top/s/YJsB " class="mdui-btn mdui-ripple">七月夏季番剧</a>
-            <a target="_blank" href="https://pan.5t5.top/s/jqMFl" class="mdui-btn mdui-ripple">全年番剧动画</a>
-          </div>
-        </div>
-
-      </div>
     </div>
 
-  </div>
+    <div class="container-md">
 
-  <!-- MDUI JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"
-    integrity="sha384-gCMZcshYKOGRX9r6wbDrvF+TcCCswSHFucUzUPwka+Gr+uHgjlYvkABr95TCOz3A"
-    crossorigin="anonymous"></script>
+
+        <div class="card mt-3 mb-3 shadow-lg">
+            <div class="row g-0">
+                <img src="./assets/2021.7.10.jpg" class="col-md-4" style="object-fit:cover;">
+                <div class="col-md-8">
+                    <div class="card-header">新番连载</div>
+                    <div class="card-body">
+                        <h5 class="card-title">夏秋季新番连载中</h5>
+                        <p class="card-text">2021 年 7 月夏、10 月秋季度《86 -不存在的战区-》、《关于前辈很烦人的事》、《无职转生
+                            后半》、《古见同学有交流障碍症》、《迦希女王不会放弃》等 20 部新番连载中！
+                            <br><br>全新「番剧动画」目录，<br>一个分享链接查找番剧库全部TV、OVA、WEB动画！
+                        </p>
+                        <p class="card-text text-muted">若跳转到熔岩云盘登录界面请重新打开。</p>
+                        <div class="btn-group shadow">
+                            <a target="_blank" href="https://pan.5t5.top/s/MkNfE" class="btn btn-primary"><i
+                                    class="bi bi-tree-fill"></i> 十月秋</a>
+                            <a target="_blank" href="https://pan.5t5.top/s/YJsB " class="btn btn-secondary"><i
+                                    class="bi bi-brightness-high-fill"></i> 七月夏</a>
+                            <a target="_blank" href="https://pan.5t5.top/s/jqMFl" class="btn btn-outline-secondary">全部番剧
+                                <span class="badge bg-secondary">新</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-3 mb-3 shadow-lg">
+            <div class="row g-0">
+
+                <div class="col-md-8">
+                    <div class="card-header">剧场版动画</div>
+                    <div class="card-body">
+                        <h5 class="card-title">剧场版动画更新中</h5>
+                        <p class="card-text">10 + 部剧场版动画在线观看！<br>
+                            一个分享链接查找番剧库全部剧场版动画。
+                        </p>
+                        <p class="card-text text-muted">若跳转到熔岩云盘登录界面请重新打开。</p>
+                        <div class="btn-group shadow">
+                            <a target="_blank" href="https://pan.5t5.top/s/KmH8" class="btn btn-primary"><i
+                                    class="bi bi-film"></i> 剧场版动画</a>
+                        </div>
+                    </div>
+                </div>
+                <img src="./assets/movie.jpg" class="col-md-4" style="object-fit:cover;">
+            </div>
+        </div>
+
+        <div class="card mt-3 mb-3 shadow-lg">
+            <div class="row g-0">
+                <img src="./assets/tkk.jpg" class="col-md-4" style="object-fit:cover;">
+                <div class="col-md-8">
+                    <div class="card-header">番剧库使用帮助 - 语雀知识库</div>
+                    <div class="card-body">
+                        <h5 class="card-title">使用 VLC 或第三方播放器在桌面平台串流熔岩番剧库的所有视频资源</h5>
+                        <p class="card-text">教你如何在桌面平台用本地播放器播放熔岩番剧库的在线视频资源，同时推荐三个播放器。
+                        </p>
+                        <div class="btn-group shadow">
+                            <a target="_blank" href="https://pan.5t5.top/s/KmH8" class="btn btn-primary"><i
+                                    class="bi bi-box-arrow-up-right"></i> 查阅</a>
+                            <a target="_blank" href="https://pan.5t5.top/s/KmH8" class="btn btn-outline-primary"><i
+                                    class="bi bi-book-half"></i> 打开语雀知识库</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+<div class="container bg-dark text-center text-light p-2">
+    <a href="/old-index.html" class="text-secondary text-decoration-none">旧主页</a>    
+    <p>熔岩番剧库 LavaAnime</p>
+</div>
+    <!--  popper.min.js 用于弹窗、提示、下拉菜单 -->
+    <script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
+    <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
