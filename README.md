@@ -8,4 +8,4 @@
 ## 使用的项目
  
 - [MDUI](https://github.com/zdhxiong/mdui) , 一个Material Design CSS 框架。
-- [BootStrap4](https://getbootstrap.com/) , 一个更加知名的 CSS 框架。
+- [BootStrap5](https://getbootstrap.com/) , 一个更加知名的 CSS 框架。
