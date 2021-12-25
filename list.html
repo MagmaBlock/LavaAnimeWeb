@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+
+            $("#list").click(function () {
+                var year = document.getElementById("year").value
+                var month = document.getElementById("month").value
+                $.get("https://dav.5t5.top/api/v3/share/list/jqMFl/" + year + "年/" + month , function (data, status) {
+                    console.log(data);
+                    var fanList = data.data.objects;
+                    console.log(fanList.length);
+                    for (var i = 0; i < fanList.length; i++) {
+                        console.log(fanList[i].name)
+                        // var reg = "(\d+)$"
+                        thisId = fanList[i].name.match("(\\d+)\$")[0]
+                        console.log(thisId)
+                        // $.get("https://api.5t5.top/api/v1/object/url/" + fanList[i].id, function (data) {
+                        //     console.log(data.url)
+                        // })
+                        getPosterById(thisId)
+                    }
+
+                });
+            });
+
+
+            function getPosterById(bgmid) {
+                bgmid2 = bgmid.substr(0, bgmid.length - 2);
+                console.log(bgmid, bgmid2)
+                $.get("https://cdn.jsdelivr.net/gh/czy0729/Bangumi-Subject@master/data/" + bgmid2 + "/" + bgmid + ".json", function (data) {
+                    console.log(data)
+                    console.log(data.image)
+                    poster = data.image.replace("/m/", "/l/")
+                    var newimg = "<img src=\"" + poster + "\" style=\"max-height: 200px;\"></img>";
+                    $("#posters").append(newimg);
+                })
+            }
+
+
+
+
+            $("#bangumi").click(function () {
+                var bgmid = document.getElementById("id-input").value
+                bgmid2 = bgmid.substr(0, bgmid.length - 2);
+                console.log(bgmid, bgmid2)
+                $.get("https://cdn.jsdelivr.net/gh/czy0729/Bangumi-Subject@master/data/" + bgmid2 + "/" + bgmid + ".json", function (data) {
+                    console.log(data)
+                    console.log(data.image)
+                    poster = data.image.replace("/m/", "/l/")
+                    document.getElementById("picture").src = poster;
+                })
+            });
+
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <button id="list">GET 番剧列表</button>
+
+    <input id="id-input">
+    <button id="bangumi">GET BangumiAPI</button>
+    <p>刚刚获取的海报</p>
+    <img id="picture" style="max-height: 200px;"></img>
+    <div>年份：<input id="year">年<br>月份：<input id="month"></div>
+    <p>海报：</p>
+    <div id="posters"></div>
+</body>
+
+</html>
