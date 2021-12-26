@@ -6,43 +6,160 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script> -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.staticfile.org/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <script src="https://cdn.staticfile.org/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 6px;
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            border: 0px solid transparent;
+            background-clip: content-box;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+    </style>
     <script>
         $(document).ready(function () {
 
+            // 界面加载后，获取年代列表
+            $.ajax({
+                url: "https://dav.5t5.top/api/v3/share/list/jqMFl/",
+                success: function (result) {
+                    // 解壳
+                    var objects = result.data.objects
+                    // 新建一个数组用于排序
+                    var yearSorter = new Array()
+                    // 将得到的每个文件夹的名字写进数组
+                    for (var i = 0; i < objects.length; i++) {
+                        yearSorter[i] = objects[i].name
+                    }
+                    // 把数组按字母排序再倒序
+                    var yearList = yearSorter.sort().reverse()
+                    console.log(yearList)
+                    // for 循环写入文档
+                    for (var i = 0; i < yearList.length; i++) {
+                        // 删去文件夹名字里的“年”
+                        yearList[i] = yearList[i].toString();
+                        yearList[i] = yearList[i].substring(0, yearList[i].length - 1)
+                        //输出html
+                        $("<input type=\"radio\" name=\"year\" class=\"btn-check btn-year\" id=\"" + yearList[i] + "\"><label style=\"min-width: max-content;\" class=\"btn btn-outline-primary\" for=\"" + yearList[i] + "\">" + yearList[i] + "</label></button>").appendTo("#years");
 
-            $("#list").click(function () {
-                var year = document.getElementById("year").value
-                var month = document.getElementById("month").value
-                $.get("https://dav.5t5.top/api/v3/share/list/jqMFl/" + year + "年/" + month , function (data, status) {
-                    console.log(data);
-                    var fanList = data.data.objects;
-                    console.log(fanList.length);
-                    for (var i = 0; i < fanList.length; i++) {
-                        console.log(fanList[i].name)
-                        // var reg = "(\d+)$"
-                        thisId = fanList[i].name.match("(\\d+)\$")[0]
-                        console.log(thisId)
-                        // $.get("https://api.5t5.top/api/v1/object/url/" + fanList[i].id, function (data) {
-                        //     console.log(data.url)
-                        // })
-                        getPosterById(thisId)
+                    }
+                    // 为每个按钮追加点击时触发的函数
+                    $(".btn-year").click(function () {
+                        // 找出被点击的那个按钮勾
+                        var clickedYear = $('input:radio[name="year"]:checked')[0].id
+                        // 调用函数
+                        getMonthList(clickedYear)
+
+                    })
+                }
+            })
+
+
+
+            function getMonthList(year) {
+                $.ajax({
+                    beforeSend: function () {
+                        $("#months").empty()
+                    },
+                    url: "https://dav.5t5.top/api/v3/share/list/jqMFl/" + year + "年",
+                    success: function (result) {
+                        // 解壳
+                        var objects = result.data.objects
+                        console.log(objects)
+                        // 新建一个数组用于排序
+                        var monthSorter = new Array()
+                        // 将得到的每个文件夹的名字写进数组
+                        for (var i = 0; i < objects.length; i++) {
+                            monthSorter[i] = objects[i].name
+                        }
+                        // 把数组按字母排序再倒序
+                        var monthList = monthSorter.sort()
+                        console.log(monthList)
+
+                        for (var i = 0; i < monthList.length; i++) {
+                            //输出html
+                            $("<input type=\"radio\" name=\"month\" class=\"btn-check btn-month\"  id=\"" + monthList[i] + "\"><label style=\"min-width: max-content;\" class=\"btn btn-outline-primary\" for=\"" + monthList[i] + "\">" + monthList[i] + "</label></button>").appendTo("#months");
+                        }
+                        // 为每个按钮追加点击函数
+                        $(".btn-month").click(function () {
+                            // 定义月变量
+                            var clickedMonth = $('input:radio[name="month"]:checked')[0].id
+                            getAnimeList(year, clickedMonth)
+                        })
+
+
                     }
 
-                });
-            });
-
-
-            function getPosterById(bgmid) {
-                bgmid2 = bgmid.substr(0, bgmid.length - 2);
-                console.log(bgmid, bgmid2)
-                $.get("https://cdn.jsdelivr.net/gh/czy0729/Bangumi-Subject@master/data/" + bgmid2 + "/" + bgmid + ".json", function (data) {
-                    console.log(data)
-                    console.log(data.image)
-                    poster = data.image.replace("/m/", "/l/")
-                    var newimg = "<img src=\"" + poster + "\" style=\"max-height: 200px;\"></img>";
-                    $("#posters").append(newimg);
                 })
+            }
+
+
+
+
+            function getAnimeList(year, month) {
+                $("#posters").empty()
+                // 从云盘取得相应季度番剧列表
+                $.get("https://dav.5t5.top/api/v3/share/list/jqMFl/" + year + "年/" + month,
+                    // 取回来之后执行的函数
+                    function (data, status) {
+                        // 剥去 CR Api 的壳
+                        var fanList = data.data.objects;
+                        console.log(fanList)
+
+                        // 循环总文件夹次
+                        for (var i = 0; i < fanList.length; i++) {
+                            // 匹配此文件夹末尾的 BgmId
+                            let thisId = fanList[i].name.match("\\d+$")
+                            // 如果匹配失败
+                            if (thisId == null) {
+                                console.log("来自熔岩云盘的文件夹 \"" + fanList[i].name + "\" 不是一个合法的番剧库番组！")
+                            }
+
+                            // 匹配成功，开始获取主视觉图
+                            else {
+                                var thisId2 = thisId.toString();
+                                thisId2 = thisId2.substring(0, thisId2.length - 2)
+                                console.log(thisId2)
+
+                                $.ajax({
+                                    url: "https://cdn.jsdelivr.net/gh/czy0729/Bangumi-Subject@master/data/" + thisId2 + "/" + thisId + ".json",
+                                    success: function (result) {
+                                        poster = result.image.replace("/m/", "/c/")
+                                        var newimg = "<img style=\"width: 150px;\" class=\"rounded m-1\" src=\"" + poster + "\">";
+                                        $("#posters").append(newimg);
+                                    },
+                                    error: function (xhr) {
+
+                                        console.log("番组\"" + thisId + "\"Bangumi CDN 命中失败，正在请求原站...")
+                                        console.log(xhr)
+                                        $.ajax({
+                                            url: "https://api.bgm.tv/subject/" + thisId,
+                                            success: function (result) {
+                                                poster = result.images.common
+                                                var newimg = "<img style=\"width: 150px;\" class=\"rounded m-1\" src=\"" + poster + "\">";
+                                                $("#posters").append(newimg);
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    }
+                );
             }
 
 
@@ -66,16 +183,44 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-light bg-light shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://s-sh-2164-assets.oss.dogecdn.com/LavaDrive/icons/LavaCloud.svg" alt="" width="30"
+                    height="30" class="d-inline-block align-bottom">
+                熔岩番剧库 LavaAnime
+            </a>
+        </div>
+    </nav>
 
-    <button id="list">GET 番剧列表</button>
 
-    <input id="id-input">
-    <button id="bangumi">GET BangumiAPI</button>
-    <p>刚刚获取的海报</p>
-    <img id="picture" style="max-height: 200px;"></img>
-    <div>年份：<input id="year">年<br>月份：<input id="month"></div>
-    <p>海报：</p>
-    <div id="posters"></div>
+
+    <div class="container">
+
+
+
+
+
+
+        <div class="card text-dark bg-light mb-3 mt-3 shadow">
+            <div class="card-header">番剧索引</div>
+            <div class="card-body">
+                <h5 class="lead">年代</h5>
+                <div class="btn-group-sm mb-2 btn-group overflow-scroll" id="years"
+                    style="padding-left: 1px; max-width: 100%;">
+                </div>
+                <h5 class="lead">季度 / 类型</h5>
+                <div class="btn-group-sm mb-2 btn-group overflow-scroll" id="months"
+                    style="padding-left: 1px; max-width: 100%; height: 37px;">
+                </div>
+            </div>
+            <div id="posters" class="text-center">
+                <!-- <img style="width: 150px;" class="rounded m-1" src="http://lain.bgm.tv/pic/cover/c/85/45/333349_nnTfr.jpg"> -->
+        </div>
+        </div>
+
+
+    </div>
 </body>
 
 </html>
