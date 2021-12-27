@@ -34,36 +34,99 @@
 
             animeApiUrl = "https://dav.5t5.top/api/v3/share/list/jqMFl"
 
-            console.log(getUrlParams("path").path)
-            AnimePath = getUrlParams("path").path
-            
 
+            console.log(decodeURI(getUrlParams("path").path))
+            AnimePath = getUrlParams("path").path
+
+
+            if (AnimePath == undefined) {
+                console.log("地址栏不含参数！")
+            }
+
+            thisId = decodeURI(getUrlParams("path").path).match("\\d+$")[0]
+            thisId2 = thisId.toString()
+            thisId2 = thisId2.substring(0, thisId2.length - 2)
+
+            console.log(thisId,thisId2)
+
+            // 从网盘取得文件列表
             $.ajax({
+
                 url: animeApiUrl + AnimePath,
                 success: function (result) {
+                    // 剥壳
                     objects = result.data.objects
+                    // 用自定义排序函数用 name 排序
                     mySort(objects, "name")
                     console.log(objects)
+                    // 开始循环
                     for (var i = 0; i < objects.length; i++) {
-
+                        // 如果这个数组描述的是一个文件类型的
+                        if (objects[i].type == "file") {
+                            var fileName = objects[i].name
+                            var fileId = objects[i].id
+                            printAnimeList(fileName, fileId)
+                            // 1秒后隐藏loading
+                            setTimeout(() => {
+                                $("#loading").fadeOut()
+                            }, 1000);
+                        }
                     }
+
                 }
             })
 
-            function printAnimeList(){
-                
+
+            // 向列表追加生成的列表的函数
+            function printAnimeList(fileName, fileId) {
+                // 生成新的html
+                var newListObj = "<button id=\"" + fileId + "\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#la-player\" class=\"la-list-anime list-group-item list-group-item-action\">" + fileName + "</button>"
+                // 追加html
+                $("#la-list-container").append(newListObj)
+                // 再给每个列表项增加点击时事件
+                $("#" + fileId).click(function () {
+                    thisName = $(this)[0].innerText
+                    thisId = $(this)[0].id
+                    $.ajax({
+                        url: "https://api.5t5.top/api/v1/object/url/" + thisId,
+                        success: function (result) {
+                            var potplayerBtn = "<a class=\"btn btn-primary mb-2\" href=\"potplayer://" + result.url + "\">点此调用 PotPlayer 播放</a>"
+                            var vlcBtn = "<a class=\"btn btn-primary mb-2\" href=\"vlc://" + result.url + "\">点此调用 Android VLC 播放</a>"
+                            var rawBtn = "<a class=\"btn btn-outline-primary mb-2\" target=\"__blank\" href=\"" + result.url + "\">点此下载，长按此处复制链接</a>"
+                            $("#la-player-body").empty().append(potplayerBtn + "<br>" + vlcBtn + "<br>" + rawBtn)
+                            $("#la-player-header").empty().append(thisName)
+                        }
+                    })
+
+                })
             }
 
 
-            // 为每个按钮追加点击时触发的函数
-            $(".la-list-anime").click(function () {
-                        
-
-                    })
-            console.log($(".la-list-anime"))
 
 
-
+            // 获取主视觉图的函数
+            // $.ajax({
+            //     url: "https://cdn.jsdelivr.net/gh/czy0729/Bangumi-Subject@master/data/" + thisId2 + "/" + thisId + ".json",
+            //     success: function (result) {
+            //         // 更改主视觉图的画质
+            //         posterUrl = result.image.replace("/m/", "/l/")
+            //         $("#la-poster").append("<img style=\"max-height:300px\" src=\"" + posterUrl + "\">")
+            //     },
+            //     error: function (xhr) {
+            //         // 请求 Bangumi 官方 API
+            //         console.log("番组\"" + thisId + "\"Bangumi CDN 命中失败，正在请求原站...   下方是错误原因")
+            //         console.log(xhr)
+            //         $.ajax({
+            //             url: "https://api.bgm.tv/subject/" + thisId,
+            //             success: function (result) {
+            //                 console.log("Bangumi 官方 API 返回数据: ")
+            //                 console.log(result)
+            //                 posterUrl = result.images.large
+            //                 $("#la-poster").append("<img src=\"" + posterUrl + "\">")
+            //             }
+            //         })
+            //     }
+            // })
 
             //根据数组子项排序函数, 给出数组和排序的子项，原数组会被自动排序。代码来自网络
             function mySort(list, field) {
@@ -117,9 +180,43 @@
 </head>
 
 <body>
-    <div class="container">
+    <nav class="navbar navbar-light bg-light shadow fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/list.html">
+                <img src="https://s-sh-2164-assets.oss.dogecdn.com/LavaDrive/icons/LavaCloud.svg" alt="" width="30"
+                    height="30" class="d-inline-block align-bottom">
+                熔岩番剧库 LavaAnime
+            </a>
+            <div id="loading" class="spinner-border text-secondary"></div>
+        </div>
+    </nav>
+    <div class="container mt-5">
 
 
+        <br>
+<!-- 
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div style="max-height: 300px;" id="la-poster" class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+
+
+        <!-- 列表容器 -->
+        <div id="la-list-container" class="list-group mt-2"></div>
+
+
+        <!-- 弹出的 “播放器” -->
         <div id="la-player" class="modal fade" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
@@ -133,13 +230,6 @@
                 </div>
             </div>
         </div>
-
-
-        <div class="list-group">
-            <button type="button" data-bs-toggle="modal" data-bs-target="#la-player"
-                class="la-list-anime list-group-item list-group-item-action">[BeanSub&FZSD][Kimetsu_no_Yaiba][34v2][GB][1080P][x264_AAC].mp4</button>
-        </div>
-    </div>
 </body>
 
 </html>

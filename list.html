@@ -116,6 +116,7 @@
 
             function getAnimeList(year, month) {
                 $("#loading").fadeIn()
+                // 清除容器
                 $("#posters").empty()
                 // 从云盘取得相应季度番剧列表
                 $.get("https://dav.5t5.top/api/v3/share/list/jqMFl/" + year + "年/" + month,
