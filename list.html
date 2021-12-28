@@ -12,27 +12,15 @@
         crossorigin="anonymous">
     <script src="https://cdn.staticfile.org/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-    <style>
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 6px;
-            background-color: rgba(0, 0, 0, 0);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: rgba(0, 0, 0, 0.25);
-            border-radius: 10px;
-            border: 0px solid transparent;
-            background-clip: content-box;
-        }
-
-        ::-webkit-scrollbar-track {
-            background-color: transparent;
-        }
-    </style>
+    <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
+    </link>
     <script>
         $(document).ready(function () {
 
+
+            // 默认选中的筛选
+            defaultYear = 2021
+            defaultMonth = "10月秋"
 
             // 界面加载后，隐藏加载中图标
             $("#loading").hide()
@@ -69,6 +57,11 @@
                         getMonthList(clickedYear)
 
                     })
+                    // 自动点击默认年
+                    $("#" + defaultYear).trigger("click")
+                    setTimeout(() => {
+                        $("#" + defaultMonth).trigger("click")
+                    }, 1500);
                 }
             })
 
@@ -104,6 +97,7 @@
                             var clickedMonth = $('input:radio[name="month"]:checked')[0].id
                             getAnimeList(year, clickedMonth)
                         })
+                        // 自动点击默认月
 
 
                     }
@@ -129,8 +123,8 @@
                         // 循环总文件夹次
                         for (var i = 0; i < fanList.length; i++) {
                             // 匹配此文件夹末尾的 BgmId
-                            let thisId = fanList[i].name.match("\\d+$")
-                            let animeName = fanList[i].name.replace(fanList[i].name.match("\\d+$"),"")
+                            let thisId = fanList[i].name.match("\\d+$")[0]
+                            let animeName = fanList[i].name.replace(fanList[i].name.match("\\d+$"), "")
                             let animeUrl = "/anime.html?path=/" + year + "年/" + month + "/" + fanList[i].name
                             // 如果匹配失败
                             if (thisId == null) {
@@ -149,7 +143,7 @@
                                     success: function (result) {
                                         // 更改主视觉图的画质
                                         posterUrl = result.image.replace("/m/", "/l/")
-                                        PrintAnimeCard("posters", posterUrl, animeName, animeUrl)
+                                        PrintAnimeCard("posters", posterUrl, animeName, animeUrl, thisId)
                                     },
                                     error: function (xhr) {
                                         // 请求 Bangumi 官方 API
@@ -161,7 +155,7 @@
                                                 console.log("Bangumi 官方 API 返回数据: ")
                                                 console.log(result)
                                                 posterUrl = result.images.large
-                                                PrintAnimeCard("posters", posterUrl, animeName, animeUrl)
+                                                PrintAnimeCard("posters", posterUrl, animeName, animeUrl, thisId)
                                             }
                                         })
                                     }
@@ -175,11 +169,12 @@
                 );
             }
             // 向指定容器内填充番剧卡片的函数
-            // 需要传递容器的ID、主视觉图的ID、名称、播放链接到函数内
+            // 需要传递容器的ID、主视觉图的ID、名称、播放链接和 Bangumi ID 到函数内
             // 函数会自动为容器添加class
-            function PrintAnimeCard(containerId, posterUrl, animeName, animeUrl) {
+            function PrintAnimeCard(containerId, posterUrl, animeName, animeUrl, thisId) {
                 $("#" + containerId).addClass("row row-cols-auto mx-2")
-                var newAnimeCard = "<div class=\"col-4 col-sm-3 col-lg-2 mb-2\"><a href=\"" + animeUrl + "\" class=\"text-decoration-none text-black\"><img class=\"rounded mb-1 img-fluid shadow\" src=\"" + posterUrl + "\"><br><p style=\"font-size: small;\">" + animeName + "</p></a></div>"
+                console.log(thisId)
+                var newAnimeCard = "<div class=\"col-4 col-sm-3 col-lg-2 mb-2\"><a href=\"" + animeUrl + "\" class=\"text-decoration-none text-black\"><img class=\"rounded mb-1 img-fluid shadow\" src=\"" + posterUrl + "\"><br><p style=\"font-size: small;\">" + animeName + "</p></a><a class=\"text-decoration-none text-secondary\" style=\"font-size: small;\" href=\"https://bgm.tv/subject/"+ thisId + "\">去番组计划查看</a></div>"
                 $("#" + containerId).append(newAnimeCard);
             }
 

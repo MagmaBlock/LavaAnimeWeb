@@ -11,43 +11,33 @@
         crossorigin="anonymous">
     <script src="https://cdn.staticfile.org/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-    <style>
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 6px;
-            background-color: rgba(0, 0, 0, 0);
-        }
+    <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
+    </link>
 
-        ::-webkit-scrollbar-thumb {
-            background-color: rgba(0, 0, 0, 0.25);
-            border-radius: 10px;
-            border: 0px solid transparent;
-            background-clip: content-box;
-        }
-
-        ::-webkit-scrollbar-track {
-            background-color: transparent;
-        }
-    </style>
     <script>
         $(document).ready(function () {
 
+
+            // 熔岩云盘分享链接根目录，需要是API链接。
             animeApiUrl = "https://dav.5t5.top/api/v3/share/list/jqMFl"
 
 
-            console.log(decodeURI(getUrlParams("path").path))
+            console.log("从地址栏取回链接：" + decodeURI(getUrlParams("path").path))
             AnimePath = getUrlParams("path").path
 
+            // 填充副标题
+            $("#la-path").empty().append(decodeURI(AnimePath).replace("/",""))
 
             if (AnimePath == undefined) {
                 console.log("地址栏不含参数！")
+                $("#la-list-container").append("<div class='alert alert-warning'><span>错误：未能从地址栏取得番组信息。<a class='alert-link' href='/list.html'>返回主页</a></span></div>")
             }
 
             thisId = decodeURI(getUrlParams("path").path).match("\\d+$")[0]
             thisId2 = thisId.toString()
             thisId2 = thisId2.substring(0, thisId2.length - 2)
 
-            console.log(thisId,thisId2)
+            console.log("从地址栏取得 BgmID： " + thisId + " " + " " + thisId2)
 
             // 从网盘取得文件列表
             $.ajax({
@@ -80,20 +70,32 @@
             // 向列表追加生成的列表的函数
             function printAnimeList(fileName, fileId) {
                 // 生成新的html
-                var newListObj = "<button id=\"" + fileId + "\" type=\"button\" data-bs-toggle=\"modal\" data-bs-target=\"#la-player\" class=\"la-list-anime list-group-item list-group-item-action\">" + fileName + "</button>"
+                var newListObj = "<button id='" + fileId + "' type='button' data-bs-toggle='modal' data-bs-target='#la-player' class='la-list-anime list-group-item list-group-item-action'>" + fileName + "</button>"
                 // 追加html
                 $("#la-list-container").append(newListObj)
                 // 再给每个列表项增加点击时事件
                 $("#" + fileId).click(function () {
+                    // 加载中提示
+                    $("#la-player-header").empty().append("正在等待熔岩云盘返回播放链接...")
+                    $("#la-player-body").empty().append("<p>请稍等，这段文字通常活不过 1 秒...<br>但是若持续看到此提示可能是熔岩云盘出现异常或您的网络连接不稳定！</p>")
+                    // 生成当前文件的变量
                     thisName = $(this)[0].innerText
                     thisId = $(this)[0].id
                     $.ajax({
                         url: "https://api.5t5.top/api/v1/object/url/" + thisId,
                         success: function (result) {
-                            var potplayerBtn = "<a class=\"btn btn-primary mb-2\" href=\"potplayer://" + result.url + "\">点此调用 PotPlayer 播放</a>"
-                            var vlcBtn = "<a class=\"btn btn-primary mb-2\" href=\"vlc://" + result.url + "\">点此调用 Android VLC 播放</a>"
-                            var rawBtn = "<a class=\"btn btn-outline-primary mb-2\" target=\"__blank\" href=\"" + result.url + "\">点此下载，长按此处复制链接</a>"
-                            $("#la-player-body").empty().append(potplayerBtn + "<br>" + vlcBtn + "<br>" + rawBtn)
+                            const dp = new DPlayer({
+                                container: document.getElementById('dplayer'),
+                                video: {
+                                    url: result.url,
+                                    screenshot: true
+                                },
+                            });
+                            var helpMessage = "<p class='mb-0'>主流浏览器仅支持播放 H.264 (通常为 MP4 格式) 的视频！<p class='text-secondary' style='font-size: 14px'>其他格式的视频可能会出现黑屏、无法加载字幕等情况，请使用下方的按钮。</p></p>"
+                            var potplayerBtn = "<a class='btn btn-primary mb-2' href='potplayer://" + result.url + "'>点此调用 PotPlayer 播放</a>"
+                            var vlcBtn = "<a class='btn btn-primary mb-2' href='vlc://" + result.url + "'>点此调用 Android VLC 播放</a>"
+                            var rawBtn = "<a class='btn btn-outline-primary mb-2' target='__blank' href='" + result.url + "'>点此下载，长按或右键此处复制链接</a>"
+                            $("#la-player-body").empty().append(helpMessage + potplayerBtn + "<br>" + vlcBtn + "<br>" + rawBtn)
                             $("#la-player-header").empty().append(thisName)
                         }
                     })
@@ -104,17 +106,20 @@
 
 
 
+
+
+
             // 获取主视觉图的函数
             // $.ajax({
             //     url: "https://cdn.jsdelivr.net/gh/czy0729/Bangumi-Subject@master/data/" + thisId2 + "/" + thisId + ".json",
             //     success: function (result) {
             //         // 更改主视觉图的画质
             //         posterUrl = result.image.replace("/m/", "/l/")
-            //         $("#la-poster").append("<img style=\"max-height:300px\" src=\"" + posterUrl + "\">")
+            //         $("#la-poster").append("<img style='max-height:300px' src='" + posterUrl + "'>")
             //     },
             //     error: function (xhr) {
             //         // 请求 Bangumi 官方 API
-            //         console.log("番组\"" + thisId + "\"Bangumi CDN 命中失败，正在请求原站...   下方是错误原因")
+            //         console.log("番组'" + thisId + "'Bangumi CDN 命中失败，正在请求原站...   下方是错误原因")
             //         console.log(xhr)
             //         $.ajax({
             //             url: "https://api.bgm.tv/subject/" + thisId,
@@ -122,7 +127,7 @@
             //                 console.log("Bangumi 官方 API 返回数据: ")
             //                 console.log(result)
             //                 posterUrl = result.images.large
-            //                 $("#la-poster").append("<img src=\"" + posterUrl + "\">")
+            //                 $("#la-poster").append("<img src='" + posterUrl + "'>")
             //             }
             //         })
             //     }
@@ -194,7 +199,7 @@
 
 
         <br>
-<!-- 
+        <!-- 
         <div class="card mb-3" style="max-width: 540px;">
             <div class="row g-0">
                 <div style="max-height: 300px;" id="la-poster" class="col-md-4">
@@ -212,6 +217,9 @@
 
 
 
+        <h1 class="display-3  mb-3">播放</h1>
+        <p id="la-path" class="fw-lighter fs-4"></p>
+
         <!-- 列表容器 -->
         <div id="la-list-container" class="list-group mt-2"></div>
 
@@ -221,15 +229,19 @@
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 id="la-player-header" class="modal-title">正在等待熔岩云盘返回播放链接...</h5>
+                        <h5 id="la-player-header" class="modal-title"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div id="la-player-body" class="modal-body">
-                        <p>请稍等，这段文字通常活不过 1 秒...<br>但是若持续看到此提示可能是熔岩云盘出现异常或您的网络连接断开！</p>
-                    </div>
+                    <div id="dplayer"></div>
+                    <div id="la-player-body" class="modal-body"></div>
                 </div>
             </div>
         </div>
+
+
+
+        
+        <script src="./js/DPlayer.min.js"></script>
 </body>
 
 </html>
