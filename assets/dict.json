@@ -1,0 +1,353 @@
+[
+    {
+        "from": ".HYSUB.",
+        "to": "幻樱字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".BeanSub.",
+        "to": "豌豆字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".FZSD.",
+        "to": "风之圣殿",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".FLsnow.",
+        "to": "雪飘工作室",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".UHA-WINGS.",
+        "to": "悠哈璃羽字幕社",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".SweetSub.",
+        "to": "SweetSub 字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".MMSUB.",
+        "to": "MMSUB",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".LoliHouse.",
+        "to": "LoliHouse 压制组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".NC-Raws.",
+        "to": "NC-Raws 搬运组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".Lilith-Raws.",
+        "to": "Lilith-Raws 搬运组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".云光字幕组.",
+        "to": "云光字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".Comicat.",
+        "to": "漫猫字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".KissSub.",
+        "to": "爱恋字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".JYFanSub|KTXP|JYSUB.",
+        "to": "极影字幕社",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".Nekomoe kissaten.",
+        "to": "喵萌奶茶屋",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".Sakurato.",
+        "to": "桜都字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".STYHSub.",
+        "to": "霜庭云花字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".Airota.",
+        "to": "千夏字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".SZW.",
+        "to": "森之屋动漫",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".XKSub.",
+        "to": "星空字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".ZeroSub.",
+        "to": "ZeroSub",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".CoolComic404.",
+        "to": "酷漫404",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".igsub.",
+        "to": "爱咕字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": "\\[GST\\]",
+        "to": "GST 搬运",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".1080p.",
+        "to": "1080P",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".2160p.",
+        "to": "2160P(2K)",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".720p.",
+        "to": "1080P",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".60fps.",
+        "to": "60FPS",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".1920X1080.",
+        "to": "1080P",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".AVC.",
+        "to": "H.264",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".x264.",
+        "to": "H.264",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".H264.",
+        "to": "H.264",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".HEVC.",
+        "to": "H.265",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".x265.",
+        "to": "H.264",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".H265.",
+        "to": "H.265",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".8bit.",
+        "to": "8bit 色深",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".10bit.",
+        "to": "10bit 色深",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".(ACC|AAC).",
+        "to": "AAC",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".opus.",
+        "to": "OPUS",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".web-dl.",
+        "to": "网络版本",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".webrip.",
+        "to": "网络版本",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".b-global.",
+        "to": "哔哩哔哩国际",
+        "class": "bg-secondary"
+    },
+    {
+        "from": "\\[BL\\]",
+        "to": "哔哩哔哩",
+        "class": "bg-secondary"
+    },
+    {
+        "from": "\\[baha\\]",
+        "to": "巴哈姆特动漫疯",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".1280X720.",
+        "to": "720P",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".JPSC|CHS_JP.",
+        "to": "简日双语",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".JSTC|CHT_JP.",
+        "to": "繁日双语",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".CHT|TC.",
+        "to": "繁体中文",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".ENG.",
+        "to": "英语",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".TH_|\\[TH\\]",
+        "to": "泰语",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": "JPN|.JAP.",
+        "to": "日本语",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".CHS.",
+        "to": "简体中文",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".GB_CN|GB|SC.",
+        "to": "简体中文",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".BIG5.",
+        "to": "繁体中文",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": "V2|\\[v2\\]",
+        "to": "第2版字幕",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": "SRT",
+        "to": "SRT字幕",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".LavaASS_CHS_CHT_JPN.",
+        "to": "熔岩番剧库整合-简繁日",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".LavaASS_CHS_CHT.",
+        "to": "熔岩番剧库整合-简繁",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".LavaASS_CHS.",
+        "to": "熔岩番剧库整合-简体中文",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".LavaASS_CHT.",
+        "to": "熔岩番剧库整合-繁体中文",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": "ASSx2|ASS×2",
+        "to": "ASS字幕x2",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".GB_MP4.",
+        "to": "简体中文",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".BIG5_MP4.",
+        "to": "繁体中文",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".GB_MKV.",
+        "to": "简体中文",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".BIG5_MKV.",
+        "to": "繁体中文",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".(mp4).?",
+        "to": "MP4",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".(mkv).?",
+        "to": "MKV",
+        "class": "bg-secondary"
+    },
+    {
+        "from": "招募翻译",
+        "to": "",
+        "class": "bg-secondary"
+    },
+    {
+        "from": "Subtitles.*zip",
+        "to": "外挂字幕合集包",
+        "class": "bg-warning"
+    },
+    {
+        "from": "fonts.*zip",
+        "to": "字体合集包",
+        "class": "bg-warning"
+    }
+    
+]
