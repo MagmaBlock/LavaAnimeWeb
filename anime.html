@@ -18,6 +18,7 @@
         $(document).ready(function () {
 
 
+
             // 熔岩云盘分享链接根目录，需要是API链接。
             animeApiUrl = "https://dav.5t5.top/api/v3/share/list/jqMFl"
 
@@ -26,7 +27,7 @@
             AnimePath = getUrlParams("path").path
 
             // 填充副标题
-            $("#la-path").empty().append(decodeURI(AnimePath).replace("/",""))
+            $("#la-path").empty().append(decodeURI(AnimePath).replace("/", ""))
 
             if (AnimePath == undefined) {
                 console.log("地址栏不含参数！")
@@ -39,38 +40,69 @@
 
             console.log("从地址栏取得 BgmID： " + thisId + " " + " " + thisId2)
 
-            // 从网盘取得文件列表
+
+            // 获取字典并开始生成列表
             $.ajax({
-
-                url: animeApiUrl + AnimePath,
-                success: function (result) {
-                    // 剥壳
-                    objects = result.data.objects
-                    // 用自定义排序函数用 name 排序
-                    mySort(objects, "name")
-                    console.log(objects)
-                    // 开始循环
-                    for (var i = 0; i < objects.length; i++) {
-                        // 如果这个数组描述的是一个文件类型的
-                        if (objects[i].type == "file") {
-                            var fileName = objects[i].name
-                            var fileId = objects[i].id
-                            printAnimeList(fileName, fileId)
-                            // 1秒后隐藏loading
-                            setTimeout(() => {
-                                $("#loading").fadeOut()
-                            }, 1000);
-                        }
-                    }
-
+                url: "./assets/dict.json",
+                success: (result) => {
+                    dict = result
+                    getAnimeList(dict)
+                    console.log(dict)
                 }
             })
 
 
+
+            // 从网盘取得文件列表
+            function getAnimeList() {
+                $.ajax({
+                    url: animeApiUrl + AnimePath,
+                    success: function (result) {
+                        // 剥壳
+                        objects = result.data.objects
+                        // 用自定义排序函数用 name 排序
+                        mySort(objects, "name")
+                        console.log(objects)
+                        // 开始循环
+                        for (var i = 0; i < objects.length; i++) {
+                            // 如果这个数组描述的是一个文件类型的
+                            if (objects[i].type == "file") {
+                                var fileName = objects[i].name
+                                var fileId = objects[i].id
+                                printAnimeList(fileName, fileId)
+                                // 1秒后隐藏loading
+                                setTimeout(() => {
+                                    $("#loading").fadeOut()
+                                }, 1000);
+                            }
+                        }
+
+                    }
+                })
+            }
+
+
+
             // 向列表追加生成的列表的函数
             function printAnimeList(fileName, fileId) {
+                // 取得文件后缀名
+                var fileType = fileName.replace(/.+\./, "")
+
+                // 从字典将匹配的关键字替换为可视化标签
+                tagedName = fileName
+                for (i = 0; i < dict.length; i++) {
+                    // 新建一个正则变量
+                    fromRegExp = new RegExp(dict[i].from, 'gi')
+                    // 生成的标签的html
+                    toHtml = ' <span class="badge ' + dict[i].class + '">' + dict[i].to + '</span> '
+                    // 进行替换
+                    tagedName = tagedName.replace(fromRegExp, toHtml)
+                }
+                // 标签替换完成后，再空格所有的 '[' ']'
+                tagedName = tagedName.replace(/\[|\]/g, " ")
+
                 // 生成新的html
-                var newListObj = "<button id='" + fileId + "' type='button' data-bs-toggle='modal' data-bs-target='#la-player' class='la-list-anime list-group-item list-group-item-action'>" + fileName + "</button>"
+                var newListObj = "<button id='" + fileId + "' type='button' data-bs-toggle='modal' data-bs-target='#la-player' class='la-list-anime list-group-item list-group-item-action'>" + tagedName + '<br><span class="text-secondary fw-lighter" style="font-size: 12px">' + fileName + "</span></button>"
                 // 追加html
                 $("#la-list-container").append(newListObj)
                 // 再给每个列表项增加点击时事件
@@ -84,6 +116,11 @@
                     $.ajax({
                         url: "https://api.5t5.top/api/v1/object/url/" + thisId,
                         success: function (result) {
+                            console.log(fileType)
+                            // if (fileType = 'jpg' || 'png' || 'webp') {
+                            //     $("#la-img-view").empty().append('<img class="img-fluid " src="' + result.url + '">')
+                            //     $("#dplayer").empty()
+                            // }
                             const dp = new DPlayer({
                                 container: document.getElementById('dplayer'),
                                 video: {
@@ -91,11 +128,21 @@
                                     screenshot: true
                                 },
                             });
+
+
+                            // 为播放器增加关闭时销毁事件
+                            var lavaAnimeModalPlayer = document.getElementById('la-player')
+                            lavaAnimeModalPlayer.addEventListener('hide.bs.modal', function (event) {
+                                dp.destroy()
+                                $("#la-img-view").empty()
+                            })
+
                             var helpMessage = "<p class='mb-0'>主流浏览器仅支持播放 H.264 (通常为 MP4 格式) 的视频！<p class='text-secondary' style='font-size: 14px'>其他格式的视频可能会出现黑屏、无法加载字幕等情况，请使用下方的按钮。</p></p>"
-                            var potplayerBtn = "<a class='btn btn-primary mb-2' href='potplayer://" + result.url + "'>点此调用 PotPlayer 播放</a>"
-                            var vlcBtn = "<a class='btn btn-primary mb-2' href='vlc://" + result.url + "'>点此调用 Android VLC 播放</a>"
-                            var rawBtn = "<a class='btn btn-outline-primary mb-2' target='__blank' href='" + result.url + "'>点此下载，长按或右键此处复制链接</a>"
-                            $("#la-player-body").empty().append(helpMessage + potplayerBtn + "<br>" + vlcBtn + "<br>" + rawBtn)
+                            var potplayerBtn = "<a class='btn btn-primary mb-2' href='potplayer://" + result.url + "'>点此调用 Windows 上的 PotPlayer 播放</a>"
+                            var vlcBtn = "<a class='btn btn-primary mb-2' href='vlc://" + result.url + "'>点此调用移动设备上的 VLC 播放</a>"
+                            var iinaBtn = '<a class="btn btn-primary mb-2" href="iina://weblink?url='+ result.url +'">点此调用 Mac IINA 播放 (Test)</a>'
+                            var rawBtn = "<a class='btn btn-outline-primary mb-2' target='__blank' href='" + result.url + "s'>点此下载，长按或右键此处复制链接</a>"
+                            $("#la-player-body").empty().append(helpMessage + potplayerBtn + "<br>" + vlcBtn + "<br>" + iinaBtn + "<br>" + rawBtn)
                             $("#la-player-header").empty().append(thisName)
                         }
                     })
@@ -103,35 +150,16 @@
                 })
             }
 
+            $.ajax({
+                url: "https://api.bgm.tv/subject/" + thisId,
+                success: result => {
+                    console.log(result)
+                    console.log()
+                }
+            })
 
 
 
-
-
-
-            // 获取主视觉图的函数
-            // $.ajax({
-            //     url: "https://cdn.jsdelivr.net/gh/czy0729/Bangumi-Subject@master/data/" + thisId2 + "/" + thisId + ".json",
-            //     success: function (result) {
-            //         // 更改主视觉图的画质
-            //         posterUrl = result.image.replace("/m/", "/l/")
-            //         $("#la-poster").append("<img style='max-height:300px' src='" + posterUrl + "'>")
-            //     },
-            //     error: function (xhr) {
-            //         // 请求 Bangumi 官方 API
-            //         console.log("番组'" + thisId + "'Bangumi CDN 命中失败，正在请求原站...   下方是错误原因")
-            //         console.log(xhr)
-            //         $.ajax({
-            //             url: "https://api.bgm.tv/subject/" + thisId,
-            //             success: function (result) {
-            //                 console.log("Bangumi 官方 API 返回数据: ")
-            //                 console.log(result)
-            //                 posterUrl = result.images.large
-            //                 $("#la-poster").append("<img src='" + posterUrl + "'>")
-            //             }
-            //         })
-            //     }
-            // })
 
             //根据数组子项排序函数, 给出数组和排序的子项，原数组会被自动排序。代码来自网络
             function mySort(list, field) {
@@ -220,9 +248,12 @@
         <h1 class="display-3  mb-3">播放</h1>
         <p id="la-path" class="fw-lighter fs-4"></p>
 
-        <!-- 列表容器 -->
-        <div id="la-list-container" class="list-group mt-2"></div>
 
+
+
+
+        <!-- 列表容器 -->
+        <div id="la-list-container" class="list-group"></div>
 
         <!-- 弹出的 “播放器” -->
         <div id="la-player" class="modal fade" tabindex="-1">
@@ -230,9 +261,11 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 id="la-player-header" class="modal-title"></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" id="la-player-close" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div id="dplayer"></div>
+                    <div id="la-img-view"></div>
                     <div id="la-player-body" class="modal-body"></div>
                 </div>
             </div>
@@ -240,7 +273,7 @@
 
 
 
-        
+
         <script src="./js/DPlayer.min.js"></script>
 </body>
 
