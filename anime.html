@@ -23,7 +23,7 @@
             animeApiUrl = "https://dav.5t5.top/api/v3/share/list/jqMFl"
 
 
-            console.log("从地址栏取回链接：" + decodeURI(getUrlParams("path").path))
+            console.log("从地址栏取回链接：", decodeURI(getUrlParams("path").path))
             AnimePath = getUrlParams("path").path
 
             // 填充副标题
@@ -38,7 +38,7 @@
             thisId2 = thisId.toString()
             thisId2 = thisId2.substring(0, thisId2.length - 2)
 
-            console.log("从地址栏取得 BgmID： " + thisId + " " + " " + thisId2)
+            console.log("从地址栏取得 BgmID： ", thisId  ," " , thisId2)
 
 
             // 获取字典并开始生成列表
@@ -47,7 +47,7 @@
                 success: (result) => {
                     dict = result
                     getAnimeList(dict)
-                    console.log(dict)
+                    console.log("成功取得关键词词典：",dict)
                 }
             })
 
@@ -58,25 +58,45 @@
                 $.ajax({
                     url: animeApiUrl + AnimePath,
                     success: function (result) {
+                        console.log("熔岩云盘回复：", result)
                         // 剥壳
+                        if (result.code == 404) {
+                            $("#la-list-container").append("<div class='alert alert-warning'><span>熔岩云盘返回了 404，您的链接可能有误或番组不存在。<br>出现此错误可能是因为此界面的链接异常。<a class='alert-link' href='/list.html'>返回主页</a></span></div>")
+                            $("#loading").fadeOut()
+
+                        }
                         objects = result.data.objects
-                        // 用自定义排序函数用 name 排序
-                        mySort(objects, "name")
-                        console.log(objects)
-                        // 开始循环
-                        for (var i = 0; i < objects.length; i++) {
-                            // 如果这个数组描述的是一个文件类型的
-                            if (objects[i].type == "file") {
-                                var fileName = objects[i].name
-                                var fileId = objects[i].id
-                                printAnimeList(fileName, fileId)
-                                // 1秒后隐藏loading
-                                setTimeout(() => {
-                                    $("#loading").fadeOut()
-                                }, 1000);
+                        if (objects.length == 0) {
+                            var airDate = "(获取失败，可能是 ID 设置有误，请联系 Magma。)"
+                            setTimeout(() => {
+                                airDate = bgmInfo.air_date
+                                $("#la-list-container").append("<div class='alert alert-info'><span>熔岩云盘返回列表为空，此番组目录下尚无任何资源！<br>" + "请确认此作品已经开始连载，根据 Bangumi Wiki，本作的开始放送日期为：" + bgmInfo.air_date + "<br><a class='alert-link' href='/list.html'>返回主页</a></span></div>")
+                                $("#loading").fadeOut()
+                            }, 1500);
+
+                        }
+                        if (objects.length > 0) {
+                            // 用自定义排序函数用 name 排序
+                            mySort(objects, "name")
+                            console.log(objects)
+                            // 开始循环
+                            for (var i = 0; i < objects.length; i++) {
+                                // 如果这个数组描述的是一个文件类型的
+                                if (objects[i].type == "file") {
+                                    var fileName = objects[i].name
+                                    var fileId = objects[i].id
+                                    printAnimeList(fileName, fileId)
+                                    // 1秒后隐藏loading
+                                    setTimeout(() => {
+                                        $("#loading").fadeOut()
+                                    }, 1000);
+                                }
                             }
                         }
 
+                    },
+                    error: (result) => {
+                        $("#la-list-container").append("<div class='alert alert-warning'><span>熔岩云盘未返回值或返回错误，您的链接可能有误或熔岩云盘出现异常。<br><a class='alert-link' href='/list.html'>返回主页</a></span></div>")
                     }
                 })
             }
@@ -140,7 +160,7 @@
                             var helpMessage = "<p class='mb-0'>主流浏览器仅支持播放 H.264 (通常为 MP4 格式) 的视频！<p class='text-secondary' style='font-size: 14px'>其他格式的视频可能会出现黑屏、无法加载字幕等情况，请使用下方的按钮。</p></p>"
                             var potplayerBtn = "<a class='btn btn-primary mb-2' href='potplayer://" + result.url + "'>点此调用 Windows 上的 PotPlayer 播放</a>"
                             var vlcBtn = "<a class='btn btn-primary mb-2' href='vlc://" + result.url + "'>点此调用移动设备上的 VLC 播放</a>"
-                            var iinaBtn = '<a class="btn btn-primary mb-2" href="iina://weblink?url='+ result.url +'">点此调用 Mac IINA 播放 (Test)</a>'
+                            var iinaBtn = '<a class="btn btn-primary mb-2" href="iina://weblink?url=' + result.url + '">点此调用 Mac IINA 播放 (Test)</a>'
                             var rawBtn = "<a class='btn btn-outline-primary mb-2' target='__blank' href='" + result.url + "s'>点此下载，长按或右键此处复制链接</a>"
                             $("#la-player-body").empty().append(helpMessage + potplayerBtn + "<br>" + vlcBtn + "<br>" + iinaBtn + "<br>" + rawBtn)
                             $("#la-player-header").empty().append(thisName)
@@ -153,8 +173,8 @@
             $.ajax({
                 url: "https://api.bgm.tv/subject/" + thisId,
                 success: result => {
-                    console.log(result)
-                    console.log()
+                    bgmInfo = result
+                    console.log('成功从番组计划API取得数据',result)
                 }
             })
 

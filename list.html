@@ -137,16 +137,17 @@
                                 var thisId2 = thisId.toString();
                                 thisId2 = thisId2.substring(0, thisId2.length - 2)
 
-                                // 请求 API
                                 $.ajax({
-                                    url: "https://cdn.jsdelivr.net/gh/czy0729/Bangumi-Subject@master/data/" + thisId2 + "/" + thisId + ".json",
+                                    // 请求 CDN 源
+                                    url: "https://bgm-api.5t5.top/v0/subjects/" + thisId,
+                                    timeout: 2000,
                                     success: function (result) {
-                                        // 更改主视觉图的画质
-                                        posterUrl = result.image.replace("/m/", "/l/")
-                                        PrintAnimeCard("posters", posterUrl, animeName, animeUrl, thisId)
+
+                                        posterUrl = result.images.large.replace("lain.bgm.tv", "s-sh-2164-lavaanime.oss.dogecdn.com")
+                                        PrintAnimeCard("posters", posterUrl + "/poster", animeName, animeUrl, thisId)
                                     },
                                     error: function (xhr) {
-                                        // 请求 Bangumi 官方 API
+                                        // 出错则请求 Bangumi 官方 API
                                         console.log("番组\"" + thisId + "\"Bangumi CDN 命中失败，正在请求原站...   下方是错误原因")
                                         console.log(xhr)
                                         $.ajax({
@@ -156,15 +157,53 @@
                                                 console.log(result)
                                                 posterUrl = result.images.large
                                                 PrintAnimeCard("posters", posterUrl, animeName, animeUrl, thisId)
+                                            },
+                                            error: () => {
+                                                // 仍然出错则请求 czy 的 cdn
+                                                $.ajax({
+                                                    url: "https://cdn.jsdelivr.net/gh/czy0729/Bangumi-Subject@master/data/" + thisId2 + "/" + thisId + ".json",
+                                                    success: function (result) {
+                                                        // 更改主视觉图的画质
+                                                        posterUrl = result.image.replace("/m/", "/l/")
+                                                        PrintAnimeCard("posters", posterUrl, animeName, animeUrl, thisId)
+                                                    }
+                                                })
                                             }
+
                                         })
                                     }
                                 })
+
+
+
+                                // 请求 API
+                                // $.ajax({
+                                //     url: "https://cdn.jsdelivr.net/gh/czy0729/Bangumi-Subject@master/data/" + thisId2 + "/" + thisId + ".json",
+                                //     success: function (result) {
+                                //         // 更改主视觉图的画质
+                                //         posterUrl = result.image.replace("/m/", "/l/")
+                                //         PrintAnimeCard("posters", posterUrl, animeName, animeUrl, thisId)
+                                //     },
+                                //     error: function (xhr) {
+                                //         // 请求 Bangumi 官方 API
+                                //         console.log("番组\"" + thisId + "\"Bangumi CDN 命中失败，正在请求原站...   下方是错误原因")
+                                //         console.log(xhr)
+                                //         $.ajax({
+                                //             url: "https://api.bgm.tv/subject/" + thisId,
+                                //             success: function (result) {
+                                //                 console.log("Bangumi 官方 API 返回数据: ")
+                                //                 console.log(result)
+                                //                 posterUrl = result.images.large
+                                //                 PrintAnimeCard("posters", posterUrl, animeName, animeUrl, thisId)
+                                //             }
+                                //         })
+                                //     }
+                                // })
                             }
                         }
                         setTimeout(() => {
                             $("#loading").fadeOut()
-                        }, 2000);
+                        }, 1000);
                     }
                 );
             }
@@ -174,7 +213,7 @@
             function PrintAnimeCard(containerId, posterUrl, animeName, animeUrl, thisId) {
                 $("#" + containerId).addClass("row row-cols-auto mx-2")
                 console.log(thisId)
-                var newAnimeCard = "<div class=\"col-4 col-sm-3 col-lg-2 mb-2\"><a href=\"" + animeUrl + "\" class=\"text-decoration-none text-black\"><img class=\"rounded mb-1 img-fluid shadow\" src=\"" + posterUrl + "\"><br><p style=\"font-size: small;\">" + animeName + "</p></a><a class=\"text-decoration-none text-secondary\" style=\"font-size: small;\" href=\"https://bgm.tv/subject/"+ thisId + "\">去番组计划查看</a></div>"
+                var newAnimeCard = '<div class="col-4 col-sm-3 col-lg-2 mb-2"><a href="' + animeUrl + '" class="text-decoration-none text-black"><img class="rounded mb-1 img-fluid shadow" src="' + posterUrl + '"><br><p  style="font-size: small;">' + animeName + '</p></a><a class="text-decoration-none text-secondary" style="font-size: small;" href="https://bgm.tv/subject/' + thisId + '">去番组计划查看</a></div>'
                 $("#" + containerId).append(newAnimeCard);
             }
 

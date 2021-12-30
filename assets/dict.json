@@ -75,7 +75,7 @@
         "class": "bg-primary"
     },
     {
-        "from": ".Sakurato.",
+        "from": ".sakurato\\.sub.|.Sakurato.",
         "to": "桜都字幕组",
         "class": "bg-primary"
     },
@@ -333,6 +333,11 @@
         "from": ".(mkv).?",
         "to": "MKV",
         "class": "bg-secondary"
+    },
+    {
+        "from": ".END.?",
+        "to": "最终话",
+        "class": "bg-success"
     },
     {
         "from": "招募翻译",
