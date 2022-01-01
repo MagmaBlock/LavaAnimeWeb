@@ -31,7 +31,7 @@
 
             if (AnimePath == undefined) {
                 console.log("地址栏不含参数！")
-                $("#la-list-container").append("<div class='alert alert-warning'><span>错误：未能从地址栏取得番组信息。<a class='alert-link' href='/list.html'>返回主页</a></span></div>")
+                $("#la-list-container").append("<div class='alert alert-warning'><span>错误：未能从地址栏取得番组信息。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
             }
 
             thisId = decodeURI(getUrlParams("path").path).match("\\d+$")[0]
@@ -61,7 +61,7 @@
                         console.log("熔岩云盘回复：", result)
                         // 剥壳
                         if (result.code == 404) {
-                            $("#la-list-container").append("<div class='alert alert-warning'><span>熔岩云盘返回了 404，您的链接可能有误或番组不存在。<br>出现此错误可能是因为此界面的链接异常。<a class='alert-link' href='/list.html'>返回主页</a></span></div>")
+                            $("#la-list-container").append("<div class='alert alert-warning'><span>熔岩云盘返回了 404，您的链接可能有误或番组不存在。<br>出现此错误可能是因为此界面的链接异常。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
                             $("#loading").fadeOut()
 
                         }
@@ -70,7 +70,7 @@
                             var airDate = "(获取失败，可能是 ID 设置有误，请联系 Magma。)"
                             setTimeout(() => {
                                 airDate = bgmInfo.air_date
-                                $("#la-list-container").append("<div class='alert alert-info'><span>熔岩云盘返回列表为空，此番组目录下尚无任何资源！<br>" + "请确认此作品已经开始连载，根据 Bangumi Wiki，本作的开始放送日期为：" + bgmInfo.air_date + "<br><a class='alert-link' href='/list.html'>返回主页</a></span></div>")
+                                $("#la-list-container").append("<div class='alert alert-info'><span>熔岩云盘返回列表为空，此番组目录下尚无任何资源！<br>" + "请确认此作品已经开始连载，根据 Bangumi Wiki，本作的开始放送日期为：" + bgmInfo.air_date + "<br><a class='alert-link' href='./index.html'>返回主页</a></span></div>")
                                 $("#loading").fadeOut()
                             }, 1500);
 
