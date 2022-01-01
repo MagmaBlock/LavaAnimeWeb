@@ -125,7 +125,7 @@
                             // 匹配此文件夹末尾的 BgmId
                             let thisId = fanList[i].name.match("\\d+$")[0]
                             let animeName = fanList[i].name.replace(fanList[i].name.match("\\d+$"), "")
-                            let animeUrl = "/anime.html?path=/" + year + "年/" + month + "/" + fanList[i].name
+                            let animeUrl = "./anime.html?path=/" + year + "年/" + month + "/" + fanList[i].name
                             // 如果匹配失败
                             if (thisId == null) {
                                 console.log("来自熔岩云盘的文件夹 \"" + fanList[i].name + "\" 不是一个合法的番剧库番组！")
