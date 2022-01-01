@@ -1,197 +1,276 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熔岩番剧库 LavaAnime - 首页</title>
-    <!-- 新 Bootstrap5 核心 CSS 文件 -->
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+    <title>熔岩番剧库 - 番剧索引 | LavaAnime</title>
+    <!-- <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script> -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.staticfile.org/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <script src="https://cdn.staticfile.org/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
+    </link>
+    <script>
+        $(document).ready(function () {
+
+
+            // 默认选中的筛选
+            defaultYear = 2021
+            defaultMonth = "10月秋"
+
+            // 界面加载后，隐藏加载中图标
+            $("#loading").hide()
+
+            // 界面加载后，获取年代列表
+            $.ajax({
+                url: "https://dav.5t5.top/api/v3/share/list/jqMFl/",
+                success: function (result) {
+                    // 解壳
+                    var objects = result.data.objects
+                    // 新建一个数组用于排序
+                    var yearSorter = new Array()
+                    // 将得到的每个文件夹的名字写进数组
+                    for (var i = 0; i < objects.length; i++) {
+                        yearSorter[i] = objects[i].name
+                    }
+                    // 把数组按字母排序再倒序
+                    var yearList = yearSorter.sort().reverse()
+                    console.log(yearList)
+                    // for 循环写入文档
+                    for (var i = 0; i < yearList.length; i++) {
+                        // 删去文件夹名字里的“年”
+                        yearList[i] = yearList[i].toString();
+                        yearList[i] = yearList[i].substring(0, yearList[i].length - 1)
+                        //输出html
+                        $("<input type=\"radio\" name=\"year\" class=\"btn-check btn-year\" id=\"" + yearList[i] + "\"><label style=\"min-width: max-content;\" class=\"btn btn-outline-primary\" for=\"" + yearList[i] + "\">" + yearList[i] + "</label></button>").appendTo("#years");
+
+                    }
+                    // 为每个按钮追加点击时触发的函数
+                    $(".btn-year").click(function () {
+                        // 找出被点击的那个按钮勾
+                        var clickedYear = $('input:radio[name="year"]:checked')[0].id
+                        // 调用函数
+                        getMonthList(clickedYear)
+
+                    })
+                    // 自动点击默认年
+                    $("#" + defaultYear).trigger("click")
+                    setTimeout(() => {
+                        $("#" + defaultMonth).trigger("click")
+                    }, 1000);
+                }
+            })
+
+
+
+            function getMonthList(year) {
+                $.ajax({
+                    beforeSend: function () {
+                        $("#months").empty()
+                    },
+                    url: "https://dav.5t5.top/api/v3/share/list/jqMFl/" + year + "年",
+                    success: function (result) {
+                        // 解壳
+                        var objects = result.data.objects
+                        console.log(objects)
+                        // 新建一个数组用于排序
+                        var monthSorter = new Array()
+                        // 将得到的每个文件夹的名字写进数组
+                        for (var i = 0; i < objects.length; i++) {
+                            monthSorter[i] = objects[i].name
+                        }
+                        // 把数组按字母排序再倒序
+                        var monthList = monthSorter.sort()
+                        console.log(monthList)
+
+                        for (var i = 0; i < monthList.length; i++) {
+                            //输出html
+                            $("<input type=\"radio\" name=\"month\" class=\"btn-check btn-month\"  id=\"" + monthList[i] + "\"><label style=\"min-width: max-content;\" class=\"btn btn-outline-primary\" for=\"" + monthList[i] + "\">" + monthList[i] + "</label></button>").appendTo("#months");
+                        }
+                        // 为每个按钮追加点击函数
+                        $(".btn-month").click(function () {
+                            // 定义月变量
+                            var clickedMonth = $('input:radio[name="month"]:checked')[0].id
+                            getAnimeList(year, clickedMonth)
+                        })
+                        // 自动点击默认月
+
+
+                    }
+
+                })
+            }
+
+
+
+
+            function getAnimeList(year, month) {
+                $("#loading").fadeIn()
+                // 清除容器
+                $("#posters").empty()
+                // 从云盘取得相应季度番剧列表
+                $.get("https://dav.5t5.top/api/v3/share/list/jqMFl/" + year + "年/" + month,
+                    // 取回来之后执行的函数
+                    function (data, status) {
+                        // 剥去 CR Api 的壳
+                        var fanList = data.data.objects;
+                        console.log(fanList)
+
+                        // 循环总文件夹次
+                        for (var i = 0; i < fanList.length; i++) {
+                            // 匹配此文件夹末尾的 BgmId
+                            let thisId = fanList[i].name.match("\\d+$")[0]
+                            let animeName = fanList[i].name.replace(fanList[i].name.match("\\d+$"), "")
+                            let animeUrl = "/anime.html?path=/" + year + "年/" + month + "/" + fanList[i].name
+                            // 如果匹配失败
+                            if (thisId == null) {
+                                console.log("来自熔岩云盘的文件夹 \"" + fanList[i].name + "\" 不是一个合法的番剧库番组！")
+                            }
+
+                            // 匹配成功，开始获取主视觉图并生成卡片
+                            else {
+                                // 生成此番组的 ID 和 API用短 ID
+                                var thisId2 = thisId.toString();
+                                thisId2 = thisId2.substring(0, thisId2.length - 2)
+
+                                $.ajax({
+                                    // 请求 CDN 源
+                                    url: "https://bgm-api.5t5.top/v0/subjects/" + thisId,
+                                    timeout: 2000,
+                                    success: function (result) {
+
+                                        posterUrl = result.images.large.replace("lain.bgm.tv", "s-sh-2164-lavaanime.oss.dogecdn.com")
+                                        PrintAnimeCard("posters", posterUrl + "/poster", animeName, animeUrl, thisId)
+                                    },
+                                    error: function (xhr) {
+                                        // 出错则请求 Bangumi 官方 API
+                                        console.log("番组\"" + thisId + "\"Bangumi CDN 命中失败，正在请求原站...   下方是错误原因")
+                                        console.log(xhr)
+                                        $.ajax({
+                                            url: "https://api.bgm.tv/subject/" + thisId,
+                                            success: function (result) {
+                                                console.log("Bangumi 官方 API 返回数据: ")
+                                                console.log(result)
+                                                posterUrl = result.images.large
+                                                PrintAnimeCard("posters", posterUrl, animeName, animeUrl, thisId)
+                                            },
+                                            error: () => {
+                                                // 仍然出错则请求 czy 的 cdn
+                                                $.ajax({
+                                                    url: "https://cdn.jsdelivr.net/gh/czy0729/Bangumi-Subject@master/data/" + thisId2 + "/" + thisId + ".json",
+                                                    success: function (result) {
+                                                        // 更改主视觉图的画质
+                                                        posterUrl = result.image.replace("/m/", "/l/")
+                                                        PrintAnimeCard("posters", posterUrl, animeName, animeUrl, thisId)
+                                                    }
+                                                })
+                                            }
+
+                                        })
+                                    }
+                                })
+
+
+
+                                // 请求 API
+                                // $.ajax({
+                                //     url: "https://cdn.jsdelivr.net/gh/czy0729/Bangumi-Subject@master/data/" + thisId2 + "/" + thisId + ".json",
+                                //     success: function (result) {
+                                //         // 更改主视觉图的画质
+                                //         posterUrl = result.image.replace("/m/", "/l/")
+                                //         PrintAnimeCard("posters", posterUrl, animeName, animeUrl, thisId)
+                                //     },
+                                //     error: function (xhr) {
+                                //         // 请求 Bangumi 官方 API
+                                //         console.log("番组\"" + thisId + "\"Bangumi CDN 命中失败，正在请求原站...   下方是错误原因")
+                                //         console.log(xhr)
+                                //         $.ajax({
+                                //             url: "https://api.bgm.tv/subject/" + thisId,
+                                //             success: function (result) {
+                                //                 console.log("Bangumi 官方 API 返回数据: ")
+                                //                 console.log(result)
+                                //                 posterUrl = result.images.large
+                                //                 PrintAnimeCard("posters", posterUrl, animeName, animeUrl, thisId)
+                                //             }
+                                //         })
+                                //     }
+                                // })
+                            }
+                        }
+                        setTimeout(() => {
+                            $("#loading").fadeOut()
+                        }, 1000);
+                    }
+                );
+            }
+            // 向指定容器内填充番剧卡片的函数
+            // 需要传递容器的ID、主视觉图的ID、名称、播放链接和 Bangumi ID 到函数内
+            // 函数会自动为容器添加class
+            function PrintAnimeCard(containerId, posterUrl, animeName, animeUrl, thisId) {
+                $("#" + containerId).addClass("row row-cols-auto mx-2")
+                console.log(thisId)
+                var newAnimeCard = '<div class="col-4 col-sm-3 col-lg-2 mb-2"><a href="' + animeUrl + '" class="text-decoration-none text-black"><img class="rounded mb-1 img-fluid shadow" src="' + posterUrl + '"><br><p  style="font-size: small;">' + animeName + '</p></a><a class="text-decoration-none text-secondary" style="font-size: small;" href="https://bgm.tv/subject/' + thisId + '">去番组计划查看</a></div>'
+                $("#" + containerId).append(newAnimeCard);
+            }
+
+
+
+
+
+
+
+        });
+    </script>
 </head>
 
-<body style="background-image: linear-gradient(to right, #868f96 0%, #596164 100%);">
-
-    <style>
-        @media screen {
-            .l-banner {
-                background-image: url(https://cdn.jsdelivr.net/gh/MagmaBlock/Lava-Bangumi-Html/assets/background.jpg);
-                background-position-x: 50%;
-                background-size: cover;
-                height: 300px;
-
-
-            }
-
-            .l-btn {
-                padding-top: 150px;
-                position: relative;
-            }
-        }
-
-        @media screen and (min-width: 540px) {
-            .l-banner {
-                background-repeat: repeat-x;
-                background-size: contain;
-                height: 300px;
-            }
-
-
-            @media screen and (min-width: 810px) {
-                .l-banner {
-                    background-size: cover;
-                    height: 500px;
-                }
-
-                .l-btn {
-                    padding-top: 260px;
-                }
-            }
-
-            @media screen and (min-width: 900px) {
-                .l-banner {
-                    background-size: contain;
-                }
-            }
-
-            @media screen and (min-width: 1300px) {
-                .l-banner {
-                    height: 700px;
-                }
-
-                .l-btn {
-                    padding-top: 350px;
-                }
-            }
-
-            @media screen and (min-width: 1900px) {
-                .l-banner {
-                    height: 900px;
-                }
-
-                .l-btn {
-                    padding-top: 450px;
-                }
-            }
-
-            @media screen and (min-width: 2400px) {
-                .l-banner {
-                    height: 1100px;
-                }
-
-                .l-btn {
-                    padding-top: 550px;
-                }
-            }
-        }
-    </style>
-    <nav class="navbar navbar-dark bg-dark">
-        <!-- Navbar content -->
+<body>
+    <nav class="navbar navbar-light bg-light shadow fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">熔岩番剧库 LavaAnime</a>
+            <a class="navbar-brand" href="#">
+                <img src="https://s-sh-2164-assets.oss.dogecdn.com/LavaDrive/icons/LavaCloud.svg" alt="" width="30"
+                    height="30" class="d-inline-block align-bottom">
+                熔岩番剧库 LavaAnime
+            </a>
+            <div id="loading" class="spinner-border text-secondary"></div>
         </div>
     </nav>
-    <div class="l-banner">
-        <!--Banner-->
-        <div class="text-center l-btn">
-            <!--Banner Bottons-->
-            <a target="_blank" href="https://pan.5t5.top/s/jqMFl" class="btn btn-primary btn-sm shadow-lg">全部番剧</a>
-            <a target="_blank" href="https://pan.5t5.top/s/KmH8" class="btn btn-light btn-sm shadow-lg">剧场版动画</a>
-        </div>
-
-    </div>
-
-    <div class="container-md">
 
 
-        <div class="card mt-3 mb-3 shadow-lg">
-            <div class="row g-0">
-                <img src="https://cdn.jsdelivr.net/gh/MagmaBlock/Lava-Bangumi-Html/assets/2021.7.10.jpg" class="col-md-4" style="object-fit:cover;">
-                <div class="col-md-8">
-                    <div class="card-header">新番连载</div>
-                    <div class="card-body">
-                        <h5 class="card-title">夏秋季新番连载中</h5>
-                        <p class="card-text">2021 年 7 月夏、10 月秋季度《86 -不存在的战区-》、《关于前辈很烦人的事》、《无职转生
-                            后半》、《古见同学有交流障碍症》、《迦希女王不会放弃》等 24 部新番连载中！
-                            <br><br>全新「番剧动画」目录，<br>一个分享链接查找番剧库全部TV、OVA、WEB动画！
-                        </p>
-                        <p class="card-text text-muted">若跳转到熔岩云盘登录界面请重新打开。</p>
-                        <div class="btn-group shadow">
-                            <a target="_blank" href="https://pan.5t5.top/s/MkNfE" class="btn btn-primary"><i
-                                    class="bi bi-tree-fill"></i> 十月秋</a>
-                            <a target="_blank" href="https://pan.5t5.top/s/YJsB " class="btn btn-secondary"><i
-                                    class="bi bi-brightness-high-fill"></i> 七月夏</a>
-                            <a target="_blank" href="https://pan.5t5.top/s/jqMFl" class="btn btn-outline-secondary">全部番剧
-                                <span class="badge bg-secondary">新</span></a>
-                        </div>
-                    </div>
-                </div>
+
+    <div class="container mt-5">
+        <br>
+        <div class="mx-3 mt-2">
+            <h1 class="display-3">番剧索引</h1>
+            <h5 class="lead ">年代</h5>
+            <div class="btn-group-sm mb-2 btn-group overflow-scroll" id="years"
+                style="padding-left: 1px; max-width: 100%;">
+            </div>
+            <h5 class="lead">季度 / 类型</h5>
+            <div class="btn-group-sm mb-2 btn-group overflow-scroll" id="months"
+                style="padding-left: 1px; max-width: 100%;">
             </div>
         </div>
 
-        <div class="card mt-3 mb-3 shadow-lg">
-            <div class="row g-0">
+        <div id="posters">
+            <!-- class="row row-cols-auto mx-2" -->
 
-                <div class="col-md-8">
-                    <div class="card-header">剧场版动画</div>
-                    <div class="card-body">
-                        <h5 class="card-title">剧场版动画更新中</h5>
-                        <p class="card-text">10 + 部剧场版动画在线观看！<br>
-                            一个分享链接查找番剧库全部剧场版动画。
-                        </p>
-                        <p class="card-text text-muted">若跳转到熔岩云盘登录界面请重新打开。</p>
-                        <div class="btn-group shadow">
-                            <a target="_blank" href="https://pan.5t5.top/s/KmH8" class="btn btn-primary"><i
-                                    class="bi bi-film"></i> 剧场版动画</a>
-                        </div>
-                    </div>
-                </div>
-                <img src="https://cdn.jsdelivr.net/gh/MagmaBlock/Lava-Bangumi-Html/assets/movie.jpg" class="col-md-4" style="object-fit:cover;">
-            </div>
+            <!-- <div class="col-4 col-sm-3 col-lg-2 mb-2">
+                <a href="#" class="text-decoration-none text-black">
+                    <img class="rounded mb-1 img-fluid shadow "
+                        src="http://lain.bgm.tv/pic/cover/c/85/45/333349_nnTfr.jpg"><br>
+                    <p style="font-size: small;">贾希女王不会放弃</p>
+                </a>
+            </div> -->
+
         </div>
-
-        <div class="card mt-3 mb-3 shadow-lg">
-            <div class="row g-0">
-                <img src="https://cdn.jsdelivr.net/gh/MagmaBlock/Lava-Bangumi-Html/assets/tkk.jpg" class="col-md-4" style="object-fit:cover;">
-                <div class="col-md-8">
-                    <div class="card-header">番剧库使用帮助 - 语雀知识库</div>
-                    <div class="card-body">
-                        <h5 class="card-title">使用 VLC 或第三方播放器在桌面平台串流熔岩番剧库的所有视频资源</h5>
-                        <p class="card-text">教你如何在桌面平台用本地播放器播放熔岩番剧库的在线视频资源，同时推荐三个播放器。
-                        </p>
-                        <div class="btn-group shadow">
-                            <a target="_blank" href="https://www.yuque.com/magma/lava-anime/help-pc-playing" class="btn btn-primary"><i
-                                    class="bi bi-box-arrow-up-right"></i> 查阅</a>
-                            <a target="_blank" href="https://www.yuque.com/magma/lava-anime" class="btn btn-outline-primary"><i
-                                    class="bi bi-book-half"></i> 打开语雀知识库</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
 
 
     </div>
-
-
-
-
-
-
-
-
-<div class="container bg-dark text-center text-light p-2">
-    <a href="/old-index.html" class="text-light text-decoration-none">旧主页</a>    
-    <p class="text-secondary">熔岩番剧库 LavaAnime</p>
-</div>
-    <!--  popper.min.js 用于弹窗、提示、下拉菜单 -->
-    <script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
-    <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
-
+    <img src="https://www.bfcounter.vip/generatepic?userid=ce1d3f3b-ce67-4319-8222-e751f8262b2e" alt="Page Counter" class="visually-hidden">
 </body>
 
 </html>
