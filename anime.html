@@ -38,7 +38,7 @@
             thisId2 = thisId.toString()
             thisId2 = thisId2.substring(0, thisId2.length - 2)
 
-            console.log("从地址栏取得 BgmID： ", thisId  ," " , thisId2)
+            console.log("从地址栏取得 BgmID： ", thisId, " ", thisId2)
 
 
             // 获取字典并开始生成列表
@@ -47,7 +47,7 @@
                 success: (result) => {
                     dict = result
                     getAnimeList(dict)
-                    console.log("成功取得关键词词典：",dict)
+                    console.log("成功取得关键词词典：", dict)
                 }
             })
 
@@ -136,11 +136,18 @@
                     $.ajax({
                         url: "https://api.5t5.top/api/v1/object/url/" + thisId,
                         success: function (result) {
+
+                            var mp4HelpMessage = "<p class='mb-0'><p class='text-secondary' style='font-size: 14px'>如果此资源是 H.265 编码或 MKV 格式，视频可能无画面或不能加载字幕，请使用下方的按钮调用第三方播放器。</p></p>"
+                            var mkvHelpMessage = "<p class='mb-0'>您正在查看一个 MKV 格式的视频！由于浏览器限制，请使用第三方播放器来播放。<p class='text-secondary' style='font-size: 14px'>这是由于大部分现代浏览器均无法支持 H.265 格式及 MKV 格式内封的字幕，请使用下方的按钮调用电脑/手机上的播放器播放。<br>同时也可以复制链接后使用弹弹 Play 播放效果更佳。</p></p>"
+                            var mkvPlayerBtn = '<a id="mkvPlayerBtn" class="btn btn-outline-primary mb-2">我偏要！强制打开网页内播放器播放当前资源</a><br>'
+                            var potplayerBtn = "<a class='btn btn-primary mb-2' href='potplayer://" + result.url + "'>点此调用 Windows 上的 PotPlayer 播放</a>"
+                            var vlcBtn = "<a class='btn btn-primary mb-2' href='vlc://" + result.url + "'>点此调用移动设备上的 VLC 播放</a>"
+                            var iinaBtn = '<a class="btn btn-primary mb-2" href="iina://weblink?url=' + result.url + '">点此调用 Mac IINA 播放 (Test)</a>'
+                            var rawBtn = "<a class='btn btn-outline-primary mb-2' target='__blank' href='" + result.url + "'>点此下载，长按或右键此处复制链接</a>"
+                            $("#la-player-header").empty().append(thisName)
+
                             console.log(fileType)
-                            // if (fileType = 'jpg' || 'png' || 'webp') {
-                            //     $("#la-img-view").empty().append('<img class="img-fluid " src="' + result.url + '">')
-                            //     $("#dplayer").empty()
-                            // }
+
                             const dp = new DPlayer({
                                 container: document.getElementById('dplayer'),
                                 video: {
@@ -148,6 +155,59 @@
                                     screenshot: true
                                 },
                             });
+
+                            if (fileType == 'mp4') {
+                                $("#la-player-body").empty().append(mp4HelpMessage + potplayerBtn + "<br>" + vlcBtn + "<br>" + iinaBtn + "<br>" + rawBtn)
+                            }
+                            if (fileType == 'mkv') {
+                                dp.destroy()
+                                $("#la-player-body").empty().append(mkvHelpMessage + mkvPlayerBtn + "<br>" + potplayerBtn + "<br>" + vlcBtn + "<br>" + iinaBtn + "<br>" + rawBtn)
+                                $("#mkvPlayerBtn").click(() => {
+                                    const dp = new DPlayer({
+                                        container: document.getElementById('dplayer'),
+                                        video: {
+                                            url: result.url,
+                                            screenshot: true
+                                        },
+                                    });
+                                }
+                                )
+                            }
+                            if (fileType == 'torrent') {
+                                dp.destroy()
+                                $("#la-player-body").empty().append("您打开了一个种子文件，若有需要，可点击下方按钮下载。" + "<br>" + rawBtn)
+                            }
+                            
+                            if (fileType == 'zip') {
+                                dp.destroy()
+                                $("#la-player-body").empty().append("您打开了一个压缩包，若有需要，可点击下方按钮下载。" + "<br>" + rawBtn)
+                            }
+                            if (fileType == '7z') {
+                                dp.destroy()
+                                $("#la-player-body").empty().append("您打开了一个压缩包，若有需要，可点击下方按钮下载。" + "<br>" + rawBtn)
+                            }
+                            if (fileType == 'png') {
+                                dp.destroy()
+                                $("#la-img-view").empty().append('<img class="img-fluid " src="' + result.url + '">')
+                                $("#la-player-body").empty().append("您打开了一张图片。")
+                            }
+                            if (fileType == 'jpg') {
+                                dp.destroy()
+                                $("#la-img-view").empty().append('<img class="img-fluid " src="' + result.url + '">')
+                                $("#la-player-body").empty().append("您打开了一张图片。")
+                            }
+                            if (fileType == 'webp') {
+                                dp.destroy()
+                                $("#la-img-view").empty().append('<img class="img-fluid " src="' + result.url + '">')
+                                $("#la-player-body").empty().append("您打开了一张图片。")
+                            }
+                            if (fileType == 'txt') {
+                                dp.destroy()
+                                $("#la-player-body").empty().append("您打开了一个文本文档，若有需要，可点击下方按钮下载。" + "<br>" + rawBtn)
+                               
+                                
+                            }
+                            
 
 
                             // 为播放器增加关闭时销毁事件
@@ -157,13 +217,6 @@
                                 $("#la-img-view").empty()
                             })
 
-                            var helpMessage = "<p class='mb-0'>主流浏览器仅支持播放 H.264 (通常为 MP4 格式) 的视频！<p class='text-secondary' style='font-size: 14px'>其他格式的视频可能会出现黑屏、无法加载字幕等情况，请使用下方的按钮。</p></p>"
-                            var potplayerBtn = "<a class='btn btn-primary mb-2' href='potplayer://" + result.url + "'>点此调用 Windows 上的 PotPlayer 播放</a>"
-                            var vlcBtn = "<a class='btn btn-primary mb-2' href='vlc://" + result.url + "'>点此调用移动设备上的 VLC 播放</a>"
-                            var iinaBtn = '<a class="btn btn-primary mb-2" href="iina://weblink?url=' + result.url + '">点此调用 Mac IINA 播放 (Test)</a>'
-                            var rawBtn = "<a class='btn btn-outline-primary mb-2' target='__blank' href='" + result.url + "s'>点此下载，长按或右键此处复制链接</a>"
-                            $("#la-player-body").empty().append(helpMessage + potplayerBtn + "<br>" + vlcBtn + "<br>" + iinaBtn + "<br>" + rawBtn)
-                            $("#la-player-header").empty().append(thisName)
                         }
                     })
 
@@ -174,7 +227,7 @@
                 url: "https://api.bgm.tv/subject/" + thisId,
                 success: result => {
                     bgmInfo = result
-                    console.log('成功从番组计划API取得数据',result)
+                    console.log('成功从番组计划API取得数据', result)
                 }
             })
 
@@ -271,7 +324,6 @@
 
 
 
-
         <!-- 列表容器 -->
         <div id="la-list-container" class="list-group"></div>
 
@@ -279,7 +331,7 @@
         <div id="la-player" class="modal fade" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="text-break modal-header">
                         <h5 id="la-player-header" class="modal-title"></h5>
                         <button type="button" id="la-player-close" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
@@ -295,8 +347,12 @@
 
 
         <script src="./js/DPlayer.min.js"></script>
-        <img src="https://www.bfcounter.vip/generatepic?userid=ce1d3f3b-ce67-4319-8222-e751f8262b2e" alt="Page Counter" class="visually-hidden">
-        <span class="visually-hidden"><script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1280746775&web_id=1280746775"></script></span>
+        <img src="https://www.bfcounter.vip/generatepic?userid=ce1d3f3b-ce67-4319-8222-e751f8262b2e" alt="Page Counter"
+            class="visually-hidden">
+        <span class="visually-hidden">
+            <script type="text/javascript"
+                src="https://v1.cnzz.com/z_stat.php?id=1280746775&web_id=1280746775"></script>
+        </span>
 </body>
 
 </html>
