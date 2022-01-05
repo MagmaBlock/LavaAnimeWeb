@@ -130,6 +130,11 @@
         "class": "bg-secondary"
     },
     {
+        "from": ".1440p.",
+        "to": "1440P",
+        "class": "bg-secondary"
+    },
+    {
         "from": ".720p.",
         "to": "1080P",
         "class": "bg-secondary"
