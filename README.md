@@ -20,6 +20,7 @@
 - 一个勉强能用的前端
   - [BootStrap5](https://getbootstrap.com/) , 一个知名的 CSS 框架。
   - [JQuery](https://jquery.com/)，主要用来完成 ajax 操作，希望未来能够学会 React。
+  - [Dplayer](https://github.com/DIYgod/DPlayer)，用于在网页中播放部分浏览器能够播放的资源。
 - 后端
   - [Cloudreve](https://github.com/cloudreve/Cloudreve)，主要用来管理和提供存储的资源。
 - 同时感谢各大字幕组！
