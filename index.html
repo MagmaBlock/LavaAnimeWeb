@@ -108,6 +108,7 @@
 
 
 
+
             function getAnimeList(year, month) {
                 $("#loading").fadeIn()
                 // 清除容器
@@ -136,6 +137,8 @@
                                 // 生成此番组的 ID 和 API用短 ID
                                 var thisId2 = thisId.toString();
                                 thisId2 = thisId2.substring(0, thisId2.length - 2)
+
+                                
 
                                 $.ajax({
                                     // 请求 CDN 源
