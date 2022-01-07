@@ -115,6 +115,11 @@
         "class": "bg-primary"
     },
     {
+        "from": ".LavaAnime.",
+        "to": "熔岩番剧库独家",
+        "class": "bg-primary"
+    },
+    {
         "from": ".igsub.",
         "to": "爱咕字幕组",
         "class": "bg-primary"
