@@ -110,6 +110,11 @@
         "class": "bg-primary"
     },
     {
+        "from": ".orion origin.",
+        "to": "orion 个人发布",
+        "class": "bg-primary"
+    },
+    {
         "from": ".MCE.",
         "to": "MCE 汉化组",
         "class": "bg-primary"
