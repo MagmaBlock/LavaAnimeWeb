@@ -35,4 +35,4 @@
 
 ## 预览
 
-[Github Pages](https://magmablock.github.io/Lava-Bangumi-Html/)
+[Github Pages](https://magmablock.github.io/LavaAnimeWeb/)
