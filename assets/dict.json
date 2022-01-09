@@ -15,6 +15,11 @@
         "class": "bg-primary"
     },
     {
+        "from": ".Mmch\\.sub.",
+        "to": "喵萌茶会字幕组",
+        "class": "bg-primary"
+    },
+    {
         "from": ".FLsnow.",
         "to": "雪飘工作室",
         "class": "bg-primary"

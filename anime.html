@@ -11,6 +11,7 @@
         crossorigin="anonymous">
     <script src="https://cdn.staticfile.org/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap-icons/1.7.2/font/bootstrap-icons.css">
     <script src="./js/getUrlParams.js" crossorigin="anonymous"></script>
     <script src="./js/mySort.js" crossorigin="anonymous"></script>
     <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
@@ -25,8 +26,9 @@
             animeApiUrl = "https://dav.5t5.top/api/v3/share/list/jqMFl"
 
 
-            console.log("从地址栏取回链接：", decodeURI(getUrlParams("path").path))
-            AnimePath = getUrlParams("path").path
+            var backParams = 'year=' + getUrlParams().year + '&' + 'month=' + getUrlParams().month
+            AnimePath = getUrlParams().path
+            $("#goback").attr("href", "/index.html?" + backParams)
 
             // 填充副标题
             $("#la-path").empty().append(decodeURI(AnimePath).replace("/", ""))
@@ -124,7 +126,8 @@
                 tagedName = tagedName.replace(/\[|\]/g, " ")
 
                 // 生成新的html
-                var newListObj = "<button id='" + fileId + "' type='button' data-bs-toggle='modal' data-bs-target='#la-player' class='la-list-anime list-group-item list-group-item-action'>" + tagedName + '<br><span class="text-secondary fw-lighter" style="font-size: 12px">' + fileName + "</span></button>"
+                var rawNameByfileId = fileId + '-name'
+                var newListObj = "<button style='opacity:0.85' id='" + fileId + "' type='button' data-bs-toggle='modal' data-bs-target='#la-player' class='la-list-anime list-group-item list-group-item-action'>" + tagedName + '<br><div id="' + rawNameByfileId + '" class="text-secondary fw-lighter" style="font-size: 12px">' + fileName + "</div></button>"
                 // 追加html
                 $("#la-list-container").append(newListObj)
                 // 再给每个列表项增加点击时事件
@@ -133,43 +136,41 @@
                     $("#la-player-header").empty().append("正在等待熔岩云盘返回播放链接...")
                     $("#la-player-body").empty().append("<p>请稍等，这段文字通常活不过 1 秒...<br>但是若持续看到此提示可能是熔岩云盘出现异常或您的网络连接不稳定！</p>")
                     // 生成当前文件的变量
-                    thisName = $(this)[0].innerText
+                    thisName = $('#' + rawNameByfileId)[0].innerText
                     thisId = $(this)[0].id
                     $.ajax({
                         url: "https://api.5t5.top/api/v1/object/url/" + thisId,
                         success: function (result) {
 
-                            var mp4HelpMessage = "<p class='mb-0'><p class='text-secondary' style='font-size: 14px'>如果此资源是 H.265 编码或 MKV 格式，视频可能无画面或不能加载字幕，请使用下方的按钮调用第三方播放器。</p></p>"
-                            var mkvHelpMessage = "<p class='mb-0'>您正在查看一个 MKV 格式的视频！由于浏览器限制，请使用第三方播放器来播放。<p class='text-secondary' style='font-size: 14px'>这是由于大部分现代浏览器均无法支持 H.265 格式及 MKV 格式内封的字幕，请使用下方的按钮调用电脑/手机上的播放器播放。<br>同时也可以复制链接后使用弹弹 Play 播放效果更佳。</p></p>"
-                            var mkvPlayerBtn = '<a id="mkvPlayerBtn" class="btn btn-outline-primary mb-2">我偏要！强制打开网页内播放器播放当前资源</a><br>'
-                            var potplayerBtn = "<a class='btn btn-primary mb-2' href='potplayer://" + result.url + "'>点此调用 Windows 上的 PotPlayer 播放</a>"
-                            var vlcBtn = "<a class='btn btn-primary mb-2' href='vlc://" + result.url + "'>点此调用移动设备上的 VLC 播放</a>"
-                            var iinaBtn = '<a class="btn btn-primary mb-2" href="iina://weblink?url=' + result.url + '">点此调用 Mac IINA 播放 (Test)</a>'
-                            var rawBtn = "<a class='btn btn-outline-primary mb-2' target='__blank' href='" + result.url + "'>点此下载，长按或右键此处复制链接</a>"
-                            $("#la-player-header").empty().append(thisName)
+                            var mp4HelpMessage = "<p class='mb-0'><p class='text-secondary' style='font-size: 14px'>黑屏 / 无法播放？可能是浏览器不支持 H.265 编码，<br>请使用下方的按钮调用外部播放器。</p></p>"
+                            var mkvHelpMessage = "<div class='mb-1'>浏览器不支持当前格式 (MKV)，<br>请使用外部播放器来播放。<div class='text-secondary' style='font-size: 14px'>这是由于大部分均无法支持 H.265 格式及 MKV 格式内封的字幕。需要调用您设备上的播放软件播放。<br>同时也可以复制链接后使用弹弹 Play 播放效果更佳。</div></div>"
+                            var mkvPlayerBtn = '<a id="mkvPlayerBtn" class="btn btn-sm btn-outline-primary mb-4 mt-0">强制用浏览器打开</a>'
+                            var otherPlayers = '<div class="display-6 mb-3">外部播放器</div><div class="row row-cols-4"><a class="text-decoration-none text-secondary" href="potplayer://' + result.url + '"><img class="img-fluid mx-auto d-block" style="width: 80%;" src="./assets/PotPlayer.svg" alt="PotPlayer"/><div class="text-center" style="font-size: 12px;">PotPlayer</div></a><a class="text-decoration-none text-secondary" href="vlc://' + result.url + '"><img class="img-fluid mx-auto d-block" style="width: 80%;" src="./assets/vlc.svg" alt="VLC"/><div class="text-center" style="font-size: 12px;">VLC</div></a><a class="text-decoration-none text-secondary" href="href="iina://weblink?url=' + result.url + '"><img class="img-fluid mx-auto d-block" style="width: 80%;" src="./assets/iina.svg" alt="IINA"/><div class="text-center" style="font-size: 12px;">IINA</div></a><a class="text-decoration-none text-secondary" href="' + result.url + '"><img class="img-fluid mx-auto d-block" style="width: 80%;" src="./assets/link.svg" alt="IINA"/><div class="text-center" style="font-size: 12px;">复制链接</div></a></div>'
 
-                            console.log(fileType)
+                            $("#la-player-header").empty().append(thisName)
 
                             const dp = new DPlayer({
                                 container: document.getElementById('dplayer'),
                                 video: {
                                     url: result.url,
-                                    screenshot: true
+                                    screenshot: true,
+                                    autoplay: true
                                 },
                             });
 
                             if (fileType == 'mp4') {
-                                $("#la-player-body").empty().append(mp4HelpMessage + potplayerBtn + "<br>" + vlcBtn + "<br>" + iinaBtn + "<br>" + rawBtn)
+                                $("#la-player-body").empty().append(mp4HelpMessage + otherPlayers)
                             }
                             if (fileType == 'mkv') {
                                 dp.destroy()
-                                $("#la-player-body").empty().append(mkvHelpMessage + mkvPlayerBtn + "<br>" + potplayerBtn + "<br>" + vlcBtn + "<br>" + iinaBtn + "<br>" + rawBtn)
+                                $("#la-player-body").empty().append(mkvHelpMessage + mkvPlayerBtn + otherPlayers)
                                 $("#mkvPlayerBtn").click(() => {
                                     const dp = new DPlayer({
                                         container: document.getElementById('dplayer'),
                                         video: {
                                             url: result.url,
-                                            screenshot: true
+                                            screenshot: true,
+                                            autoplay: true
                                         },
                                     });
                                 }
@@ -225,11 +226,15 @@
                 })
             }
 
+            // 获取 Bangumi API 然后填充数据
             $.ajax({
-                url: "https://api.bgm.tv/subject/" + thisId,
+                url: "https://bgm-api.5t5.top/v0/subjects/" + thisId,
                 success: result => {
-                    bgmInfo = result
+                    var bgmInfo = result
+                    var backgroundUrl = bgmInfo.images.large.replace("lain.bgm.tv", "anime-img.5t5.top") + '/bg'
                     console.log('成功从番组计划API取得数据', result)
+                    console.log(bgmInfo.images.large.replace("lain.bgm.tv", "anime-img.5t5.top") + '/bg')
+                    $("#bg").css("background-image", "url(" + backgroundUrl + ")")
                 }
             })
 
@@ -237,15 +242,15 @@
     </script>
 </head>
 
-<body>
+<body id="bg" style="background-attachment: fixed; background-repeat: no-repeat; background-size: cover;">
     <nav class="navbar navbar-light bg-light shadow fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="./index.html">
-                <img src="https://s-sh-2164-assets.oss.dogecdn.com/LavaDrive/icons/LavaCloud.svg" alt="" width="30"
-                    height="30" class="d-inline-block align-bottom">
-                熔岩番剧库 LavaAnime
+            <a class="navbar-brand" id="goback">
+                <i class="bi bi-chevron-left mx-1"></i>
+                <span>返回索引页</span>
             </a>
-            <div id="loading" class="spinner-border text-secondary"></div>
+
+            <div id="loading" class="spinner-border position-absolute top-0 end-0"></div>
         </div>
     </nav>
     <div class="container mt-5">
@@ -269,15 +274,17 @@
         </div> -->
 
 
-
-        <h1 class="display-3  mb-3">播放</h1>
-        <p id="la-path" class="fw-lighter fs-4"></p>
-
+        <div class="my-2 list-group" style="opacity: 85%;">
+            <div class="list-group-item list-group-item-action">
+                <h1 class="display-3">播放列表</h1>
+                <div id="la-path" class="fw-lighter fs-6"></div>
+            </div>
+        </div>
 
 
 
         <!-- 列表容器 -->
-        <div id="la-list-container" class="list-group"></div>
+        <div id="la-list-container" class="list-group mb-3"></div>
 
         <!-- 弹出的 “播放器” -->
         <div id="la-player" class="modal fade" tabindex="-1">
@@ -295,6 +302,24 @@
             </div>
         </div>
 
+        <!-- <div class="row row-cols-4">
+            <a class="text-decoration-none text-secondary" href="#">
+                <img class="img-fluid mx-auto d-block" style="width: 80%;" src="./assets/PotPlayer.svg" alt="PotPlayer"/>
+                <div class="text-center" style="font-size: 12px;">PotPlayer</div>
+            </a>
+            <a class="text-decoration-none text-secondary" href="#">
+                <img class="img-fluid mx-auto d-block" style="width: 80%;" src="./assets/vlc.svg" alt="VLC"/>
+                <div class="text-center" style="font-size: 12px;">VLC</div>
+            </a>
+            <a class="text-decoration-none text-secondary" href="#">
+                <img class="img-fluid mx-auto d-block" style="width: 80%;" src="./assets/iina.svg" alt="IINA"/>
+                <div class="text-center" style="font-size: 12px;">IINA</div>
+            </a>
+            <a class="text-decoration-none text-secondary" href="#">
+                <img class="img-fluid mx-auto d-block" style="width: 80%;" src="./assets/link.svg" alt="IINA"/>
+                <div class="text-center" style="font-size: 12px;">复制链接</div>
+            </a>
+        </div> -->
 
 
 
