@@ -73,8 +73,7 @@
                         if (objects.length == 0) {
                             var airDate = "(获取失败，可能是 ID 设置有误，请联系 Magma。)"
                             setTimeout(() => {
-                                airDate = bgmInfo.air_date
-                                $("#la-list-container").append("<div class='alert alert-info'><span>熔岩云盘返回列表为空，此番组目录下尚无任何资源！<br>" + "请确认此作品已经开始连载，根据 Bangumi Wiki，本作的开始放送日期为：" + bgmInfo.air_date + "<br><a class='alert-link' href='./index.html'>返回主页</a></span></div>")
+                                $("#la-list-container").append("<div class='alert alert-info'><span>熔岩云盘返回列表为空，此番组目录下尚无任何资源！<br>" + "请确认此作品已经开始连载，根据 Bangumi Wiki，本作的开始放送日期为：" + bgmInfo.date + "<br><a class='alert-link' href='./index.html'>返回主页</a></span></div>")
                                 $("#loading").fadeOut()
                             }, 1500);
 
@@ -230,7 +229,7 @@
             $.ajax({
                 url: "https://bgm-api.5t5.top/v0/subjects/" + thisId,
                 success: result => {
-                    var bgmInfo = result
+                    bgmInfo = result
                     var backgroundUrl = bgmInfo.images.large.replace("lain.bgm.tv", "anime-img.5t5.top") + '/bg'
                     console.log('成功从番组计划API取得数据', result)
                     console.log(bgmInfo.images.large.replace("lain.bgm.tv", "anime-img.5t5.top") + '/bg')
@@ -242,7 +241,7 @@
     </script>
 </head>
 
-<body id="bg" style="background-attachment: fixed; background-repeat: no-repeat; background-size: cover;">
+<body id="bg" style="background-attachment: fixed; background-position: center; background-size: cover;">
     <nav class="navbar navbar-light bg-light shadow fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" id="goback">
@@ -250,7 +249,7 @@
                 <span>返回索引页</span>
             </a>
 
-            <div id="loading" class="spinner-border position-absolute top-0 end-0"></div>
+            <div id="loading" class="spinner-border position-absolute top-0 end-0 m-2"></div>
         </div>
     </nav>
     <div class="container mt-5">
