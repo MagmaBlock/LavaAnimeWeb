@@ -240,13 +240,14 @@
 
             // 获取 Agefans 数据, 数据来自 https://github.com/czy0729/Bangumi-Static/
             $.ajax({
-                url: "https://raw.githubusercontent.com/czy0729/Bangumi-Static/master/data/agefans/anime.min.json",
+                url: "https://anime-img.5t5.top/api/agefans/anime.min.json",
                 success: result => {
-                    var agefansData = JSON.parse(result)
+                    var agefansData = result
                     for (var i = 0; i < agefansData.length; i++){
                         var agefansId = ''
                         if (agefansData[i].id == thisId){
                             console.log('解析到当前 Bangumi ID 对应的 Agefans 数据：',agefansData[i])
+                            $("#agefans").empty().append('<i class="bi bi-link-45deg"></i> 去 Agefans 观看')
                             $("#agefans").attr("href","https://www.agefans.vip/detail/" + agefansData[i].a)
                             agefansId = agefansData[i].a
                         }
@@ -254,6 +255,9 @@
                             $("#agefans").empty().append('<i class="bi bi-slash-circle"></i> 暂未在 Agefans 找到此番剧')
                         }
                     }
+                },
+                error: () => {
+                    $("#agefans").empty().append('<i class="bi bi-slash-circle"></i> API 故障')
                 }
             })
 
@@ -297,7 +301,7 @@
             <div class="list-group-item list-group-item-action">
                 <h1 class="display-3">播放列表</h1>
                 <div id="la-path" class="fw-lighter fs-6"></div>
-                <a id="agefans" target="_blank" class="fw-lighter fs-6 text-decoration-none"><i class="bi bi-link-45deg"></i> 去 Agefans 观看</a> <a href="https://github.com/czy0729/Bangumi-Static" class="text-decoration-none text-secondary" target="_blank" style="font-size: 12px;">(API By czy0729)</a><br>
+                <a id="agefans" target="_blank" class="fw-lighter fs-6 text-decoration-none"><div class="spinner-grow spinner-grow-sm" role="status"></div> 正在加载 Agefans 番剧列表...</a> <a href="https://github.com/czy0729/Bangumi-Static" class="text-decoration-none text-secondary" target="_blank" style="font-size: 12px;">(API By czy0729)</a><br>
                 <a id="bangumi" target="_blank" class="fw-lighter fs-6 text-decoration-none"><i class="bi bi-link-45deg"></i> 去 番组计划 查看详情</a>
             </div>
         </div>
