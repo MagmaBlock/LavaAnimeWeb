@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>熔岩番剧库 - 每周放送 | LavaAnime</title>
+    <!-- JQuery -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- BootStarp 5 -->
+    <link href="https://cdn.staticfile.org/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <script src="https://cdn.staticfile.org/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap-icons/1.7.2/font/bootstrap-icons.css">
+    <!-- Assets -->
+    <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
+    </link>
+    <script src="./js/Navbar.js" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(() => {
+
+            $.ajax({
+                url: "https://bgm-api.5t5.top/calendar",
+                success: (result) => {
+                    console.log(result)
+
+                    // 添加每个天的标题和容器
+
+                    var i = 0
+                    do {
+                        var weekTitleHtml =
+                            `
+                            <h3 class="display-6">${result[i].weekday.cn} <small class="text-muted">${result[i].weekday.ja}</small></h3>
+                                <div id="week-${result[i].weekday.id}" class="mb-2"></div>
+                            `
+                        $("#weekly-container").append(weekTitleHtml)
+                        var r = 0
+                        do {
+                            // 排除不完善条目
+                            if (result[i].items[r].name_cn == undefined) { var nameCn = '暂无中文名' }
+                            if (result[i].items[r].name_cn == '') { var nameCn = result[i].items[r].name }
+                            else { var nameCn = result[i].items[r].name_cn }
+                            if (result[i].items[r].rating == undefined) { var score = '暂无评分' }
+                            else { var score = result[i].items[r].rating.score }
+                            if (result[i].items[r].collection == undefined) { var doing = 0 }
+                            else { var doing = result[i].items[r].collection.doing }
+                            // console.log(nameCn,score,doing)
+                            var weekListHtml =
+                                `
+                                <a class="list-group-item list-group-item-action" target="_blank" href="${result[i].items[r].url}">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1 ">${nameCn}</h5>
+                                        <small>暂无时间</small>
+                                    </div>
+                                    <small>${result[i].items[r].air_date} 开始放送 | ${doing} 人在看 | ${score} 分</small>
+                                </a>
+                                `
+                            $(`#week-${result[i].weekday.id}`).append(weekListHtml)
+                            r++
+                        }
+                        while (r < result[i].items.length)
+
+
+                        i++
+                    }
+                    while (i < result.length)
+
+                }
+            })
+        })
+    </script>
+</head>
+
+
+<body>
+    <div id="navbar"></div>
+    <div class="container mt-4">
+        <div class="mx-3">
+            <h1 class="display-3">每周放送</h1>
+            <p class="fw-light">数据来自 Bangumi，仅供参考。<br>并非番剧库的更新时间，链接甚至不能直接指向番剧库。</p>
+        </div>
+        <div id="weekly-container" class="list-group mx-3"></div>
+
+
+
+    </div>
+    <div style="height: 100px;"></div>
+
+    <span class="visually-hidden">
+        <script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1280746775&web_id=1280746775"></script>
+    </span>
+    <script async defer data-website-id="5aad3d7c-6372-42aa-957e-ed4c945c0d08" src="https://umami.magma.ink/umami.js"></script>
+</body>
+
+
+
+
+</html>
