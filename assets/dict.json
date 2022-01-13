@@ -25,7 +25,7 @@
         "class": "bg-primary"
     },
     {
-        "from": ".UHA-WINGS.",
+        "from": ".UHA-WINGS|UHA-WING.",
         "to": "悠哈璃羽字幕社",
         "class": "bg-primary"
     },
@@ -45,6 +45,56 @@
         "class": "bg-primary"
     },
     {
+        "from": ".SFEO-Raws.",
+        "to": "SFEO-Raws 压制组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".SumiSora.",
+        "to": "澄空学园",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".PCSUB.",
+        "to": "波洛咖啡厅",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".Kamigami.",
+        "to": "诸神字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".Mabors.Sub.",
+        "to": "幻之字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".DHR.",
+        "to": "DHR动研字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".DMG.",
+        "to": "动漫国字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".FZsub.",
+        "to": "F宅字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".Xrip.",
+        "to": "Xrip 压制组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".A.I.R.nesSub.",
+        "to": "A.I.R.nesSub 字幕组",
+        "class": "bg-primary"
+    },
+    {
         "from": ".NC-Raws.",
         "to": "NC-Raws 搬运组",
         "class": "bg-primary"
@@ -57,6 +107,11 @@
     {
         "from": ".云光字幕组.",
         "to": "云光字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".CASO.",
+        "to": "华盟字幕组",
         "class": "bg-primary"
     },
     {
@@ -97,6 +152,26 @@
     {
         "from": ".SZW.",
         "to": "森之屋动漫",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".SAIO-Raws.",
+        "to": "SAIO-Raws 压制组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".VCB-Studio.",
+        "to": "VCB-Studio 压制组",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".熔岩番剧库.",
+        "to": "熔岩番剧库",
+        "class": "bg-primary"
+    },
+    {
+        "from": ".异域-11番小队.",
+        "to": "异域-11番小队",
         "class": "bg-primary"
     },
     {
@@ -200,6 +275,11 @@
         "class": "bg-secondary"
     },
     {
+        "from": ".ma10p.",
+        "to": "Ma10p",
+        "class": "bg-secondary"
+    },
+    {
         "from": ".8bit.",
         "to": "8bit 色深",
         "class": "bg-secondary"
@@ -212,6 +292,11 @@
     {
         "from": ".(ACC|AAC).",
         "to": "AAC",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".flac.",
+        "to": "无损Flac",
         "class": "bg-secondary"
     },
     {
@@ -228,6 +313,11 @@
         "from": ".webrip.",
         "to": "网络版本",
         "class": "bg-secondary"
+    },
+    {
+        "from": ".bdrip.",
+        "to": "蓝光盘源",
+        "class": "bg-success"
     },
     {
         "from": ".b-global.",
@@ -250,6 +340,26 @@
         "class": "bg-secondary"
     },
     {
+        "from": ".LavaASS_CHS_CHT_JPN.",
+        "to": "熔岩番剧库整合-简繁日",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".LavaASS_CHS_CHT.",
+        "to": "熔岩番剧库整合-简繁",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".LavaASS_CHS.",
+        "to": "熔岩番剧库整合-简体中文",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": ".LavaASS_CHT.",
+        "to": "熔岩番剧库整合-繁体中文",
+        "class": "bg-info text-dark"
+    },
+    {
         "from": ".JPSC|CHS_JP.",
         "to": "简日双语",
         "class": "bg-info text-dark"
@@ -267,11 +377,6 @@
     {
         "from": ".ENG.",
         "to": "英语",
-        "class": "bg-info text-dark"
-    },
-    {
-        "from": ".TH_|\\[TH\\]",
-        "to": "泰语",
         "class": "bg-info text-dark"
     },
     {
@@ -302,26 +407,6 @@
     {
         "from": "SRT",
         "to": "SRT字幕",
-        "class": "bg-info text-dark"
-    },
-    {
-        "from": ".LavaASS_CHS_CHT_JPN.",
-        "to": "熔岩番剧库整合-简繁日",
-        "class": "bg-info text-dark"
-    },
-    {
-        "from": ".LavaASS_CHS_CHT.",
-        "to": "熔岩番剧库整合-简繁",
-        "class": "bg-info text-dark"
-    },
-    {
-        "from": ".LavaASS_CHS.",
-        "to": "熔岩番剧库整合-简体中文",
-        "class": "bg-info text-dark"
-    },
-    {
-        "from": ".LavaASS_CHT.",
-        "to": "熔岩番剧库整合-繁体中文",
         "class": "bg-info text-dark"
     },
     {
