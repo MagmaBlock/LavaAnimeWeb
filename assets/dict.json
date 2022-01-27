@@ -100,6 +100,11 @@
         "class": "bg-primary"
     },
     {
+        "from": ".NaN-Raws.",
+        "to": "NaN-Raws 搬运组",
+        "class": "bg-primary"
+    },
+    {
         "from": ".Lilith-Raws.",
         "to": "Lilith-Raws 搬运组",
         "class": "bg-primary"
@@ -330,7 +335,7 @@
         "class": "bg-secondary"
     },
     {
-        "from": "\\[baha\\]",
+        "from": "\\[Baha\\]|\\(Baha",
         "to": "巴哈姆特动漫疯",
         "class": "bg-secondary"
     },

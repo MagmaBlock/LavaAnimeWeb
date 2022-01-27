@@ -64,7 +64,18 @@ function getBgmId(str) {
 // 生成一个番剧卡骨架, 传入目标容器、番剧名、番剧路径、番组计划ID、文件夹ID、回主页的参数
 function printAnimeCardTable(containerId, animeName, animePath, bgmId, dirId, backParams) {
     $("#" + containerId).addClass("row row-cols-auto mx-2")
-    var newAnimeCard = '<div id="' + dirId + '" class="col-4 col-sm-3 col-lg-2 px-2 mb-2"><a href="anime.html?path=' + animePath + '&' + backParams + '" class="text-decoration-none text-black"><img class="rounded mb-1 img-fluid shadow-sm" src="./assets/loading.png"><br><div style="font-size: small;">' + animeName + '</div></a><a class="text-decoration-none text-secondary" style="font-size: 12px;" target="_blank" href="https://bgm.tv/subject/' + bgmId + '"><i class="bi bi-link-45deg"></i> 番组计划</a></div>'
+    var newAnimeCard = 
+    `
+    <div id="${dirId}" class="col-4 col-sm-3 col-lg-2 px-2 mb-2">
+        <a href="anime.html?path=${animePath}&${backParams}" class="text-decoration-none text-black">
+            <img class="rounded mb-1 shadow-sm" src="./assets/loading.png" style="object-fit: cover; width: 100%;">
+            <div style="font-size: small; line-height: 18px; height: 36px"">${animeName}</div>
+        </a>
+        <a class="text-decoration-none text-secondary" style="font-size: 12px;" target="_blank" href="https://bgm.tv/subject/${bgmId}">
+            <i class="bi bi-link-45deg"></i> 番组计划
+        </a>
+    </div>
+    `
     $("#" + containerId).append(newAnimeCard);
 }
 
