@@ -64,16 +64,19 @@ function getBgmId(str) {
 // 生成一个番剧卡骨架, 传入目标容器、番剧名、番剧路径、番组计划ID、文件夹ID、回主页的参数
 function printAnimeCardTable(containerId, animeName, animePath, bgmId, dirId, backParams) {
     $("#" + containerId).addClass("row row-cols-auto mx-2")
-    var newAnimeCard = 
-    `
+    var newAnimeCard =
+        `
     <div id="${dirId}" class="col-4 col-sm-3 col-lg-2 px-2 mb-2">
         <a href="anime.html?path=${animePath}&${backParams}" class="text-decoration-none text-black">
             <img class="rounded mb-1 shadow-sm" src="./assets/loading.png" style="object-fit: cover; width: 100%;">
-            <div style="font-size: small; line-height: 18px; height: 36px"">${animeName}</div>
+            <div style="font-size: small; line-height: 18px; min-height: 36px"">${animeName}</div>
         </a>
-        <a class="text-decoration-none text-secondary" style="font-size: 12px;" target="_blank" href="https://bgm.tv/subject/${bgmId}">
-            <i class="bi bi-link-45deg"></i> 番组计划
-        </a>
+        <div class="text-secondary" style="font-size: 12px; line-height: 18px;">
+            <i class="bi bi-play-btn"></i><span id="${dirId}-views"></span><br>
+            <a class="text-secondary text-decoration-none" target="_blank" href="https://bgm.tv/subject/${bgmId}">
+                <i class="bi bi-link-45deg"></i> 番组计划
+            </a>
+        </div>
     </div>
     `
     $("#" + containerId).append(newAnimeCard);
@@ -85,13 +88,30 @@ function printAnimeCardDetail(dirId, bgmId) {
     $.ajax({
         url: "https://bgm-api.5t5.top/v0/subjects/" + bgmId,  //默认当前页
         success: function (response) {
-            $("#" + dirId + "> a > img" ).attr("src", response.images.large.replace("lain.bgm.tv", "anime-img.5t5.top")+'/poster')
+            $("#" + dirId + "> a > img").attr("src", response.images.large.replace("lain.bgm.tv", "anime-img.5t5.top") + '/poster')
         },
         error: function (e) {  //请求超时回调
             if (e.statusText == "timeout") {
                 alert("请求超时")
             }
         },
-        complete: function () { }, //无论请求是成功还是失败都会执行的回调，常用全局成员的释放，或者页面状态的重置
+        complete: function () {
+            $.ajax({
+                url: `https://anime-api.5t5.top/v1/view/get/${dirId}`,
+                success: function (response) {
+                    if (response.code == 0) {
+                        $(`#${dirId}-views`).append(` 访问 ${response.data} 次`)
+                    }
+                    else{
+                        $(`#${dirId}-views`).append('获取失败')
+                    }
+                }
+            })
+            $(`#${dirId}`).click(()=>{
+                $.ajax({
+                    url: `https://anime-api.5t5.top/v1/view/add/${dirId}`
+                })
+            })
+        }
     })
 }
