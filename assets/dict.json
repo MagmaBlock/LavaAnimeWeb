@@ -460,13 +460,13 @@
         "class": "bg-secondary"
     },
     {
-        "from": "Subtitles.*zip",
-        "to": "外挂字幕合集包",
+        "from": "(Subtitles|sub|subtitle|ass)\\.*(zip|7z|rar)",
+        "to": "外挂字幕合集包 - 如果您发现没有字幕，请尝试加载一下",
         "class": "bg-warning"
     },
     {
-        "from": "fonts.*zip",
-        "to": "字体合集包",
+        "from": "(fonts|font)\\.*(zip|7z|rar)",
+        "to": "字体合集包 - 如果您发现字幕全是宋体/没字体，请尝试安装一下",
         "class": "bg-warning"
     }
     
