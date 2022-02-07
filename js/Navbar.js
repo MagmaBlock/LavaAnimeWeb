@@ -27,7 +27,7 @@ $(document).ready(() => {
         </a>
         <a id="help" class="text-center text-decoration-none col text-secondary" href="/help.html">
             <i class="bi bi-question-circle-fill fs-5"></i>
-            <div style="font-size: 10px;">帮助</div>
+            <div style="font-size: 10px;">番剧库帮助</div>
         </a>
     </div>
 </nav>
