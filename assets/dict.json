@@ -170,7 +170,7 @@
         "class": "bg-primary"
     },
     {
-        "from": ".熔岩番剧库.",
+        "from": "熔岩番剧库",
         "to": "熔岩番剧库",
         "class": "bg-primary"
     },
@@ -292,6 +292,11 @@
     {
         "from": ".10bit.",
         "to": "10bit 色深",
+        "class": "bg-secondary"
+    },
+    {
+        "from": ".yuv420p10.",
+        "to": "YUV-4:2:0 10bit",
         "class": "bg-secondary"
     },
     {
@@ -450,11 +455,6 @@
         "class": "bg-secondary"
     },
     {
-        "from": ".END.?",
-        "to": "最终话",
-        "class": "bg-success"
-    },
-    {
         "from": "招募翻译",
         "to": "",
         "class": "bg-secondary"
@@ -469,5 +469,4 @@
         "to": "字体合集包 - 如果您发现字幕全是宋体/没字体，请尝试安装一下",
         "class": "bg-warning"
     }
-    
 ]
