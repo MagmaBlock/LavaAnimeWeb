@@ -100,14 +100,18 @@ function printAnimeCardDetail(dirId, bgmId) {
                 url: `https://anime-api.5t5.top/v1/view/get/${dirId}`,
                 success: function (response) {
                     if (response.code == 0) {
-                        $(`#${dirId}-views`).append(` 访问 ${response.data} 次`)
+                        $(`#${dirId}-views`).empty().append(` 访问 ${response.data} 次`)
                     }
-                    else{
-                        $(`#${dirId}-views`).append('获取失败')
+                    else {
+                        $(`#${dirId}-views`).append(' 获取失败')
                     }
+                },
+                error: function (e) {  // 错误回调
+                    console.log('获取访问数时发生错误：', e);
+                    $(`#${dirId}-views`).append(' 获取失败')
                 }
             })
-            $(`#${dirId}`).click(()=>{
+            $(`#${dirId}`).click(() => {
                 $.ajax({
                     url: `https://anime-api.5t5.top/v1/view/add/${dirId}`
                 })
