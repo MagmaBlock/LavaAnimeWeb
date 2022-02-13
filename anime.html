@@ -37,6 +37,7 @@
             if (AnimePath == undefined) {
                 console.log("地址栏不含参数！")
                 $("#la-list-container").append("<div class='alert alert-warning'><span>错误：未能从地址栏取得番组信息。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
+                $("#loading").fadeOut()
             }
 
             thisId = decodeURI(getUrlParams("path").path).match("\\d+$")[0]
@@ -72,9 +73,15 @@
                         }
                         objects = result.data.objects
                         if (objects.length == 0) {
-                            var airDate = "(获取失败，可能是 ID 设置有误，请联系 Magma。)"
+                            let airDate
+                            if (bgmInfo.date) { // 如果 Bangumi 有提供放送日期，则提取放送日期
+                                airDate = bgmInfo.date
+                            }
+                            else { // 如果没有放送日期
+                                airDate = "未知 / 暂未定档"
+                            }
                             setTimeout(() => {
-                                $("#la-list-container").append("<div class='alert alert-info'><span>熔岩云盘返回列表为空，此番组目录下尚无任何资源！<br>" + "请确认此作品已经开始连载，根据 Bangumi Wiki，本作的开始放送日期为：" + bgmInfo.date + "<br><a class='alert-link' href='./index.html'>返回主页</a></span></div>")
+                                $("#la-list-container").append("<div class='alert alert-info'><span>熔岩云盘返回列表为空，此番组目录下尚无任何资源！<br>" + "请确认此作品已经开始连载，根据 Bangumi Wiki，本作的开始放送日期为：" + airDate + "<br><a class='alert-link' href='./index.html'>返回主页</a></span></div>")
                                 $("#loading").fadeOut()
                             }, 1500);
 
@@ -223,9 +230,9 @@
                             // 标题栏加名字
                             $("#la-player-header").empty().append(thisName)
                             const dp = new DPlayer({
-                                        container: document.getElementById('dplayer'),
-                                        video: { url: result.url, screenshot: true, autoplay: true },
-                                    })
+                                container: document.getElementById('dplayer'),
+                                video: { url: result.url, screenshot: true, autoplay: true },
+                            })
                             if (fileType == 'mp4') {
                                 $("#la-player-body").empty().append(mp4HelpMessage + otherPlayers + urlLabel)
                             }
