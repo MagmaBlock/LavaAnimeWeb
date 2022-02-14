@@ -25,6 +25,11 @@
         "class": "bg-primary"
     },
     {
+        "from": ".DBD-Raws.",
+        "to": "DBD制作组",
+        "class": "bg-primary"
+    },
+    {
         "from": ".UHA-WINGS|UHA-WING.",
         "to": "悠哈璃羽字幕社",
         "class": "bg-primary"
