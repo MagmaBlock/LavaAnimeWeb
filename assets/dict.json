@@ -445,14 +445,54 @@
         "class": "bg-info text-dark"
     },
     {
-        "from": ".(mp4).?",
+        "from": "\\[mp4\\]",
         "to": "MP4",
         "class": "bg-secondary"
     },
     {
-        "from": ".(mkv).?",
+        "from": "\\[mkv\\]",
         "to": "MKV",
         "class": "bg-secondary"
+    },
+    {
+        "from": "\\.(mp4)",
+        "to": "MP4视频文件",
+        "class": "bg-dark"
+    },
+    {
+        "from": "\\.(mkv)",
+        "to": "MKV视频文件",
+        "class": "bg-dark"
+    },
+    {
+        "from": "\\.(ass)",
+        "to": "ASS字幕文件",
+        "class": "bg-dark"
+    },
+    {
+        "from": "\\.(txt)",
+        "to": "TXT文本文档",
+        "class": "bg-dark"
+    },
+    {
+        "from": "\\.(torrent)",
+        "to": "种子文件",
+        "class": "bg-dark"
+    },
+    {
+        "from": "\\.(png|jpg|jpeg|gif|bmp)",
+        "to": "图片文件",
+        "class": "bg-dark"
+    },
+    {
+        "from": "\\.(mp3|flac)",
+        "to": "音乐文件",
+        "class": "bg-dark"
+    },
+    {
+        "from": "\\.(zip|rar|7z)",
+        "to": "压缩文件",
+        "class": "bg-dark"
     },
     {
         "from": "招募翻译",
