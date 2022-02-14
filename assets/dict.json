@@ -25,6 +25,11 @@
         "class": "bg-primary"
     },
     {
+        "from": ".WMSUB.",
+        "to": "风车字幕组",
+        "class": "bg-primary"
+    },
+    {
         "from": ".DBD-Raws.",
         "to": "DBD制作组",
         "class": "bg-primary"
