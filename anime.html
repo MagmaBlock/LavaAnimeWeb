@@ -213,7 +213,6 @@
                             `
                             var downloadBtn =
                                 `
-                            您打开了一个压缩包，若有需要，可点击下方按钮下载。<br>
                             <div class="row row-cols-3 mt-3">
                                 <div> </div>
                                 <a class="text-decoration-none text-secondary" href="${result.url}">
@@ -224,7 +223,6 @@
                                 </a>
                                 <div> </div>
                             </div>
-                            ${urlLabel}
                                 `
 
                             // 标题栏加名字
@@ -234,13 +232,13 @@
                                 video: { url: result.url, screenshot: true, autoplay: true },
                             })
                             if (fileType == 'mp4') {
-                                $("#la-player-body").empty().append(mp4HelpMessage + otherPlayers + urlLabel)
+                                $("#la-player-body").empty().append(mp4HelpMessage + otherPlayers + urlLabel) // 加入播放器
                             }
                             if (fileType == 'mkv') {
                                 dp.destroy()
                                 $("#la-player-body").empty().append(mkvHelpMessage + mkvPlayerBtn + otherPlayers + urlLabel)
-                                $("#mkvPlayerBtn").click(() => {
-                                    $("#mkvHelpMessage").empty()
+                                $("#mkvPlayerBtn").click(() => { // 强制用浏览器打开
+                                    $("#mkvHelpMessage").empty() // 清空提示
                                     const dp = new DPlayer({
                                         container: document.getElementById('dplayer'),
                                         video: { url: result.url, screenshot: true, autoplay: true },
@@ -254,7 +252,7 @@
 
                             if (fileType == 'zip' || fileType == '7z' || fileType == 'rar') {
                                 dp.destroy()
-                                $("#la-player-body").empty().append(downloadBtn)
+                                $("#la-player-body").empty().append(`您打开了一个压缩包，若有需要，可点击下方按钮下载。<br>${downloadBtn}${urlLabel}`)
                             }
                             if (fileType == 'png' || fileType == 'jpg' || fileType == 'jpeg' || fileType == 'gif' || fileType == 'webp') {
                                 dp.destroy()
@@ -263,7 +261,11 @@
                             }
                             if (fileType == 'txt') {
                                 dp.destroy()
-                                $("#la-player-body").empty().append("您打开了一个文本文档，若有需要，可点击下方按钮下载。" + "<br>" + urlLabel)
+                                $("#la-player-body").empty().append("您打开了一个文本文档，若有需要，可点击下方按钮下载。" + "<br>" + downloadBtn + urlLabel)
+                            }
+                            if (fileType == 'ass') {
+                                dp.destroy()
+                                $("#la-player-body").empty().append("您打开了一个外挂字幕，若有需要，可点击下方按钮下载。" + "<br>" + downloadBtn + urlLabel)
                             }
 
 
