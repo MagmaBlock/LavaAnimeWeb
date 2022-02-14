@@ -15,7 +15,7 @@
         "class": "bg-primary"
     },
     {
-        "from": "[^A-Za-z0-9]Mmch[^A-Za-z0-9]sub[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9]Mmch\\.sub[^A-Za-z0-9]",
         "to": "喵萌茶会字幕组",
         "class": "bg-primary"
     },
@@ -35,7 +35,7 @@
         "class": "bg-primary"
     },
     {
-        "from": "[^A-Za-z0-9]UHA-WINGS|UHA-WING[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9](UHA-WINGS|UHA-WING)[^A-Za-z0-9]",
         "to": "悠哈璃羽字幕社",
         "class": "bg-primary"
     },
@@ -100,7 +100,7 @@
         "class": "bg-primary"
     },
     {
-        "from": "[^A-Za-z0-9]A.I.R.nesSub[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9]A\\.I\\.R\\.nesSub[^A-Za-z0-9]",
         "to": "A.I.R.nesSub 字幕组",
         "class": "bg-primary"
     },
@@ -380,7 +380,7 @@
         "class": "bg-info text-dark"
     },
     {
-        "from": "SRT",
+        "from": "[^A-Za-z0-9]SRT[^A-Za-z0-9]",
         "to": "SRT字幕",
         "class": "bg-info text-dark"
     },
