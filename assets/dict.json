@@ -370,7 +370,7 @@
         "class": "bg-info text-dark"
     },
     {
-        "from": "[^A-Za-z0-9](BIG5|TC|CHS)[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9](BIG5|TC|CHT)[^A-Za-z0-9]",
         "to": "繁体中文",
         "class": "bg-info text-dark"
     },
