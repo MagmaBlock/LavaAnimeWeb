@@ -53,6 +53,10 @@
                         if (data.code == 0) {
                             $(`#views`).empty().append(` 访问 ${data.data} 次`)
                         }
+                        else {
+                            console.log('更新访问量失败: ', data)
+                            $(`#views`).empty().append(` 获取失败`)
+                        }
                     }
                 })
 
