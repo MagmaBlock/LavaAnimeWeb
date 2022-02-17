@@ -16,28 +16,29 @@
     <script src="./js/getUrlParams.js" crossorigin="anonymous"></script>
     <script src="./js/mySort.js" crossorigin="anonymous"></script>
     <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="./js/DPlayer.min.js"></script>
     </link>
 
     <script>
-
-        const animeApiUrl = "https://dav.5t5.top/api/v3/share/list/jqMFl" // 熔岩云盘分享链接根目录, 需要是API链接。
-        const agefansDomain = "www.agemys.com"
-
         $(document).ready(function () {
-
-
+            const animeApiUrl = "https://dav.5t5.top/api/v3/share/list/jqMFl" // 熔岩云盘分享链接根目录, 需要是API链接。
+            const agefansDomain = "www.agemys.com"
 
             // 生成返回索引页的变量
             console.log('地址栏参数数据: ', getUrlParams());
-            let year = decodeURI(getUrlParams().path).split('/')[1].replace('年', '') // 从 path 剥离出年份不带年
-            let month = decodeURI(getUrlParams().path).split('/')[2] // 从 path 剥离出月份
-            var backParams = 'year=' + year + '&' + 'month=' + month
+            const thisAnimeYear = decodeURI(getUrlParams().path).split('/')[1].replace('年', '') // 从 path 剥离出年份不带年
+            const thisAnimeMonth = decodeURI(getUrlParams().path).split('/')[2] // 从 path 剥离出月份
+            const backParams = 'year=' + thisAnimeYear + '&' + 'month=' + thisAnimeMonth
             console.log('返回主页的参数: ', backParams);
-            AnimePath = getUrlParams().path
-            $("#goback").attr("href", "/index.html?" + backParams)
+            const AnimePath = getUrlParams().path
 
-            // 填充副标题
-            $("#la-path").empty().append(decodeURI(AnimePath).replace("/", ""))
+            const thisId = (decodeURI(getUrlParams("path").path).match("\\d+$")[0]).toString()
+            const thisId2 = thisId.substring(0, thisId.length - 2)
+
+            console.log("从地址栏取得 BgmID:  ", thisId, " ", thisId2)
+
+            $("#goback").attr("href", "/index.html?" + backParams) // 返回主页的链接
+            $("#la-path").empty().append(decodeURI(AnimePath).replace("/", "")) // 填充副标题
 
             if (AnimePath == undefined) {
                 console.log("地址栏不含参数! ")
@@ -56,13 +57,6 @@
 
             })
 
-            thisId = decodeURI(getUrlParams("path").path).match("\\d+$")[0]
-            thisId2 = thisId.toString()
-            thisId2 = thisId2.substring(0, thisId2.length - 2)
-
-            console.log("从地址栏取得 BgmID:  ", thisId, " ", thisId2)
-
-
             // 获取字典并开始生成列表
             $.ajax({
                 url: "./assets/dict.json",
@@ -72,8 +66,6 @@
                     console.log("成功取得关键词词典: ", dict)
                 }
             })
-
-
 
             // 从网盘取得文件列表
             function getAnimeList() {
@@ -127,8 +119,6 @@
                     }
                 })
             }
-
-
 
             // 向列表追加生成的列表的函数
             function printAnimeList(fileName, fileId) {
@@ -284,8 +274,6 @@
                                 $("#la-player-body").empty().append("您打开了一个外挂字幕, 若有需要, 可点击下方按钮下载。" + "<br>" + downloadBtn + urlLabel)
                             }
 
-
-
                             // 为播放器增加关闭时销毁事件
                             var lavaAnimeModalPlayer = document.getElementById('la-player')
                             lavaAnimeModalPlayer.addEventListener('hide.bs.modal', function (event) {
@@ -297,8 +285,7 @@
                             $("#copy-success").hide()
                             var clipboard = new ClipboardJS('.copy', {
                                 container: document.getElementById('la-player')
-                            }
-                            );
+                            });
 
                             clipboard.on('success', function (e) {
                                 console.info('复制操作:', e.action);
@@ -374,26 +361,7 @@
         </div>
     </nav>
     <div class="container mt-5">
-
-
         <br>
-        <!-- 
-        <div class="card mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-                <div style="max-height: 300px;" id="la-poster" class="col-md-4">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-
         <div class="my-2 list-group" style="opacity: 85%;">
             <div class="list-group-item ">
                 <h1 class="display-3">播放列表</h1>
@@ -429,28 +397,7 @@
             </div>
         </div>
 
-        <!-- <div class="row row-cols-4">
-            <a class="text-decoration-none text-secondary" href="#">
-                <img class="img-fluid mx-auto d-block" style="width: 80%;" src="./assets/PotPlayer.svg" alt="PotPlayer"/>
-                <div class="text-center" style="font-size: 12px;">PotPlayer</div>
-            </a>
-            <a class="text-decoration-none text-secondary" href="#">
-                <img class="img-fluid mx-auto d-block" style="width: 80%;" src="./assets/vlc.svg" alt="VLC"/>
-                <div class="text-center" style="font-size: 12px;">VLC</div>
-            </a>
-            <a class="text-decoration-none text-secondary" href="#">
-                <img class="img-fluid mx-auto d-block" style="width: 80%;" src="./assets/iina.svg" alt="IINA"/>
-                <div class="text-center" style="font-size: 12px;">IINA</div>
-            </a>
-            <a class="text-decoration-none text-secondary" href="#">
-                <img class="img-fluid mx-auto d-block" style="width: 80%;" src="./assets/link.svg" alt="IINA"/>
-                <div class="text-center" style="font-size: 12px;">复制链接</div>
-            </a>
-        </div> -->
-
-
-
-        <script src="./js/DPlayer.min.js"></script>
+        <!-- 统计代码 -->
         <img src="https://www.bfcounter.vip/generatepic?userid=ce1d3f3b-ce67-4319-8222-e751f8262b2e" alt="Page Counter"
             class="visually-hidden">
         <span class="visually-hidden">
