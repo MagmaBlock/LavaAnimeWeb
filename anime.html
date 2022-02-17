@@ -24,7 +24,6 @@
             const animeApiUrl = "https://dav.5t5.top/api/v3/share/list/jqMFl" // 熔岩云盘分享链接根目录, 需要是API链接。
             const agefansDomain = "www.agemys.com"
 
-            // 生成返回索引页的变量
             console.log('地址栏参数数据: ', getUrlParams());
             if (getUrlParams().path == undefined) {
                 console.log("地址栏不含参数! ")
@@ -32,6 +31,7 @@
                 AnimePath = '/未找到番组'
                 thisId = '184017'
                 $(`#views`).empty().append(` 没人观看过此番组, 因为它不存在. 😢`)
+                $('#rating').append(` 评分 4.04`)
                 $("#la-list-container").append("<div class='alert alert-warning'><span>错误: 未能从地址栏取得番组信息。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
                 $("#loading").fadeOut()
             }
@@ -65,11 +65,61 @@
                         console.log("成功取得关键词词典: ", dict)
                     }
                 })
+
+                // 获取 Bangumi API 然后填充数据
+                $.ajax({
+                    url: "https://bgm-api.5t5.top/v0/subjects/" + thisId,
+                    success: result => {
+                        bgmInfo = result
+                        var backgroundUrl = bgmInfo.images.large.replace("lain.bgm.tv", "anime-img.5t5.top") + '/bg'
+                        console.log('成功从番组计划API取得数据', result)
+                        console.log(bgmInfo.images.large.replace("lain.bgm.tv", "anime-img.5t5.top") + '/bg')
+                        $("#bg").css("background-image", "url(" + backgroundUrl + ")")
+                        $("#bangumi").attr("href", "https://bgm.tv/subject/" + thisId)
+                        $('#name_cn').append(`${bgmInfo.name_cn}`)
+                        $('#name').append(`${bgmInfo.name}`)
+                        $('#rating').append(` 评分 ${bgmInfo.rating.score}`)
+                        if (bgmInfo.rating.score < 5){
+                            $('#rating').empty().append(` 评分较低 ${bgmInfo.rating.score}`).css('color', 'red')
+                        }
+                        if (bgmInfo.rating.score > 8){
+                            $('#rating').empty().append(` 评分优秀 ${bgmInfo.rating.score}`)
+                        }
+                        $('#eps').append(` 总 ${bgmInfo.eps} 话`)
+                        for (let i = 0; i < bgmInfo.tags.length; i++) {
+                            $('#tags').append(`<span class="badge bg-secondary">${bgmInfo.tags[i].name} ${bgmInfo.tags[i].count}</span> `)
+                        }
+                    }
+                })
+
+                // 获取 Agefans 数据, 数据来自 https://github.com/czy0729/Bangumi-Static/
+                $.ajax({
+                    url: "https://anime-img.5t5.top/api/agefans/anime.min.json",
+                    beforeSend: () => { $("#agefans").empty().append('<div class="spinner-grow spinner-grow-sm" role="status"></div> 正在加载 Agefans 番剧列表...') },
+                    success: result => {
+                        var agefansData = result
+                        var agefansId = ''
+                        for (var i = 0; i < agefansData.length; i++) {
+                            if (agefansData[i].id == thisId) {
+                                console.log('解析到当前 Bangumi ID 对应的 Agefans 数据: ', agefansData[i])
+                                $("#agefans").empty().append('<i class="bi bi-link-45deg"></i> 去 Agefans 观看')
+                                $("#agefans").attr("href", `https://${agefansDomain}/detail/${agefansData[i].a}`)
+                                agefansId = agefansData[i].a
+                            }
+                        }
+                        if (agefansId == '') {
+                            $("#agefans").empty().append('<i class="bi bi-slash-circle"></i> 暂未在 Agefans 找到此番剧')
+                        }
+                    },
+                    error: () => {
+                        $("#agefans").empty().append('<i class="bi bi-slash-circle"></i>Agefans API 故障')
+                    }
+                })
             }
 
 
             $("#goback").attr("href", "/index.html?" + backParams) // 返回主页的链接
-            $("#la-path").empty().append(decodeURI(AnimePath).replace("/", "")) // 填充副标题
+            $("#la-path").empty().append(decodeURI(AnimePath).replace('/', '').replace(/(\/)/g, '<i class="bi bi-arrow-right-short"></i>')) // 填充副标题
 
 
 
@@ -314,42 +364,7 @@
                 })
             }
 
-            // 获取 Bangumi API 然后填充数据
-            $.ajax({
-                url: "https://bgm-api.5t5.top/v0/subjects/" + thisId,
-                success: result => {
-                    bgmInfo = result
-                    var backgroundUrl = bgmInfo.images.large.replace("lain.bgm.tv", "anime-img.5t5.top") + '/bg'
-                    console.log('成功从番组计划API取得数据', result)
-                    console.log(bgmInfo.images.large.replace("lain.bgm.tv", "anime-img.5t5.top") + '/bg')
-                    $("#bg").css("background-image", "url(" + backgroundUrl + ")")
-                    $("#bangumi").attr("href", "https://bgm.tv/subject/" + thisId)
-                }
-            })
 
-            // 获取 Agefans 数据, 数据来自 https://github.com/czy0729/Bangumi-Static/
-            $.ajax({
-                url: "https://anime-img.5t5.top/api/agefans/anime.min.json",
-                beforeSend: () => { $("#agefans").empty().append('<div class="spinner-grow spinner-grow-sm" role="status"></div> 正在加载 Agefans 番剧列表...') },
-                success: result => {
-                    var agefansData = result
-                    var agefansId = ''
-                    for (var i = 0; i < agefansData.length; i++) {
-                        if (agefansData[i].id == thisId) {
-                            console.log('解析到当前 Bangumi ID 对应的 Agefans 数据: ', agefansData[i])
-                            $("#agefans").empty().append('<i class="bi bi-link-45deg"></i> 去 Agefans 观看')
-                            $("#agefans").attr("href", `https://${agefansDomain}/detail/${agefansData[i].a}`)
-                            agefansId = agefansData[i].a
-                        }
-                    }
-                    if (agefansId == '') {
-                        $("#agefans").empty().append('<i class="bi bi-slash-circle"></i> 暂未在 Agefans 找到此番剧')
-                    }
-                },
-                error: () => {
-                    $("#agefans").empty().append('<i class="bi bi-slash-circle"></i>Agefans API 故障')
-                }
-            })
 
         })
     </script>
@@ -367,19 +382,30 @@
 
         </div>
     </nav>
-    <div class="container mt-5">
-        <br>
+    <div class="container" style="margin-top: 72px;">
         <div class="my-2 list-group" style="opacity: 85%;">
+            <div class="list-group-item">
+                <div id="la-path" style="font-size: 14px;" class="fw-lighter text-truncate"></div>
+            </div>
             <div class="list-group-item ">
-                <h1 class="display-3">播放列表</h1>
-                <div id="la-path" class="fw-lighter fs-6"></div>
-                <i class="bi bi-play-btn text-secondary"></i><span class="fw-lighter fs-6 text-secondary"
-                    id="views"></span><br>
-                <a id="agefans" target="_blank" class="fw-lighter fs-6 text-decoration-none"></a> <a
-                    href="https://github.com/czy0729/Bangumi-Static" class="text-decoration-none text-secondary"
-                    target="_blank" style="font-size: 12px;">(API By czy0729)</a><br>
-                <a id="bangumi" target="_blank" class="fw-lighter fs-6 text-decoration-none"><i
-                        class="bi bi-link-45deg"></i> 去 番组计划 查看详情</a>
+                <div class="lead fs-4" id="name_cn"></div>
+                <div class="text-muted fw-lighter" id="name"></div>
+                <!-- 访问量评分等数据栏 -->
+                <div class="text-secondary fw-lighter fs-6">
+                    <i class="bi bi-play-btn"></i><span id="views"></span>
+                    <i class="bi bi-star"></i><span id="rating"></span>
+                    <i class="bi bi-view-list"></i><span id="eps"></span>
+                </div>
+                <!-- 标签栏 -->
+                <div class="fw-lighter fs-6" id="tags"></div>
+                <!-- 外部链接栏 -->
+                <div class="my-1">
+                    <a id="agefans" target="_blank" class="fw-lighter fs-6 text-decoration-none"></a> <a
+                        href="https://github.com/czy0729/Bangumi-Static" class="text-decoration-none text-secondary"
+                        target="_blank" style="font-size: 12px;">(API By czy0729)</a><br>
+                    <a id="bangumi" target="_blank" class="fw-lighter fs-6 text-decoration-none"><i
+                            class="bi bi-link-45deg"></i> 去 番组计划 查看详情</a>
+                </div>
             </div>
         </div>
 
