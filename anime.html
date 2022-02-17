@@ -19,19 +19,20 @@
     </link>
 
     <script>
+
+        const animeApiUrl = "https://dav.5t5.top/api/v3/share/list/jqMFl" // 熔岩云盘分享链接根目录, 需要是API链接。
+        const agefansDomain = "www.agemys.com"
+
         $(document).ready(function () {
 
 
 
-            // 熔岩云盘分享链接根目录, 需要是API链接。
-            animeApiUrl = "https://dav.5t5.top/api/v3/share/list/jqMFl"
-
             // 生成返回索引页的变量
             console.log('地址栏参数数据: ', getUrlParams());
-            let year = decodeURI(getUrlParams().path).split('/')[1].replace('年','') // 从 path 剥离出年份不带年
+            let year = decodeURI(getUrlParams().path).split('/')[1].replace('年', '') // 从 path 剥离出年份不带年
             let month = decodeURI(getUrlParams().path).split('/')[2] // 从 path 剥离出月份
             var backParams = 'year=' + year + '&' + 'month=' + month
-            console.log('返回主页的参数: ',backParams);
+            console.log('返回主页的参数: ', backParams);
             AnimePath = getUrlParams().path
             $("#goback").attr("href", "/index.html?" + backParams)
 
@@ -47,8 +48,8 @@
             $.ajax({ // 增加并获取访问量
                 url: 'https://anime-api.5t5.top/v1/view/add/' + getUrlParams().id,
                 success: function (data) {
-                    console.log('成功更新播放量: ',data)
-                    if (data.code == 0){
+                    console.log('成功更新播放量: ', data)
+                    if (data.code == 0) {
                         $(`#views`).empty().append(` 访问 ${data.data} 次`)
                     }
                 }
@@ -343,7 +344,7 @@
                         if (agefansData[i].id == thisId) {
                             console.log('解析到当前 Bangumi ID 对应的 Agefans 数据: ', agefansData[i])
                             $("#agefans").empty().append('<i class="bi bi-link-45deg"></i> 去 Agefans 观看')
-                            $("#agefans").attr("href", "https://www.agefans.vip/detail/" + agefansData[i].a)
+                            $("#agefans").attr("href", `https://${agefansDomain}/detail/${agefansData[i].a}`)
                             agefansId = agefansData[i].a
                         }
                     }
@@ -397,7 +398,8 @@
             <div class="list-group-item ">
                 <h1 class="display-3">播放列表</h1>
                 <div id="la-path" class="fw-lighter fs-6"></div>
-                <i class="bi bi-play-btn text-secondary"></i><span class="fw-lighter fs-6 text-secondary" id="views"></span><br>
+                <i class="bi bi-play-btn text-secondary"></i><span class="fw-lighter fs-6 text-secondary"
+                    id="views"></span><br>
                 <a id="agefans" target="_blank" class="fw-lighter fs-6 text-decoration-none"></a> <a
                     href="https://github.com/czy0729/Bangumi-Static" class="text-decoration-none text-secondary"
                     target="_blank" style="font-size: 12px;">(API By czy0729)</a><br>
