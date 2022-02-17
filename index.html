@@ -22,21 +22,19 @@
         $(document).ready(function () {
 
             // 定义容器
-            containerId = "posters"
+            const containerId = "posters"
 
             // 界面加载后，隐藏加载中图标
             $("#loading").hide()
 
-            // 识别参数，决定自动选择新番还是指定目录，并且影响打开的番剧播放页返回主页时的决定
+            // 识别参数，决定自动选择新番还是指定目录
             console.log(getUrlParams())
             if (Object.prototype.isPrototypeOf(getUrlParams()) && Object.keys(getUrlParams()).length === 0) {
                 // 默认选中的筛选
-                var backParams = ''
                 var defaultYear = 2022
                 var defaultMonth = "1月冬"
             }
-            else {
-                var backParams = 'year=' + getUrlParams().year + '&' + 'month=' + getUrlParams().month
+            else { // 从地址栏获取应该打开的目录
                 var defaultYear = getUrlParams().year
                 var defaultMonth = decodeURI(getUrlParams().month)
             }

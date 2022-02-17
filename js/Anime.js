@@ -1,9 +1,9 @@
 // 总函数，向指定容器打印番组卡片
-function printAnimeList(containerId, year, month, backParams) {
+function printAnimeList(containerId, year, month) {
     // 从云盘取目录列表
     animeList = getAnimeList(year, month)
 
-    console.log('成功从熔岩云盘取得 ' + year + '年 ' + month + ' 的番组列表：', animeList)
+    console.log('成功从熔岩云盘取得 ' + year + '年 ' + month + ' 的番组列表: ', animeList)
 
     // 新建一个数组，方便后面的生成
     var animeListNameAndId = new Array()
@@ -18,7 +18,7 @@ function printAnimeList(containerId, year, month, backParams) {
     // 循环生成卡片
     for (var i = 0; i < animeList.length; i++) {
         // 生成番剧卡骨架, 传入目标容器、番剧名、番剧路径、番组计划ID、文件夹ID
-        printAnimeCardTable(containerId, animeListNameAndId[i].animeName, animeList[i].path + '/' + animeList[i].name, animeListNameAndId[i].bgmId, animeList[i].id, backParams)
+        printAnimeCardTable(containerId, animeListNameAndId[i].animeName, animeList[i].path + '/' + animeList[i].name, animeListNameAndId[i].bgmId, animeList[i].id)
         printAnimeCardDetail(animeList[i].id, animeListNameAndId[i].bgmId)
     }
 
@@ -40,7 +40,7 @@ function getAnimeList(year, month) {
             mySort(animeList, "name")
         },
         error: function (e) {
-            console.log('取得番组列表时熔岩云盘发生错误：', e)
+            console.log('取得番组列表时熔岩云盘发生错误: ', e)
         },
         complete: setTimeout(() => { $("#loading").fadeOut() }, 1000)
     })
@@ -55,19 +55,19 @@ function getBgmId(str) {
     var animeName = str.replace(str.match("\\d+$"), "").substr(0, str.replace(str.match("\\d+$"), "").length - 1);
     // 如果匹配失败
     if (bgmId == null) {
-        console.log("提供的字符串 \"" + str + "\" 不是一个合法的番剧库番组名！")
+        console.log("提供的字符串 \"" + str + "\" 不是一个合法的番剧库番组名! ")
     }
     // console.log('剥出番组ID和名称', { 'bgmId': bgmId, 'animeName': animeName })
     return { 'bgmId': bgmId, 'animeName': animeName }
 }
 
 // 生成一个番剧卡骨架, 传入目标容器、番剧名、番剧路径、番组计划ID、文件夹ID、回主页的参数
-function printAnimeCardTable(containerId, animeName, animePath, bgmId, dirId, backParams) {
+function printAnimeCardTable(containerId, animeName, animePath, bgmId, dirId) {
     $("#" + containerId).addClass("row row-cols-auto mx-2")
     var newAnimeCard =
         `
     <div id="${dirId}" class="col-4 col-sm-3 col-lg-2 px-2 mb-2">
-        <a href="anime.html?path=${animePath}&${backParams}" class="text-decoration-none text-black">
+        <a href="anime.html?path=${animePath}&id=${dirId}" class="text-decoration-none text-black">
             <img class="rounded mb-1 shadow-sm" src="./assets/loading.png" style="object-fit: cover; width: 100%;">
             <div style="font-size: small; line-height: 18px; min-height: 36px"">${animeName}</div>
         </a>
@@ -107,15 +107,15 @@ function printAnimeCardDetail(dirId, bgmId) {
                     }
                 },
                 error: function (e) {  // 错误回调
-                    console.log('获取访问数时发生错误：', e);
+                    console.log('获取访问数时发生错误: ', e);
                     $(`#${dirId}-views`).append(' 获取失败')
                 }
             })
-            $(`#${dirId}`).click(() => {
-                $.ajax({
-                    url: `https://anime-api.5t5.top/v1/view/add/${dirId}`
-                })
-            })
+            // $(`#${dirId}`).click(() => {
+            //     $.ajax({
+            //         url: `https://anime-api.5t5.top/v1/view/add/${dirId}`
+            //     })
+            // })
         }
     })
 }

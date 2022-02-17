@@ -23,11 +23,15 @@
 
 
 
-            // 熔岩云盘分享链接根目录，需要是API链接。
+            // 熔岩云盘分享链接根目录, 需要是API链接。
             animeApiUrl = "https://dav.5t5.top/api/v3/share/list/jqMFl"
 
             // 生成返回索引页的变量
-            var backParams = 'year=' + getUrlParams().year + '&' + 'month=' + getUrlParams().month
+            console.log('地址栏参数数据: ', getUrlParams());
+            let year = decodeURI(getUrlParams().path).split('/')[1].replace('年','') // 从 path 剥离出年份不带年
+            let month = decodeURI(getUrlParams().path).split('/')[2] // 从 path 剥离出月份
+            var backParams = 'year=' + year + '&' + 'month=' + month
+            console.log('返回主页的参数: ',backParams);
             AnimePath = getUrlParams().path
             $("#goback").attr("href", "/index.html?" + backParams)
 
@@ -35,16 +39,27 @@
             $("#la-path").empty().append(decodeURI(AnimePath).replace("/", ""))
 
             if (AnimePath == undefined) {
-                console.log("地址栏不含参数！")
-                $("#la-list-container").append("<div class='alert alert-warning'><span>错误：未能从地址栏取得番组信息。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
+                console.log("地址栏不含参数! ")
+                $("#la-list-container").append("<div class='alert alert-warning'><span>错误: 未能从地址栏取得番组信息。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
                 $("#loading").fadeOut()
             }
+
+            $.ajax({ // 增加并获取访问量
+                url: 'https://anime-api.5t5.top/v1/view/add/' + getUrlParams().id,
+                success: function (data) {
+                    console.log('成功更新播放量: ',data)
+                    if (data.code == 0){
+                        $(`#views`).empty().append(` 访问 ${data.data} 次`)
+                    }
+                }
+
+            })
 
             thisId = decodeURI(getUrlParams("path").path).match("\\d+$")[0]
             thisId2 = thisId.toString()
             thisId2 = thisId2.substring(0, thisId2.length - 2)
 
-            console.log("从地址栏取得 BgmID： ", thisId, " ", thisId2)
+            console.log("从地址栏取得 BgmID:  ", thisId, " ", thisId2)
 
 
             // 获取字典并开始生成列表
@@ -53,7 +68,7 @@
                 success: (result) => {
                     dict = result
                     getAnimeList(dict)
-                    console.log("成功取得关键词词典：", dict)
+                    console.log("成功取得关键词词典: ", dict)
                 }
             })
 
@@ -64,24 +79,24 @@
                 $.ajax({
                     url: animeApiUrl + AnimePath,
                     success: function (result) {
-                        console.log("熔岩云盘回复：", result)
+                        console.log("熔岩云盘回复: ", result)
                         // 剥壳
                         if (result.code == 404) {
-                            $("#la-list-container").append("<div class='alert alert-warning'><span>熔岩云盘返回了 404，您的链接可能有误或番组不存在。<br>出现此错误可能是因为此界面的链接异常。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
+                            $("#la-list-container").append("<div class='alert alert-warning'><span>熔岩云盘返回了 404, 您的链接可能有误或番组不存在。<br>出现此错误可能是因为此界面的链接异常。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
                             $("#loading").fadeOut()
 
                         }
                         objects = result.data.objects
                         if (objects.length == 0) {
                             let airDate
-                            if (bgmInfo.date) { // 如果 Bangumi 有提供放送日期，则提取放送日期
+                            if (bgmInfo.date) { // 如果 Bangumi 有提供放送日期, 则提取放送日期
                                 airDate = bgmInfo.date
                             }
                             else { // 如果没有放送日期
                                 airDate = "未知 / 暂未定档"
                             }
                             setTimeout(() => {
-                                $("#la-list-container").append("<div class='alert alert-info'><span>熔岩云盘返回列表为空，此番组目录下尚无任何资源！<br>" + "请确认此作品已经开始连载，根据 Bangumi Wiki，本作的开始放送日期为：" + airDate + "<br><a class='alert-link' href='./index.html'>返回主页</a></span></div>")
+                                $("#la-list-container").append("<div class='alert alert-info'><span>熔岩云盘返回列表为空, 此番组目录下尚无任何资源! <br>" + "请确认此作品已经开始连载, 根据 Bangumi Wiki, 本作的开始放送日期为: " + airDate + "<br><a class='alert-link' href='./index.html'>返回主页</a></span></div>")
                                 $("#loading").fadeOut()
                             }, 1500);
 
@@ -107,7 +122,7 @@
 
                     },
                     error: (result) => {
-                        $("#la-list-container").append("<div class='alert alert-warning'><span>熔岩云盘未返回值或返回错误，您的链接可能有误或熔岩云盘出现异常。<br><a class='alert-link' href='/list.html'>返回主页</a></span></div>")
+                        $("#la-list-container").append("<div class='alert alert-warning'><span>熔岩云盘未返回值或返回错误, 您的链接可能有误或熔岩云盘出现异常。<br><a class='alert-link' href='/list.html'>返回主页</a></span></div>")
                     }
                 })
             }
@@ -129,7 +144,7 @@
                     // 进行替换
                     tagedName = tagedName.replace(fromRegExp, toHtml)
                 }
-                // 标签替换完成后，再空格所有的 '[' ']'
+                // 标签替换完成后, 再空格所有的 '[' ']'
                 tagedName = tagedName.replace(/\[|\]/g, " ")
 
                 // 生成新的html
@@ -141,7 +156,7 @@
                 $("#" + fileId).click(function () {
                     // 加载中提示
                     $("#la-player-header").empty().append("正在等待熔岩云盘返回播放链接...")
-                    $("#la-player-body").empty().append("<p>请稍等，这段文字通常活不过 1 秒...<br>但是若持续看到此提示可能是熔岩云盘出现异常或您的网络连接不稳定！</p>")
+                    $("#la-player-body").empty().append("<p>请稍等, 这段文字通常活不过 1 秒...<br>但是若持续看到此提示可能是熔岩云盘出现异常或您的网络连接不稳定! </p>")
                     // 生成当前文件的变量
                     thisName = $('#' + rawNameByfileId)[0].innerText
                     thisId = $(this)[0].id
@@ -154,14 +169,14 @@
                             var mp4HelpMessage =
                                 `
                             <p id="mp4HelpMessage" class="mb-0"><p class="text-secondary" style="font-size: 14px">
-                                黑屏 / 无法播放？可能是浏览器不支持 H.265 编码，
+                                黑屏 / 无法播放？可能是浏览器不支持 H.265 编码, 
                                 <br>请使用下方的按钮调用外部播放器。
                             </p></p>
                             `
                             var mkvHelpMessage =
                                 `
                             <div id="mkvHelpMessage" class="mb-1">
-                                浏览器不支持当前格式 (MKV)，请使用外部播放器来播放。
+                                浏览器不支持当前格式 (MKV), 请使用外部播放器来播放。
                                 <div class="text-secondary" style="font-size: 14px">
                                     这是由于大部分均无法支持 H.265 格式及 MKV 格式内封的字幕。需要调用您设备上的播放软件播放。
                                     <br>同时也可以复制链接后使用弹弹 Play 播放效果更佳。
@@ -207,7 +222,7 @@
                             var urlLabel =
                                 `
                             <div id="urlLabel" class="mt-3">
-                                <h5 class="mb-3">直链 (点击复制) <span id="copy-success" class=""> ✅ 复制成功！</span></h5> 
+                                <h5 class="mb-3">直链 (点击复制) <span id="copy-success" class=""> ✅ 复制成功! </span></h5> 
                                 <button style="max-width: 100%" class="copy btn btn-sm btn-outline-primary text-truncate" data-clipboard-text="${result.url}">${result.url}</button>
                             </div>
                             `
@@ -247,12 +262,12 @@
                             }
                             if (fileType == 'torrent') {
                                 dp.destroy()
-                                $("#la-player-body").empty().append("您打开了一个种子文件，若有需要，可点击下方按钮下载。" + "<br>" + urlLabel)
+                                $("#la-player-body").empty().append("您打开了一个种子文件, 若有需要, 可点击下方按钮下载。" + "<br>" + urlLabel)
                             }
 
                             if (fileType == 'zip' || fileType == '7z' || fileType == 'rar') {
                                 dp.destroy()
-                                $("#la-player-body").empty().append(`您打开了一个压缩包，若有需要，可点击下方按钮下载。<br>${downloadBtn}${urlLabel}`)
+                                $("#la-player-body").empty().append(`您打开了一个压缩包, 若有需要, 可点击下方按钮下载。<br>${downloadBtn}${urlLabel}`)
                             }
                             if (fileType == 'png' || fileType == 'jpg' || fileType == 'jpeg' || fileType == 'gif' || fileType == 'webp') {
                                 dp.destroy()
@@ -261,11 +276,11 @@
                             }
                             if (fileType == 'txt') {
                                 dp.destroy()
-                                $("#la-player-body").empty().append("您打开了一个文本文档，若有需要，可点击下方按钮下载。" + "<br>" + downloadBtn + urlLabel)
+                                $("#la-player-body").empty().append("您打开了一个文本文档, 若有需要, 可点击下方按钮下载。" + "<br>" + downloadBtn + urlLabel)
                             }
                             if (fileType == 'ass') {
                                 dp.destroy()
-                                $("#la-player-body").empty().append("您打开了一个外挂字幕，若有需要，可点击下方按钮下载。" + "<br>" + downloadBtn + urlLabel)
+                                $("#la-player-body").empty().append("您打开了一个外挂字幕, 若有需要, 可点击下方按钮下载。" + "<br>" + downloadBtn + urlLabel)
                             }
 
 
@@ -326,7 +341,7 @@
                     var agefansId = ''
                     for (var i = 0; i < agefansData.length; i++) {
                         if (agefansData[i].id == thisId) {
-                            console.log('解析到当前 Bangumi ID 对应的 Agefans 数据：', agefansData[i])
+                            console.log('解析到当前 Bangumi ID 对应的 Agefans 数据: ', agefansData[i])
                             $("#agefans").empty().append('<i class="bi bi-link-45deg"></i> 去 Agefans 观看')
                             $("#agefans").attr("href", "https://www.agefans.vip/detail/" + agefansData[i].a)
                             agefansId = agefansData[i].a
@@ -382,6 +397,7 @@
             <div class="list-group-item ">
                 <h1 class="display-3">播放列表</h1>
                 <div id="la-path" class="fw-lighter fs-6"></div>
+                <i class="bi bi-play-btn text-secondary"></i><span class="fw-lighter fs-6 text-secondary" id="views"></span><br>
                 <a id="agefans" target="_blank" class="fw-lighter fs-6 text-decoration-none"></a> <a
                     href="https://github.com/czy0729/Bangumi-Static" class="text-decoration-none text-secondary"
                     target="_blank" style="font-size: 12px;">(API By czy0729)</a><br>
