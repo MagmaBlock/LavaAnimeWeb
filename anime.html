@@ -26,46 +26,53 @@
 
             // 生成返回索引页的变量
             console.log('地址栏参数数据: ', getUrlParams());
-            const thisAnimeYear = decodeURI(getUrlParams().path).split('/')[1].replace('年', '') // 从 path 剥离出年份不带年
-            const thisAnimeMonth = decodeURI(getUrlParams().path).split('/')[2] // 从 path 剥离出月份
-            const backParams = 'year=' + thisAnimeYear + '&' + 'month=' + thisAnimeMonth
-            console.log('返回主页的参数: ', backParams);
-            const AnimePath = getUrlParams().path
+            if (getUrlParams().path == undefined) {
+                console.log("地址栏不含参数! ")
+                backParams = ''
+                AnimePath = '/未找到番组'
+                thisId = '184017'
+                $(`#views`).empty().append(` 没人观看过此番组, 因为它不存在. 😢`)
+                $("#la-list-container").append("<div class='alert alert-warning'><span>错误: 未能从地址栏取得番组信息。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
+                $("#loading").fadeOut()
+            }
+            else {
+                thisAnimeYear = decodeURI(getUrlParams().path).split('/')[1].replace('年', '') // 从 path 剥离出年份不带年
+                thisAnimeMonth = decodeURI(getUrlParams().path).split('/')[2] // 从 path 剥离出月份
+                backParams = 'year=' + thisAnimeYear + '&' + 'month=' + thisAnimeMonth
+                console.log('返回主页的参数: ', backParams);
+                AnimePath = getUrlParams().path
 
-            const thisId = (decodeURI(getUrlParams("path").path).match("\\d+$")[0]).toString()
-            const thisId2 = thisId.substring(0, thisId.length - 2)
+                thisId = (decodeURI(getUrlParams("path").path).match("\\d+$")[0]).toString()
 
-            console.log("从地址栏取得 BgmID:  ", thisId, " ", thisId2)
+                console.log("从地址栏取得 BgmID:  ", thisId);
+
+                $.ajax({ // 增加并获取访问量
+                    url: 'https://anime-api.5t5.top/v1/view/add/' + getUrlParams().id,
+                    success: function (data) {
+                        console.log('成功更新播放量: ', data)
+                        if (data.code == 0) {
+                            $(`#views`).empty().append(` 访问 ${data.data} 次`)
+                        }
+                    }
+                })
+
+                // 获取字典并开始生成列表
+                $.ajax({
+                    url: "./assets/dict.json",
+                    success: (result) => {
+                        dict = result
+                        getAnimeList(dict)
+                        console.log("成功取得关键词词典: ", dict)
+                    }
+                })
+            }
+
 
             $("#goback").attr("href", "/index.html?" + backParams) // 返回主页的链接
             $("#la-path").empty().append(decodeURI(AnimePath).replace("/", "")) // 填充副标题
 
-            if (AnimePath == undefined) {
-                console.log("地址栏不含参数! ")
-                $("#la-list-container").append("<div class='alert alert-warning'><span>错误: 未能从地址栏取得番组信息。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
-                $("#loading").fadeOut()
-            }
 
-            $.ajax({ // 增加并获取访问量
-                url: 'https://anime-api.5t5.top/v1/view/add/' + getUrlParams().id,
-                success: function (data) {
-                    console.log('成功更新播放量: ', data)
-                    if (data.code == 0) {
-                        $(`#views`).empty().append(` 访问 ${data.data} 次`)
-                    }
-                }
 
-            })
-
-            // 获取字典并开始生成列表
-            $.ajax({
-                url: "./assets/dict.json",
-                success: (result) => {
-                    dict = result
-                    getAnimeList(dict)
-                    console.log("成功取得关键词词典: ", dict)
-                }
-            })
 
             // 从网盘取得文件列表
             function getAnimeList() {
