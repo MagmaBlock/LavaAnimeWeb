@@ -36,13 +36,13 @@
                 $("#loading").fadeOut()
             }
             else {
-                thisAnimeYear = decodeURI(getUrlParams().path).split('/')[1].replace('年', '') // 从 path 剥离出年份不带年
-                thisAnimeMonth = decodeURI(getUrlParams().path).split('/')[2] // 从 path 剥离出月份
+                thisAnimeYear = decodeURIComponent(getUrlParams().path).split('/')[1].replace('年', '') // 从 path 剥离出年份不带年
+                thisAnimeMonth = decodeURIComponent(getUrlParams().path).split('/')[2] // 从 path 剥离出月份
                 backParams = 'year=' + thisAnimeYear + '&' + 'month=' + thisAnimeMonth
                 console.log('返回主页的参数: ', backParams);
-                AnimePath = getUrlParams().path
+                AnimePath = decodeURIComponent(getUrlParams().path)
 
-                thisId = (decodeURI(getUrlParams("path").path).match("\\d+$")[0]).toString()
+                thisId = (decodeURIComponent(getUrlParams().path).match("\\d+$")[0]).toString()
 
                 console.log("从地址栏取得 BgmID:  ", thisId);
 
