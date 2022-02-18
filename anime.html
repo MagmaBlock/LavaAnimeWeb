@@ -78,20 +78,38 @@
                         var backgroundUrl = bgmInfo.images.large.replace("lain.bgm.tv", "anime-img.5t5.top") + '/bg'
                         console.log('成功从番组计划API取得数据', result)
                         console.log(bgmInfo.images.large.replace("lain.bgm.tv", "anime-img.5t5.top") + '/bg')
-                        $("#bg").css("background-image", "url(" + backgroundUrl + ")")
-                        $("#bangumi").attr("href", "https://bgm.tv/subject/" + thisId)
-                        $('#name_cn').append(`${bgmInfo.name_cn}`)
-                        $('#name').append(`${bgmInfo.name}`)
-                        $('#rating').append(` 评分 ${bgmInfo.rating.score}`)
-                        if (bgmInfo.rating.score < 5){
-                            $('#rating').empty().append(` 评分较低 ${bgmInfo.rating.score}`).css('color', 'red')
+                        $("#bg").css("background-image", "url(" + backgroundUrl + ")") // 设置背景图
+                        $("#bangumi").attr("href", "https://bgm.tv/subject/" + thisId) // 设置番组计划链接
+                        if (bgmInfo.name_cn == undefined || bgmInfo.name_cn == '') { bgmInfo.name_cn = bgmInfo.name } // 如果没有中文名, 则使用原名
+                        $('#name_cn').append(`${bgmInfo.name_cn}`) // 填充中文名
+                        $('#name').append(`${bgmInfo.name}`) // 填充原名
+                        $('#rating').append(` 评分 ${bgmInfo.rating.score}`) // 填充评分
+                        if (bgmInfo.rating.score <= 5) { // 如果评分低于 5 则添加红色提示
+                            $('#rating').empty().append(` 评分较差 ${bgmInfo.rating.score}`).css('color', 'red')
                         }
-                        if (bgmInfo.rating.score > 8){
+                        if (bgmInfo.rating.score >= 8) { // 如果评分高于 8 则添加优秀
+                            $('#rating').empty().append(` 评分极佳 ${bgmInfo.rating.score}`)
+                        }
+                        if (bgmInfo.rating.score >= 7 && bgmInfo.rating.score < 8) { // 如果评分在 7-8 之间则添加不错
                             $('#rating').empty().append(` 评分优秀 ${bgmInfo.rating.score}`)
                         }
-                        $('#eps').append(` 总 ${bgmInfo.eps} 话`)
-                        for (let i = 0; i < bgmInfo.tags.length; i++) {
-                            $('#tags').append(`<span class="badge bg-secondary">${bgmInfo.tags[i].name} ${bgmInfo.tags[i].count}</span> `)
+                        $('#eps').append(` 总 ${bgmInfo.eps} 话`) // 填充总话数
+                        $('#tags-hide').hide() // 隐藏标记量较少的标签
+                        $('#show-more').on('click', function () { // 点击显示更多标签
+                            $('#tags-hide').fadeIn()
+                            $('#show-more').hide()
+                        })
+                        for (let i = 0; i < bgmInfo.tags.length; i++) { // 填充标签
+                            if (bgmInfo.tags[i].count >= 10){
+                                $('#tags').append(`<span class="badge bg-secondary">${bgmInfo.tags[i].name} ${bgmInfo.tags[i].count}</span> `)
+                            }
+                            else {
+                                $('#tags-hide').append(`<span class="badge bg-secondary">${bgmInfo.tags[i].name} ${bgmInfo.tags[i].count}</span> `)
+                            }
+                        }
+                        if ($('#tags')[0].innerHTML == ''){ // 如果已有的标签实在太少了，则显示所有标签
+                            $('#tags-hide').show()
+                            $('#show-more').hide()
                         }
                     }
                 })
@@ -401,7 +419,9 @@
                     <i class="bi bi-view-list"></i><span id="eps"></span>
                 </div>
                 <!-- 标签栏 -->
-                <div class="fw-lighter fs-6" id="tags"></div>
+                <span class="fw-lighter fs-6" id="tags"></span>
+                <span class="fw-lighter btn btn-sm text-secondary" style="font-size: 13px;" id="show-more"><i class="bi bi-arrow-down-short"></i>显示更多</span>
+                <span class="fw-lighter fs-6" id="tags-hide"></span>
                 <!-- 外部链接栏 -->
                 <div class="my-1">
                     <a id="agefans" target="_blank" class="fw-lighter fs-6 text-decoration-none"></a> <a
