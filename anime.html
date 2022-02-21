@@ -314,7 +314,7 @@
                             $("#la-player-header").empty().append(thisName)
                             const dp = new DPlayer({
                                 container: document.getElementById('dplayer'),
-                                video: { url: result.url, screenshot: true, autoplay: true },
+                                video: { url: result.url, screenshot: true, autoplay: true , hotkey: true},
                             })
                             if (fileType == 'mp4') {
                                 $("#la-player-body").empty().append(mp4HelpMessage + otherPlayers + urlLabel) // 加入播放器
@@ -326,7 +326,7 @@
                                     $("#mkvHelpMessage").empty() // 清空提示
                                     const dp = new DPlayer({
                                         container: document.getElementById('dplayer'),
-                                        video: { url: result.url, screenshot: true, autoplay: true },
+                                        video: { url: result.url, screenshot: true, autoplay: true , hotkey: true},
                                     })
                                 })
                             }
