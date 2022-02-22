@@ -114,7 +114,8 @@
                         if (bgmInfo.rating.score >= 7 && bgmInfo.rating.score < 8) { // 如果评分在 7-8 之间则添加不错
                             $('#rating').empty().append(` 评分优秀 ${bgmInfo.rating.score}`)
                         }
-                        $('#eps').append(` 总 ${bgmInfo.eps} 话`) // 填充总话数
+                        if (bgmInfo.eps == undefined || bgmInfo.eps == 0) { $('#eps').append(` 总 ${bgmInfo.total_episodes} 话`) }
+                        else { $('#eps').append(` 总 ${bgmInfo.eps} 话`) }
                         $('#tags-hide').hide() // 隐藏标记量较少的标签
                         $('#show-more').on('click', function () { // 点击显示更多标签
                             $('#tags-hide').fadeIn()
