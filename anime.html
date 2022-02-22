@@ -83,6 +83,7 @@
                         if (bgmInfo.name_cn == undefined || bgmInfo.name_cn == '') { bgmInfo.name_cn = bgmInfo.name } // 如果没有中文名, 则使用原名
                         $('#name_cn').append(`${bgmInfo.name_cn}`) // 填充中文名
                         $('#name').append(`${bgmInfo.name}`) // 填充原名
+                        $('#platform').append(`${bgmInfo.platform}`) // 填充番组放送平台
                         $('#rating').append(` 评分 ${bgmInfo.rating.score}`) // 填充评分
                         if (bgmInfo.rating.score <= 5) { // 如果评分低于 5 则添加红色提示
                             $('#rating').empty().append(` 评分较差 ${bgmInfo.rating.score}`).css('color', 'red')
@@ -100,14 +101,14 @@
                             $('#show-more').hide()
                         })
                         for (let i = 0; i < bgmInfo.tags.length; i++) { // 填充标签
-                            if (bgmInfo.tags[i].count >= 10){
+                            if (bgmInfo.tags[i].count >= 10) {
                                 $('#tags').append(`<span class="badge bg-secondary">${bgmInfo.tags[i].name} ${bgmInfo.tags[i].count}</span> `)
                             }
                             else {
                                 $('#tags-hide').append(`<span class="badge bg-secondary">${bgmInfo.tags[i].name} ${bgmInfo.tags[i].count}</span> `)
                             }
                         }
-                        if ($('#tags')[0].innerHTML == ''){ // 如果已有的标签实在太少了，则显示所有标签
+                        if ($('#tags')[0].innerHTML == '') { // 如果已有的标签实在太少了，则显示所有标签
                             $('#tags-hide').show()
                             $('#show-more').hide()
                         }
@@ -202,7 +203,9 @@
             // 向列表追加生成的列表的函数
             function printAnimeList(fileName, fileId) {
                 // 取得文件后缀名
-                var fileType = fileName.replace(/.+\./, "")
+                if (fileName.match(/\./)) {
+                    var fileType = fileName.split('.').pop()
+                }
 
                 // 从字典将匹配的关键字替换为可视化标签
                 tagedName = fileName
@@ -314,7 +317,7 @@
                             $("#la-player-header").empty().append(thisName)
                             const dp = new DPlayer({
                                 container: document.getElementById('dplayer'),
-                                video: { url: result.url, screenshot: true, autoplay: true , hotkey: true},
+                                video: { url: result.url, screenshot: true, autoplay: true, hotkey: true },
                             })
                             if (fileType == 'mp4') {
                                 $("#la-player-body").empty().append(mp4HelpMessage + otherPlayers + urlLabel) // 加入播放器
@@ -326,7 +329,7 @@
                                     $("#mkvHelpMessage").empty() // 清空提示
                                     const dp = new DPlayer({
                                         container: document.getElementById('dplayer'),
-                                        video: { url: result.url, screenshot: true, autoplay: true , hotkey: true},
+                                        video: { url: result.url, screenshot: true, autoplay: true, hotkey: true },
                                     })
                                 })
                             }
@@ -351,6 +354,10 @@
                             if (fileType == 'ass') {
                                 dp.destroy()
                                 $("#la-player-body").empty().append("您打开了一个外挂字幕, 若有需要, 可点击下方按钮下载。" + "<br>" + downloadBtn + urlLabel)
+                            }
+                            if (fileType == undefined) {
+                                dp.destroy()
+                                $("#la-player-body").empty().append("您打开了一个未知文件, 若有需要, 可点击下方按钮下载。" + "<br>" + downloadBtn + urlLabel)
                             }
 
                             // 为播放器增加关闭时销毁事件
@@ -410,7 +417,7 @@
                 <div id="la-path" style="font-size: 14px;" class="fw-lighter text-truncate"></div>
             </div>
             <div class="list-group-item ">
-                <div class="lead fs-4" id="name_cn"></div>
+                <span class="lead fs-4" id="name_cn"></span> <span class="text-muted fw-lighter" id="platform"></span>
                 <div class="text-muted fw-lighter" id="name"></div>
                 <!-- 访问量评分等数据栏 -->
                 <div class="text-secondary fw-lighter fs-6">
@@ -420,7 +427,8 @@
                 </div>
                 <!-- 标签栏 -->
                 <span class="fw-lighter fs-6" id="tags"></span>
-                <span class="fw-lighter btn btn-sm text-secondary" style="font-size: 13px;" id="show-more"><i class="bi bi-arrow-down-short"></i>显示更多</span>
+                <span class="fw-lighter btn btn-sm text-secondary" style="font-size: 13px;" id="show-more"><i
+                        class="bi bi-arrow-down-short"></i>显示更多</span>
                 <span class="fw-lighter fs-6" id="tags-hide"></span>
                 <!-- 外部链接栏 -->
                 <div class="my-1">
