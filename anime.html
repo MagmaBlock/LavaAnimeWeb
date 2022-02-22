@@ -46,19 +46,39 @@
 
                 console.log("从地址栏取得 BgmID:  ", thisId);
 
-                $.ajax({ // 增加并获取访问量
-                    url: 'https://anime-api.5t5.top/v1/view/add/' + getUrlParams().id,
+                $.ajax({ // 获取播放量
+                    url: 'https://anime-api.5t5.top/v1/view/get/' + getUrlParams().id,
                     success: function (data) {
-                        console.log('成功更新播放量: ', data)
+                        console.log('成功获取播放量: ', data)
                         if (data.code == 0) {
-                            $(`#views`).empty().append(` 访问 ${data.data} 次`)
+                            $(`#views`).empty().append(` 播放 ${data.data} 次`)
                         }
                         else {
-                            console.log('更新访问量失败: ', data)
+                            console.log('更新播放量失败: ', data)
                             $(`#views`).empty().append(` 获取失败`)
                         }
                     }
                 })
+
+                var leftViews = 2; // 一次打开页面后, 可以增加的播放量上限
+                function addView() {
+                    if (leftViews > 0) {
+                        $.ajax({ // 增加并获取播放量
+                            url: 'https://anime-api.5t5.top/v1/view/add/' + getUrlParams().id,
+                            success: function (data) {
+                                console.log('成功增加播放量: ', data, ' 剩余播放量: ', leftViews)
+                                if (data.code == 0) {
+                                    $(`#views`).empty().append(` 播放 ${data.data} 次`)
+                                    leftViews--
+                                }
+                                else {
+                                    console.log('更新播放量失败: ', data)
+                                    $(`#views`).empty().append(` 获取失败`)
+                                }
+                            }
+                        })
+                    }
+                }
 
                 // 获取字典并开始生成列表
                 $.ajax({
@@ -264,7 +284,7 @@
                             var otherPlayers =
                                 `
                             <h5 class="mb-3">外部播放器</h5>
-                            <div class="row row-cols-4">
+                            <div class="row row-cols-4" id="otherPlayers">
                                 <a class="text-decoration-none text-secondary" href="potplayer://${result.url}">
                                     <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/PotPlayer.svg" alt="PotPlayer"/>
                                     <div class="text-center" style="font-size: 12px;">
@@ -321,12 +341,18 @@
                             })
                             if (fileType == 'mp4') {
                                 $("#la-player-body").empty().append(mp4HelpMessage + otherPlayers + urlLabel) // 加入播放器
+                                addView()
                             }
                             if (fileType == 'mkv') {
                                 dp.destroy()
                                 $("#la-player-body").empty().append(mkvHelpMessage + mkvPlayerBtn + otherPlayers + urlLabel)
+                                $('#otherPlayers, #urlLabel').click(() => {
+                                    addView()
+                                })
                                 $("#mkvPlayerBtn").click(() => { // 强制用浏览器打开
                                     $("#mkvHelpMessage").empty() // 清空提示
+                                    $('#mkvPlayerBtn').remove()
+                                    addView()
                                     const dp = new DPlayer({
                                         container: document.getElementById('dplayer'),
                                         video: { url: result.url, screenshot: true, autoplay: true, hotkey: true },
@@ -419,7 +445,7 @@
             <div class="list-group-item ">
                 <span class="lead fs-4" id="name_cn"></span> <span class="text-muted fw-lighter" id="platform"></span>
                 <div class="text-muted fw-lighter" id="name"></div>
-                <!-- 访问量评分等数据栏 -->
+                <!-- 播放量评分等数据栏 -->
                 <div class="text-secondary fw-lighter fs-6">
                     <i class="bi bi-play-btn"></i><span id="views"></span>
                     <i class="bi bi-star"></i><span id="rating"></span>
