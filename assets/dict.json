@@ -315,9 +315,9 @@
         "class": "bg-secondary"
     },
     {
-        "from": "\\[BL\\]",
-        "to": "哔哩哔哩",
-        "class": "bg-secondary"
+        "from": "[^A-Za-z0-9](bilibili|BL)[^A-Za-z0-9]",
+        "to": "⚠️ 疑似B站大陆源 ⚠️",
+        "class": "bg-danger"
     },
     {
         "from": "\\[Baha\\]|\\(Baha",
@@ -360,7 +360,7 @@
         "class": "bg-info text-dark"
     },
     {
-        "from": "[^A-Za-z0-9](JPN|JAP)[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9](JPN|JAP|JP)[^A-Za-z0-9]",
         "to": "日本语",
         "class": "bg-info text-dark"
     },
@@ -382,6 +382,11 @@
     {
         "from": "[^A-Za-z0-9]SRT[^A-Za-z0-9]",
         "to": "SRT字幕",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": "[^A-Za-z0-9]ASS[^A-Za-z0-9]",
+        "to": "ASS字幕",
         "class": "bg-info text-dark"
     },
     {
@@ -450,8 +455,8 @@
         "class": "bg-dark"
     },
     {
-        "from": "(招募翻译)",
+        "from": "(招募翻译|new-ani.me)",
         "to": "",
-        "class": "bg-secondary"
+        "class": ""
     }
 ]
