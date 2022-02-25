@@ -230,6 +230,16 @@
         "class": "bg-primary"
     },
     {
+        "from": "[^A-Za-z0-9]LxyLab",
+        "to": "LxyLab 字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": "[^A-Za-z0-9]LKSUB[^A-Za-z0-9]",
+        "to": "轻之国度字幕组",
+        "class": "bg-primary"
+    },
+    {
         "from": "[^A-Za-z0-9](1080p|1920(X|×)1080)[^A-Za-z0-9]",
         "to": "1080P",
         "class": "bg-secondary"
@@ -290,6 +300,11 @@
         "class": "bg-secondary"
     },
     {
+        "from": "[^A-Za-z0-9]FLAC(x|×)\\d[^A-Za-z0-9]",
+        "to": "多音轨无损F<span></span>lac",
+        "class": "bg-secondary"
+    },
+    {
         "from": "[^A-Za-z0-9]flac[^A-Za-z0-9]",
         "to": "无损Flac",
         "class": "bg-secondary"
@@ -310,6 +325,36 @@
         "class": "bg-success"
     },
     {
+        "from": "[^A-Za-z0-9](AT-X)[^A-Za-z0-9]",
+        "to": "AT-X",
+        "class": "bg-success"
+    },
+    {
+        "from": "[^A-Za-z0-9](movie)[^A-Za-z0-9]",
+        "to": "剧场版",
+        "class": "bg-success"
+    },
+    {
+        "from": "[^A-Za-z0-9](OVA)[^A-Za-z0-9]",
+        "to": "OVA",
+        "class": "bg-success"
+    },
+    {
+        "from": "[^A-Za-z0-9](SP)[^A-Za-z0-9]",
+        "to": "SP",
+        "class": "bg-success"
+    },
+    {
+        "from": "[^A-Za-z0-9](NCOP)[^A-Za-z0-9]",
+        "to": "素材 - 无字 OP",
+        "class": "bg-success"
+    },
+    {
+        "from": "[^A-Za-z0-9](NCED)[^A-Za-z0-9]",
+        "to": "素材 - 无字 ED",
+        "class": "bg-success"
+    },
+    {
         "from": "[^A-Za-z0-9]b-global[^A-Za-z0-9]",
         "to": "哔哩哔哩国际",
         "class": "bg-secondary"
@@ -318,6 +363,11 @@
         "from": "[^A-Za-z0-9](bilibili|BL)[^A-Za-z0-9]",
         "to": "⚠️ 疑似B站大陆源 ⚠️",
         "class": "bg-danger"
+    },
+    {
+        "from": "[^A-Za-z0-9](acfun|AC)[^A-Za-z0-9]",
+        "to": "疑似A站源",
+        "class": "bg-secondary"
     },
     {
         "from": "\\[Baha\\]|\\(Baha",
@@ -345,7 +395,7 @@
         "class": "bg-info text-dark"
     },
     {
-        "from": "[^A-Za-z0-9]JPSC|CHS_JP[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9]JPSC|CHS_JP|简体双语[^A-Za-z0-9]",
         "to": "简日双语",
         "class": "bg-info text-dark"
     },
@@ -365,6 +415,11 @@
         "class": "bg-info text-dark"
     },
     {
+        "from": "[^A-Za-z0-9](TH)[^A-Za-z0-9]",
+        "to": "泰语",
+        "class": "bg-info text-dark"
+    },
+    {
         "from": "[^A-Za-z0-9](GB_CN|GB|SC|CHS)[^A-Za-z0-9]",
         "to": "简体中文",
         "class": "bg-info text-dark"
@@ -380,18 +435,23 @@
         "class": "bg-info text-dark"
     },
     {
+        "from": "(?![0-9|\\[])END[^A-Za-z0-9]",
+        "to": "最终话",
+        "class": "bg-info text-dark"
+    },
+    {
         "from": "[^A-Za-z0-9]SRT[^A-Za-z0-9]",
         "to": "SRT字幕",
         "class": "bg-info text-dark"
     },
     {
-        "from": "[^A-Za-z0-9]ASS[^A-Za-z0-9]",
-        "to": "ASS字幕",
+        "from": "ASS(x|×)\\d",
+        "to": "多语言A<span></span>SS字幕",
         "class": "bg-info text-dark"
     },
     {
-        "from": "ASS(x|×)\\d",
-        "to": "多语言ASS字幕",
+        "from": "[^A-Za-z0-9]ASS[^A-Za-z0-9]",
+        "to": "ASS字幕",
         "class": "bg-info text-dark"
     },
     {
@@ -405,48 +465,48 @@
         "class": "bg-secondary"
     },
     {
-        "from": "\\.(mp4)",
+        "from": "(\\.|(?!</span>) )(mp4)",
         "to": "MP4视频文件",
         "class": "bg-dark"
     },
     {
-        "from": "\\.(mkv)",
+        "from": "(\\.|(?!</span>) )(mkv)",
         "to": "MKV视频文件",
         "class": "bg-dark"
     },
     {
-        "from": "\\.(ass)",
+        "from": "(\\.|(?!</span>) )(ass)",
         "to": "ASS字幕文件",
         "class": "bg-dark"
     },
     {
-        "from": "\\.(txt)",
+        "from": "(\\.|(?!</span>) )(txt)",
         "to": "TXT文本文档",
         "class": "bg-dark"
     },
     {
-        "from": "\\.(torrent)",
+        "from": "(\\.|(?!</span>) )(torrent)",
         "to": "种子文件",
         "class": "bg-dark"
     },
     {
-        "from": "\\.(png|jpg|jpeg|gif|bmp)",
+        "from": "(\\.|(?!</span>) )(png|jpg|jpeg|gif|bmp)",
         "to": "图片文件",
         "class": "bg-dark"
     },
     {
-        "from": "\\.(mp3|flac)",
+        "from": "(\\.|(?!</span>) )(mp3|flac)",
         "to": "音乐文件",
         "class": "bg-dark"
     },
     {
         "from": "(Subtitles|sub|subtitle|ass)\\.*(zip|7z|rar)",
-        "to": "外挂字幕合集包 - 如果您发现没有字幕，请尝试加载一下",
+        "to": "外挂字幕合集包",
         "class": "bg-warning"
     },
     {
         "from": "(fonts|font)\\.*(zip|7z|rar)",
-        "to": "字体合集包 - 如果您发现字幕全是宋体/没字体，请尝试安装一下",
+        "to": "字体合集包",
         "class": "bg-warning"
     },
     {
@@ -455,7 +515,12 @@
         "class": "bg-dark"
     },
     {
-        "from": "(招募翻译|new-ani.me)",
+        "from": "(-MacBook Air)",
+        "to": "重复资源-请删除",
+        "class": "bg-warning"
+    },
+    {
+        "from": "(招募(翻译|时轴后期|后期|时轴))|(new-ani.me)",
         "to": "",
         "class": ""
     }
