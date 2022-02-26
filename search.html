@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>熔岩番剧库 - 主页 | LavaAnime</title>
+    <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstarp-icon/1.7.2/bootstrap-icons.css">
+    <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/clipboard/2.0.9/clipboard.min.js"></script>
+    <!-- Assets -->
+    <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
+    </link>
+    <script src="./js/getUrlParams.js" crossorigin="anonymous"></script>
+    <script src="./js/Anime.js" crossorigin="anonymous"></script>
+    <script src="./js/Navbar.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <script>
+        $(document).ready(function () {
+            const containerId = "search-result-container";
+            console.log(getUrlParams())
+            if (getUrlParams().name) { // 如果是以名字搜索
+                $("#search-label").val(decodeURIComponent(getUrlParams().name))
+                $.ajax({
+                    url: 'https://anime-api.5t5.top/v1/search/name/' + getUrlParams().name,
+                    success: function (data) {
+                        console.log(data);
+                        if (data.code == 0) {
+                            print(data)
+                        }
+                        if (data.code == 404){
+                            notFound()
+                        }
+                    }
+                })
+            }
+            if (getUrlParams().bgm) { // 如果是以 Bangumi ID 搜索
+                $("#search-label").val(decodeURIComponent(getUrlParams().bgm))
+                $.ajax({
+                    url: 'https://anime-api.5t5.top/v1/search/bgm/' + getUrlParams().bgm,
+                    success: function (data) {
+                        console.log(data);
+                        if (data.code == 0) {
+                            print(data)
+                        }
+                        if (data.code == 404){
+                            notFound()
+                        }
+                    }
+                })
+            }
+            function print(data) {
+                let animeList = data.data;
+                for (var i = 0; i < animeList.length; i++) {
+                    let thisAnimePath = '/' + animeList[i].year + '/' + animeList[i].month + '/' + animeList[i].name
+                    // 生成番剧卡骨架, 传入目标容器、番剧名、番剧路径、番组计划ID、文件夹ID
+                    printAnimeCardTable(containerId, animeList[i].title, thisAnimePath, animeList[i].bgmid, animeList[i].id)
+                    printAnimeCardDetail(animeList[i].id, animeList[i].bgmid)
+                }
+            }
+            function notFound(){
+                $("#search-result-container").append(`
+                <div class='alert alert-secondary mx-3'>\\アッカリ～ン!/ <br>没有在番剧库内找到相关的番组...</div>
+                `)
+            }
+        });
+    </script>
+    <div id="navbar"></div>
+    <div class="container mt-4">
+        <div class="mx-3">
+            <h1 class="display-3">搜索</h1>
+            <p class="fw-light">目前支持名称或 Bangumi ID。</p>
+            <!-- 搜索框 -->
+            <div class="input-group mb-3">
+                <button class="btn border-end-0 border" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i
+                        class="bi bi-chevron-down"></i></button>
+                <ul class="dropdown-menu">
+                    <li><a id="by-name" class="dropdown-item">以 番剧名称 搜索</a></li>
+                    <li><a id="by-bgm" class="dropdown-item">以 Bangumi ID 搜索</a></li>
+                </ul>
+                <input id="search-label" type="text" class="form-control" search-by="name" placeholder="以 番剧名称 搜索">
+                <button id="search" class="btn btn-primary" type="button"><i class="bi bi-search"></i></button>
+            </div>
+            <script>
+                $('#by-name').on('click', function () { // 改为以番剧名称搜索
+                    $('input').attr('search-by', 'name').attr('placeholder', '以 番剧名称 搜索');
+                });
+                $('#by-bgm').on('click', function () { // 改为以 Bangumi ID 搜索
+                    $('input').attr('search-by', 'bgm').attr('placeholder', '以 Bangumi ID 搜索');
+                });
+                $('#search').on('click', function () { // 点击搜索按钮
+                    goSearch();
+                })
+                $('input').on('keydown', function (e) { // 按下回车键
+                    if (e.keyCode == 13) {
+                        goSearch();
+                    }
+                })
+                function goSearch() {
+                    let text = $('#search-label').val();
+                    if (text == '') {
+                        window.location.href = './search.html';
+                    }
+                    else {
+                        if ($('input').attr('search-by') == 'name') {
+                            window.location.href = './search.html?name=' + encodeURIComponent(text);
+                        }
+                        if ($('input').attr('search-by') == 'bgm') {
+                            if (text.match(/[^0-9]/)) {
+                                alert('请输入正确的 Bangumi ID');
+                            }
+                            else {
+                                window.location.href = './search.html?bgm=' + text;
+                            }
+                        }
+                    }
+                }
+            </script>
+
+        </div>
+        <div id="search-result-container"></div>
+        <div style="height: 150px;"></div>
+    </div>
+
+    <span class="visually-hidden">
+        <script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1280746775&web_id=1280746775"></script>
+    </span>
+    <script async defer data-website-id="5aad3d7c-6372-42aa-957e-ed4c945c0d08"
+        src="https://umami.magma.ink/umami.js"></script>
+</body>
+
+
+
+
+</html>

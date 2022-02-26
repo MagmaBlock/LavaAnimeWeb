@@ -46,7 +46,7 @@
                             // console.log(nameCn,score,doing)
                             var weekListHtml =
                                 `
-                                <a class="list-group-item list-group-item-action" target="_blank" href="${result[i].items[r].url}">
+                                <a class="list-group-item list-group-item-action" href="./search.html?bgm=${result[i].items[r].id}">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1 ">${nameCn}</h5>
                                         <small>暂无时间</small>
@@ -76,7 +76,7 @@
     <div class="container mt-4">
         <div class="mx-3">
             <h1 class="display-3">每周放送</h1>
-            <p class="fw-light">数据来自 Bangumi，仅供参考。<br>并非番剧库的更新时间，链接甚至不能直接指向番剧库。</p>
+            <p class="fw-light">数据来自 Bangumi，仅供参考。<br>并非番剧库的更新时间，点击相关番组可在番剧库内查找。</p>
         </div>
         <div id="weekly-container" class="list-group mx-3"></div>
 

@@ -6,7 +6,7 @@ $(document).ready(() => {
 
     // [底栏设置]
     // 底栏图标数：
-    var navbarHtmlcols = 4
+    var navbarHtmlcols = 5
 
     var navbarHtml =
         `
@@ -17,17 +17,21 @@ $(document).ready(() => {
             <i class="bi bi-house fs-5"></i>
             <div style="font-size: 10px;">主页</div>
         </a>
+        <a id="search" class="text-center text-decoration-none col text-secondary" href="/search.html">
+            <i class="bi bi-search fs-5"></i>
+            <div style="font-size: 10px;">搜索</div>
+        </a>
         <a id="weekly" class="text-center text-decoration-none col text-secondary" href="/weekly.html">
             <i class="bi bi-calendar-week fs-5"></i>
-            <div style="font-size: 10px;">放送列表</div>
+            <div style="font-size: 10px;">放送</div>
         </a>
         <a id="index" class="text-center text-decoration-none col text-secondary" href="/index.html">
             <i class="bi bi-collection fs-5"></i>
-            <div style="font-size: 10px;">番剧索引</div>
+            <div style="font-size: 10px;">索引</div>
         </a>
         <a id="help" class="text-center text-decoration-none col text-secondary" href="/help.html">
             <i class="bi bi-question-circle-fill fs-5"></i>
-            <div style="font-size: 10px;">番剧库帮助</div>
+            <div style="font-size: 10px;">帮助</div>
         </a>
     </div>
 </nav>
