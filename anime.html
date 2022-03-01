@@ -176,7 +176,7 @@
                         console.log("熔岩云盘回复: ", result)
                         // 剥壳
                         if (result.code == 404) {
-                            $("#la-list-container").append("<div class='alert alert-warning'><span>熔岩云盘返回了 404, 您的链接可能有误或番组不存在。<br>出现此错误可能是因为此界面的链接异常。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
+                            $("#la-list-container").append("<div style='opacity: 85%;' class='alert alert-warning'><span>熔岩云盘返回了 404, 您的链接可能有误或番组不存在。<br>出现此错误可能是因为此界面的链接异常。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
                             $("#loading").fadeOut()
 
                         }
@@ -190,8 +190,9 @@
                                 airDate = "未知 / 暂未定档"
                             }
                             setTimeout(() => {
-                                $("#la-list-container").append("<div class='alert alert-info'><span>熔岩云盘返回列表为空, 此番组目录下尚无任何资源! <br>" + "请确认此作品已经开始连载, 根据 Bangumi Wiki, 本作的开始放送日期为: " + airDate + "<br><a class='alert-link' href='./index.html'>返回主页</a></span></div>")
+                                $("#la-list-container").append("<div style='opacity: 85%;' class='alert alert-info'><span>熔岩云盘返回列表为空, 此番组目录下尚无任何资源! <br>" + "请确认此作品已经开始连载, 根据 Bangumi Wiki, 本作的开始放送日期为: " + airDate + "<br><a class='alert-link' href='./index.html'>返回主页</a></span></div>")
                                 $("#loading").fadeOut()
+                                $('#rating-box').hide() // 如果没有资源(通常是未开播), 则隐藏评分框
                             }, 1500);
 
                         }
@@ -216,7 +217,7 @@
 
                     },
                     error: (result) => {
-                        $("#la-list-container").append("<div class='alert alert-warning'><span>熔岩云盘未返回值或返回错误, 您的链接可能有误或熔岩云盘出现异常。<br><a class='alert-link' href='/list.html'>返回主页</a></span></div>")
+                        $("#la-list-container").append("<div style='opacity: 85%;' class='alert alert-warning'><span>熔岩云盘未返回值或返回错误, 您的链接可能有误或熔岩云盘出现异常。<br><a class='alert-link' href='/list.html'>返回主页</a></span></div>")
                     }
                 })
             }
@@ -452,7 +453,9 @@
                 <!-- 播放量评分等数据栏 -->
                 <div class="text-secondary fw-lighter fs-6">
                     <i class="bi bi-play-btn"></i><span id="views"></span>
-                    <i class="bi bi-star"></i><span id="rating"></span>
+                    <span id="rating-box">
+                        <i class="bi bi-star"></i><span id="rating"></span>
+                    </span>
                     <i class="bi bi-view-list"></i><span id="eps"></span>
                 </div>
                 <!-- 标签栏 -->
