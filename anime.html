@@ -255,11 +255,14 @@
                     thisName = $('#' + rawNameByfileId)[0].innerText
                     thisId = $(this)[0].id
                     $.ajax({
-                        url: "https://api.5t5.top/api/v1/object/url/" + thisId,
+                        url: "https://anime-api.5t5.top/v1/file/url/" + thisId,
                         success: function (result) {
-
                             console.log(`打开了 ${fileType} 格式的文件。`);
 
+                            if (result.code !== 0) {
+                                console.error(`取得直链时发生错误: `, result);
+                                result.data = { 'url': result.message }
+                            }
                             var mp4HelpMessage =
                                 `
                             <p id="mp4HelpMessage" class="mb-0"><p class="text-secondary" style="font-size: 14px">
@@ -286,25 +289,25 @@
                                 `
                             <h5 class="mb-3">外部播放器</h5>
                             <div class="row row-cols-4" id="otherPlayers">
-                                <a class="text-decoration-none text-secondary" href="potplayer://${result.url}">
+                                <a class="text-decoration-none text-secondary" href="potplayer://${result.data.url}">
                                     <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/PotPlayer.svg" alt="PotPlayer"/>
                                     <div class="text-center" style="font-size: 12px;">
                                         PotPlayer
                                     </div>
                                 </a>
-                                <a class="text-decoration-none text-secondary" href="vlc://${result.url}">
+                                <a class="text-decoration-none text-secondary" href="vlc://${result.data.url}">
                                     <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/vlc.svg" alt="VLC"/>
                                     <div class="text-center" style="font-size: 12px;">
                                         VLC
                                     </div>
                                 </a>
-                                <a class="text-decoration-none text-secondary" href="iina://weblink?url=${result.url}">
+                                <a class="text-decoration-none text-secondary" href="iina://weblink?url=${result.data.url}">
                                     <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/iina.svg" alt="IINA"/>
                                     <div class="text-center" style="font-size: 12px;">
                                         IINA
                                     </div>
                                 </a>
-                                <a class="text-decoration-none text-secondary" href="${result.url}">
+                                <a class="text-decoration-none text-secondary" href="${result.data.url}">
                                     <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/link.svg" alt="IINA"/>
                                     <div class="text-center" style="font-size: 12px;">
                                         下载
@@ -317,14 +320,14 @@
                                 `
                             <div id="urlLabel" class="mt-3">
                                 <h5 class="mb-3">直链 (点击复制) <span id="copy-success" class=""> ✅ 复制成功! </span></h5> 
-                                <button style="max-width: 100%" class="copy btn btn-sm btn-outline-primary text-truncate" data-clipboard-text="${result.url}">${result.url}</button>
+                                <button style="max-width: 100%" class="copy btn btn-sm btn-outline-primary text-truncate" data-clipboard-text="${result.data.url}">${result.data.url}</button>
                             </div>
                             `
                             var downloadBtn =
                                 `
                             <div class="row row-cols-3 mt-3">
                                 <div> </div>
-                                <a class="text-decoration-none text-secondary" href="${result.url}">
+                                <a class="text-decoration-none text-secondary" href="${result.data.url}">
                                     <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/link.svg" alt="IINA"/>
                                     <div class="text-center" style="font-size: 12px;">
                                         下载
@@ -338,25 +341,25 @@
                             $("#la-player-header").empty().append(thisName)
                             const dp = new DPlayer({
                                 container: document.getElementById('dplayer'),
-                                video: { url: result.url, screenshot: true, autoplay: true, hotkey: true },
+                                video: { url: result.data.url, screenshot: true, autoplay: true, hotkey: true },
                             })
                             if (fileType == 'mp4') {
                                 $("#la-player-body").empty().append(mp4HelpMessage + otherPlayers + urlLabel) // 加入播放器
-                                addView()
+                                if (result.code == 0) addView()
                             }
                             if (fileType == 'mkv') {
                                 dp.destroy()
                                 $("#la-player-body").empty().append(mkvHelpMessage + mkvPlayerBtn + otherPlayers + urlLabel)
                                 $('#otherPlayers, #urlLabel').click(() => {
-                                    addView()
+                                    if (result.code == 0) addView()
                                 })
                                 $("#mkvPlayerBtn").click(() => { // 强制用浏览器打开
                                     $("#mkvHelpMessage").empty() // 清空提示
                                     $('#mkvPlayerBtn').remove()
-                                    addView()
+                                    if (result.code == 0) addView()
                                     const dp = new DPlayer({
                                         container: document.getElementById('dplayer'),
-                                        video: { url: result.url, screenshot: true, autoplay: true, hotkey: true },
+                                        video: { url: result.data.url, screenshot: true, autoplay: true, hotkey: true },
                                     })
                                 })
                             }
@@ -371,7 +374,7 @@
                             }
                             if (fileType == 'png' || fileType == 'jpg' || fileType == 'jpeg' || fileType == 'gif' || fileType == 'webp') {
                                 dp.destroy()
-                                $("#la-img-view").empty().append('<img class="img-fluid " src="' + result.url + '">')
+                                $("#la-img-view").empty().append('<img class="img-fluid " src="' + result.data.url + '">')
                                 $("#la-player-body").empty().append("您打开了一张图片。")
                             }
                             if (fileType == 'txt') {
