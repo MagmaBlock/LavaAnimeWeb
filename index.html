@@ -7,8 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>熔岩番剧库 - 番剧索引 | LavaAnime</title>
     <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/jquery/3.6.0/jquery.min.js"></script>
-    <link href="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstrap/5.1.3/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <link href="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstarp-icon/1.7.2/bootstrap-icons.css">
     <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/clipboard/2.0.9/clipboard.min.js"></script>
     <!-- Assets -->
@@ -20,117 +22,72 @@
     <script src="./js/Navbar.js" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
-
-            // 定义容器
-            const containerId = "posters"
-
-            // 界面加载后，隐藏加载中图标
-            $("#loading").hide()
-
             // 识别参数，决定自动选择新番还是指定目录
-            console.log(getUrlParams())
-            if (Object.prototype.isPrototypeOf(getUrlParams()) && Object.keys(getUrlParams()).length === 0) {
-                // 默认选中的筛选
-                var defaultYear = 2022
-                var defaultMonth = "1月冬"
-            }
-            else { // 从地址栏获取应该打开的目录
-                var defaultYear = getUrlParams().year
-                var defaultMonth = decodeURI(getUrlParams().month)
+            if (Object.prototype.isPrototypeOf(getUrlParams()) && Object.keys(getUrlParams()).length === 0) { // 如果没有参数，则自动选择新番
+                defaultYear = 2022
+                defaultMonth = "1月冬"
+            } else { // 从地址栏获取应该打开的目录
+                defaultYear = decodeURI(getUrlParams().year)
+                defaultMonth = decodeURI(getUrlParams().month)
             }
 
+            let buttonHtml = `<li class="page-item year-btn"><a class="page-link">正在取得年代列表...</a></li>` // 提前插入一个按钮, 优化视觉体验, 防止加载抽动
+            $("#years").empty().append(buttonHtml) // 插入按钮
 
             // 界面加载后，获取年代列表
             $.ajax({
-                url: "https://dav.5t5.top/api/v3/share/list/jqMFl/",
-                success: function (result) {
-                    // 解壳
-                    var objects = result.data.objects
-                    // 新建一个数组用于排序
-                    var yearSorter = new Array()
-                    // 将得到的每个文件夹的名字写进数组
-                    for (var i = 0; i < objects.length; i++) {
-                        yearSorter[i] = objects[i].name
+                url: 'https://anime-api.5t5.top/v1/index/list/year',
+                success: (result) => {
+                    if (result.code == 0) {
+                        let yearList = result.data
+                        // 将年代列表添加到界面
+                        let buttonHtml = ''
+                        for (i in yearList) {
+                            let thisYearDisplay = yearList[i].replace(/年/g, '')
+                            let thisYear = yearList[i]
+                            buttonHtml = buttonHtml +
+                                `<li id="${thisYear}" class="page-item year-btn" style="min-width: fit-content;"><a class="page-link">${thisYearDisplay}</a></li>`
+                        }
+                        $("#years").empty().hide().append(buttonHtml).fadeIn(500)
+                        $('.year-btn').on('click', function () { // 点击年代按钮的事件
+                            $(this).addClass('active').siblings().removeClass('active') // 选中样式
+                            getMonthList(this.id) // 获取月份列表
+                        })
+                        $(`#${defaultYear}年`).click() // 点击默认年
                     }
-                    // 把数组按字母排序再倒序
-                    var yearList = yearSorter.sort().reverse()
-                    // for 循环写入文档
-                    for (var i = 0; i < yearList.length; i++) {
-                        // 删去文件夹名字里的“年”
-                        yearList[i] = yearList[i].toString();
-                        yearList[i] = yearList[i].substring(0, yearList[i].length - 1)
-                        //输出html
-                        var yearBtnHtml = 
-                        `
-                        <input type="radio" name="year" class="btn-check btn-year" id="${yearList[i]}">
-                            <label style="min-width: max-content;" class="btn btn-outline-primary" for="${yearList[i]}">
-                                ${yearList[i]}
-                            </label>
-                        </button>
-                        `
-                        $("#years").append(yearBtnHtml)
-
+                    else {
+                        let buttonHtml = `<li class="page-item year-btn"><a class="page-link">取得年代列表时失败, 建议刷新重试.</a></li>`
+                        $("#years").empty().append(buttonHtml)
                     }
-                    // 为每个按钮追加点击时触发的函数
-                    $(".btn-year").click(function () {
-                        // 找出被点击的那个按钮勾
-                        var clickedYear = $('input:radio[name="year"]:checked')[0].id
-                        // 调用函数
-                        getMonthList(clickedYear)
-                    })
-                    // 自动点击默认年
-                    $("#" + defaultYear).trigger("click")
-                    setTimeout(() => {
-                        $("#" + defaultMonth).trigger("click")
-                    }, 500);
                 }
             })
 
-
-
-            function getMonthList(year) {
+            function getMonthList(year) { // 获取月份列表
+                $('#month').empty().append(`<liclass="page-item month-btn"><a class="page-link">正在取得季度列表...</a></li>`) // 优化加载时的效果, 防止抽动
                 $.ajax({
-                    beforeSend: function () {
-                        $("#months").empty()
-                    },
-                    url: "https://dav.5t5.top/api/v3/share/list/jqMFl/" + year + "年",
-                    success: function (result) {
-                        // 解壳
-                        var objects = result.data.objects
-                        // 新建一个数组用于排序
-                        var monthSorter = new Array()
-                        // 将得到的每个文件夹的名字写进数组
-                        for (var i = 0; i < objects.length; i++) {
-                            monthSorter[i] = objects[i].name
+                    url: 'https://anime-api.5t5.top/v1/index/list/month/' + year,
+                    success: (result) => {
+                        if (result.code == 0) {
+                            let buttonHtml = ''
+                            for (i in result.data) {
+                                let thisMonth = result.data[i]
+                                buttonHtml = buttonHtml +
+                                    `<li id="${thisMonth}" class="page-item month-btn" style="min-width: fit-content;"><a class="page-link">${thisMonth}</a></li>`
+                            }
+                            $("#month").empty().hide().append(buttonHtml).fadeIn(500)
+                            $('.month-btn').on('click', function () { // 点击月份按钮的事件
+                                $(this).addClass('active').siblings().removeClass('active') // 选中样式
+                                let backParams = `year=${year.replace(/年/g, '')}&month=${this.id}`
+                                history.pushState({}, {}, `index.html?${backParams}`); // 更新地址栏
+                                $('#posters').hide()
+                                setTimeout(() => { $('#posters').fadeIn(300) }, 500); // 番剧列表动画
+                                printAnimeList('posters', year.replace(/年/g, ''), this.id, backParams) // 打印番剧列表
+                            })
+                            if (year == `${defaultYear}年`) { // 如果现在选中的年份是默认年份
+                                $(`#${defaultMonth}`).click() // 继续点击默认月份
+                                defaultYear = '' // 确保不是用户点击
+                            }
                         }
-                        // 把数组按字母排序再倒序
-                        var monthList = monthSorter.sort()
-                        // console.log(monthList)
-
-                        for (var i = 0; i < monthList.length; i++) {
-                            //输出html
-                            var monthBtnHtml = 
-                            `
-                            <input type="radio" name="month" class="btn-check btn-month" id="${monthList[i]}">
-                                <label style="min-width: max-content;" class="btn btn-outline-primary" for="${monthList[i]}">
-                                    ${monthList[i]}
-                                </label>
-                            </button>
-                            `
-                            $("#months").append(monthBtnHtml)
-                        }
-                        // 为每个按钮追加点击函数
-                        $(".btn-month").click(function () {
-                            // 定义月变量
-                            var clickedMonth = $('input:radio[name="month"]:checked')[0].id
-                            // 更新地址栏参数
-                            history.pushState({}, {}, "index.html?year=" + year + "&month=" + clickedMonth);
-                            // 更新从播放页返回时携带的参数
-                            var backParams = 'year=' + getUrlParams().year + '&' + 'month=' + getUrlParams().month
-                            $("#" + containerId).hide()
-                            $("#" + containerId).show()
-                            printAnimeList(containerId, year, clickedMonth, backParams)
-                        })
                     }
                 })
             }
@@ -140,35 +97,25 @@
 
 <body>
     <div id="navbar"></div>
-
-
-
-
-    <div class="container mt-4 mb-5">
+    <div class="container mt-4">
         <div class="mx-3">
             <h1 class="display-3">番剧索引</h1>
-            <h5 class="lead ">年代</h5>
-            <div class="btn-group-sm mb-2 btn-group overflow-scroll" id="years"
-                style="padding-left: 1px; max-width: 104%;">
-
-            </div>
+            <h5 class="lead">年代</h5>
+            <ul class="pagination pagination-sm overflow-scroll mb-2" style="max-width: 100%;" id="years"></ul>
             <h5 class="lead">季度 / 类型</h5>
-            <div class="btn-group-sm mb-2 btn-group overflow-scroll" id="months"
-                style="padding-left: 1px; max-width: 104%;">
-            </div>
+            <ul class="pagination pagination-sm overflow-scroll mb-2" style="max-width: 100%;" id="month"></ul>
         </div>
-
-        <div id="posters">
-        </div><br>
-
-
+        <div id="posters"></div>
     </div>
+
+    <div style="height: 100px;"></div>
     <img src="https://www.bfcounter.vip/generatepic?userid=ce1d3f3b-ce67-4319-8222-e751f8262b2e" alt="Page Counter"
         class="visually-hidden">
     <span class="visually-hidden">
         <script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1280746775&web_id=1280746775"></script>
     </span>
-    <script async defer data-website-id="5aad3d7c-6372-42aa-957e-ed4c945c0d08" src="https://umami.magma.ink/umami.js"></script>
+    <script async defer data-website-id="5aad3d7c-6372-42aa-957e-ed4c945c0d08"
+        src="https://umami.magma.ink/umami.js"></script>
 </body>
 
 
