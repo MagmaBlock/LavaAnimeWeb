@@ -28,11 +28,11 @@
             if (getUrlParams().path == undefined) {
                 console.log("地址栏不含参数! ")
                 backParams = ''
-                AnimePath = '/未找到番组'
-                thisId = '184017'
+                AnimePath = '未找到番组'
+                thisId = ''
                 $(`#views`).empty().append(` 没人观看过此番组, 因为它不存在. 😢`)
-                $('#rating').append(` 评分 4.04`)
-                $("#la-list-container").append("<div class='alert alert-warning'><span>错误: 未能从地址栏取得番组信息。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
+                $('#rating-box, #show-more, #more-link').hide()
+                $("#la-list-container").append("<div style='opacity: 85%;' class='alert alert-warning'><span>错误: 未能从地址栏取得番组信息。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
                 $("#loading").fadeOut()
             }
             else {
@@ -464,7 +464,7 @@
                         class="bi bi-arrow-down-short"></i>显示更多</span>
                 <span class="fw-lighter fs-6" id="tags-hide"></span>
                 <!-- 外部链接栏 -->
-                <div class="my-1">
+                <div id="more-link" class="my-1">
                     <a id="agefans" target="_blank" class="fw-lighter fs-6 text-decoration-none"></a> <a
                         href="https://github.com/czy0729/Bangumi-Static" class="text-decoration-none text-secondary"
                         target="_blank" style="font-size: 12px;">(API By czy0729)</a><br>
