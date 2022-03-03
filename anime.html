@@ -136,6 +136,39 @@
                     }
                 })
 
+                var relations = []
+                $.ajax({
+                    url: `https://bgm-api.5t5.top/v0/subjects/${thisId}/subjects`,
+                    success: result => {
+                        for (i in result) {
+                            if (result[i].type == 2) {
+                                relations.push(result[i])
+                            }
+                        }
+                        console.log('获得本作关联作品:', relations);
+                        for (let j = 0; j < relations.length; j++) {
+                            $.ajax({
+                                url: 'https://anime-api.5t5.top/v1/search/bgm/' + relations[j].id,
+                                success: result2 => {
+                                    console.log('验证关联:', result2, relations[j].name_cn,relations[j].id);
+                                    if (result2.code == 0) {
+                                        let thisName
+                                        if (relations[j].name_cn) { thisName = relations[j].name_cn }
+                                        else { thisName = relations[j].name }
+                                        let html = `
+                                        <a class="mb-2 me-1 mt-1 btn btn-outline-primary" href="./search.html?bgm=${encodeURIComponent(relations[j].id)}">
+                                        <span class="lead" style="font-size: 16px;">${thisName}</span>
+                                        <div class="fw-light text-secondary" style="font-size: 12px;">${relations[j].relation}</div></a>
+                                        `
+                                        $('#relations').append(html)
+
+                                    }
+                                }
+                            })
+                        }
+                    }
+                })
+
                 // 获取 Agefans 数据, 数据来自 https://github.com/czy0729/Bangumi-Static/
                 $.ajax({
                     url: "https://anime-img.5t5.top/api/agefans/anime.min.json",
@@ -460,11 +493,12 @@
                 </div>
                 <!-- 标签栏 -->
                 <span class="fw-lighter fs-6" id="tags"></span>
-                <span class="fw-lighter btn btn-sm text-secondary" style="font-size: 13px;" id="show-more"><i
+                <span class="fw-lighter btn btn-sm text-secondary p-0" style="font-size: 13px;" id="show-more"><i
                         class="bi bi-arrow-down-short"></i>显示更多</span>
                 <span class="fw-lighter fs-6" id="tags-hide"></span>
                 <!-- 外部链接栏 -->
                 <div id="more-link" class="my-1">
+                    <div id="relations"></div>
                     <a id="agefans" target="_blank" class="fw-lighter fs-6 text-decoration-none"></a> <a
                         href="https://github.com/czy0729/Bangumi-Static" class="text-decoration-none text-secondary"
                         target="_blank" style="font-size: 12px;">(API By czy0729)</a><br>
