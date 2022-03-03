@@ -240,6 +240,11 @@
         "class": "bg-primary"
     },
     {
+        "from": "[^A-Za-z0-9]Henshin[^A-Za-z0-9]",
+        "to": "Henshin 压制组",
+        "class": "bg-primary"
+    },
+    {
         "from": "[^A-Za-z0-9](1080p|1920(X|×)1080)[^A-Za-z0-9]",
         "to": "1080P",
         "class": "bg-secondary"
@@ -285,13 +290,18 @@
         "class": "bg-secondary"
     },
     {
-        "from": "[^A-Za-z0-9]10bit[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9]Hi10p|10bit[^A-Za-z0-9]",
         "to": "10bit 色深",
         "class": "bg-secondary"
     },
     {
         "from": "[^A-Za-z0-9]yuv420p10[^A-Za-z0-9]",
         "to": "YUV-4:2:0 10bit",
+        "class": "bg-secondary"
+    },
+    {
+        "from": "[^A-Za-z0-9](\\d(aac|acc))|((aac|acc)(x|×)\\d)[^A-Za-z0-9]",
+        "to": "多音轨AA<span></span>C",
         "class": "bg-secondary"
     },
     {
