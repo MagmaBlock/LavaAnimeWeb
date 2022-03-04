@@ -122,7 +122,7 @@
                             $('#show-more').hide()
                         })
                         for (let i = 0; i < bgmInfo.tags.length; i++) { // 填充标签
-                            if (bgmInfo.tags[i].count >= 10) {
+                            if (i <= bgmInfo.tags.length / 3 ) {
                                 $('#tags').append(`<span class="badge bg-secondary">${bgmInfo.tags[i].name} ${bgmInfo.tags[i].count}</span> `)
                             }
                             else {
@@ -150,13 +150,19 @@
                             $.ajax({
                                 url: 'https://anime-api.5t5.top/v1/search/bgm/' + relations[j].id,
                                 success: result2 => {
-                                    console.log('验证关联:', result2, relations[j].name_cn,relations[j].id);
+                                    console.log('验证关联:', result2, relations[j].name_cn, relations[j].id);
                                     if (result2.code == 0) {
-                                        let thisName
+                                        let thisName, animeLink
                                         if (relations[j].name_cn) { thisName = relations[j].name_cn }
                                         else { thisName = relations[j].name }
+                                        if (result2.data.length == 1) { // 如果搜索结果只有一个
+                                            animeLink = './anime.html?path=' + encodeURIComponent(`/${result2.data[0].year}/${result2.data[0].month}/${result2.data[0].name}`) + '&id=' + result2.data[0].id
+                                        }
+                                        else {
+                                            animeLink = `./search.html?bgm=${encodeURIComponent(relations[j].id)}`
+                                        }
                                         let html = `
-                                        <a class="mb-2 me-1 mt-1 btn btn-outline-primary" href="./search.html?bgm=${encodeURIComponent(relations[j].id)}">
+                                        <a class="mb-2 me-1 mt-1 btn btn-outline-primary" href="${animeLink}">
                                         <span class="lead" style="font-size: 16px;">${thisName}</span>
                                         <div class="fw-light text-secondary" style="font-size: 12px;">${relations[j].relation}</div></a>
                                         `
@@ -498,6 +504,13 @@
                 <span class="fw-lighter fs-6" id="tags-hide"></span>
                 <!-- 外部链接栏 -->
                 <div id="more-link" class="my-1">
+                    <style>
+                        #relations {
+                            white-space: nowrap;
+                            overflow-x: scroll;
+                            overflow-y: hidden;
+                        }
+                    </style>
                     <div id="relations"></div>
                     <a id="agefans" target="_blank" class="fw-lighter fs-6 text-decoration-none"></a> <a
                         href="https://github.com/czy0729/Bangumi-Static" class="text-decoration-none text-secondary"
