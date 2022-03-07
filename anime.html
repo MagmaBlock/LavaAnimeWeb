@@ -21,7 +21,7 @@
 
     <script>
         $(document).ready(function () {
-            const animeApiUrl = "https://dav.5t5.top/api/v3/share/list/jqMFl" // 熔岩云盘分享链接根目录, 需要是API链接。
+            const animeApiUrl = "https://pan.5t5.top/api/v3/share/list/jqMFl" // 熔岩云盘分享链接根目录, 需要是API链接。
             const agefansDomain = "www.agemys.com"
 
             console.log('地址栏参数数据: ', getUrlParams());
@@ -123,7 +123,7 @@
                         })
                         for (let i = 0; i < bgmInfo.tags.length; i++) { // 填充标签
                             if (i <= bgmInfo.tags.length / 3 ) {
-                                $('#tags').append(`<span class="badge bg-secondary">${bgmInfo.tags[i].name} ${bgmInfo.tags[i].count}</span> `)
+                                $('#tags').append(`<span class="badge bg-secondary text-wrap">${bgmInfo.tags[i].name} ${bgmInfo.tags[i].count}</span> `)
                             }
                             else {
                                 $('#tags-hide').append(`<span class="badge bg-secondary">${bgmInfo.tags[i].name} ${bgmInfo.tags[i].count}</span> `)

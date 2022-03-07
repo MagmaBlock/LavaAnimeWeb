@@ -34,7 +34,7 @@ function getAnimeList(year, month) {
     $.ajax({
         beforeSend: () => { $("#loading").fadeIn() },
         async: false,
-        url: "https://dav.5t5.top/api/v3/share/list/jqMFl/" + year + "年/" + month,  //默认当前页
+        url: "https://pan.5t5.top/api/v3/share/list/jqMFl/" + year + "年/" + month,  //默认当前页
         success: response => {
             animeList = response.data.objects
             mySort(animeList, "name")
