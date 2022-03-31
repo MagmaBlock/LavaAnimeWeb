@@ -25,7 +25,7 @@
             // 识别参数，决定自动选择新番还是指定目录
             if (Object.prototype.isPrototypeOf(getUrlParams()) && Object.keys(getUrlParams()).length === 0) { // 如果没有参数，则自动选择新番
                 defaultYear = 2022
-                defaultMonth = "1月冬"
+                defaultMonth = "4月春"
             } else { // 从地址栏获取应该打开的目录
                 defaultYear = decodeURI(getUrlParams().year)
                 defaultMonth = decodeURI(getUrlParams().month)

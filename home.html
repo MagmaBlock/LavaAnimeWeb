@@ -7,14 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>熔岩番剧库 - 主页 | LavaAnime</title>
     <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/jquery/3.6.0/jquery.min.js"></script>
-    <link href="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstrap/5.1.3/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <link href="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstarp-icon/1.7.2/bootstrap-icons.css">
     <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/clipboard/2.0.9/clipboard.min.js"></script>
     <!-- Assets -->
     <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
     </link>
-    
+
     <script src="./js/Navbar.js" crossorigin="anonymous"></script>
 </head>
 
@@ -23,14 +25,59 @@
     <div class="container mt-4">
         <div class="mx-3">
             <h1 class="display-3">主页</h1>
-            <p class="fw-light">你太看得起 Magma 了，你什么时候产生了这里有东西的错觉？</p>
+            <p class="fw-light">2022年4月新番开播！熔岩番剧库 21 部作品在线看</p>
+            <div>
+                <div id="2022-4">
+                </div>
+            </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    url: "./assets/2022-4.json",
+                    success: function (result) {
+                        console.log(result)
+                        let html = ''
+                        for (i in result) {
+                            let titleHtml = `<h2>${result[i].Title}</h2>`
+                            html = html + titleHtml
+                            for (j in result[i].Anime) {
+                                let thisAnime = result[i].Anime[j].Path.split('/')[3]
+                                let bgmId = thisAnime.match("\\d+$")[0]
+                                let animeName = thisAnime.replace(thisAnime.match("\\d+$"), "").substr(0, thisAnime.replace(thisAnime.match("\\d+$"), "").length - 1);
+
+                                let animeHtml = `
+                                <div class="col-4 col-sm-3 col-lg-2 px-2 mb-2">
+                                    <a href="search.html?bgm=${bgmId}" class="text-decoration-none text-black">
+                                        <img class="rounded mb-1 shadow-sm" src="" style="object-fit: cover; width: 100%;">
+                                        <div style="font-size: small; line-height: 18px; min-height: 36px" "="">${animeName}</div>
+                                    </a>
+                                    <div class="text-secondary" style="font-size: 12px; line-height: 18px;">
+                                        <a class="text-secondary text-decoration-none" target="_blank" href="https://bgm.tv/subject/${bgmId}">
+                                            <i class="bi bi-link-45deg"></i> 番组计划
+                                        </a>
+                                    </div>
+                                </div>
+                                `
+                                html = html + animeHtml
+                            }
+                        }
+
+
+                        $("#2022-4").append(html)
+                    }
+                })
+            });
+        </script>
+
+    </div>
     </div>
 
     <span class="visually-hidden">
         <script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1280746775&web_id=1280746775"></script>
     </span>
-    <script async defer data-website-id="5aad3d7c-6372-42aa-957e-ed4c945c0d08" src="https://umami.magma.ink/umami.js"></script>
+    <script async defer data-website-id="5aad3d7c-6372-42aa-957e-ed4c945c0d08"
+        src="https://umami.magma.ink/umami.js"></script>
 </body>
 
 
