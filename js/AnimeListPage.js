@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 
     const config = {
-        "api": { "url": "http://192.168.0.102:8090" },
+        "api": { "url": "https://anime-api.5t5.top" },
         "agefansDomain": "www.agemys.com",
         "bangumiApi": "https://bgm-api.5t5.top/v0/subjects/"
     }
