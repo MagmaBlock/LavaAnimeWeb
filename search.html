@@ -17,25 +17,29 @@
     <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
     </link>
     <script src="./js/getUrlParams.js" crossorigin="anonymous"></script>
-    <script src="./js/Anime.js" crossorigin="anonymous"></script>
+    <script src="./js/PrintAnimeList.js" crossorigin="anonymous"></script>
     <script src="./js/Navbar.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <script>
         $(document).ready(function () {
+            const config = {
+                "api": { "url": "http://192.168.0.102:8090" }
+            }
+
             const containerId = "search-result-container";
             console.log(getUrlParams())
             if (getUrlParams().name) { // 如果是以名字搜索
                 $("#search-label").val(decodeURIComponent(getUrlParams().name))
                 $.ajax({
-                    url: 'https://anime-api.5t5.top/v1/search/name/' + getUrlParams().name,
+                    url: config.api.url + '/v1/search/name/' + getUrlParams().name,
                     success: function (data) {
                         console.log(data);
                         if (data.code == 0) {
                             print(data)
                         }
-                        if (data.code == 404){
+                        if (data.code == 404) {
                             notFound()
                         }
                     }
@@ -44,28 +48,24 @@
             if (getUrlParams().bgm) { // 如果是以 Bangumi ID 搜索
                 $("#search-label").val(decodeURIComponent(getUrlParams().bgm))
                 $.ajax({
-                    url: 'https://anime-api.5t5.top/v1/search/bgm/' + getUrlParams().bgm,
+                    url: config.api.url + '/v1/search/bgm/' + getUrlParams().bgm,
                     success: function (data) {
                         console.log(data);
                         if (data.code == 0) {
                             print(data)
                         }
-                        if (data.code == 404){
+                        if (data.code == 404) {
                             notFound()
                         }
                     }
                 })
             }
             function print(data) {
-                let animeList = data.data;
-                for (var i = 0; i < animeList.length; i++) {
-                    let thisAnimePath = '/' + animeList[i].year + '/' + animeList[i].month + '/' + animeList[i].name
-                    // 生成番剧卡骨架, 传入目标容器、番剧名、番剧路径、番组计划ID、文件夹ID
-                    printAnimeCardTable(containerId, animeList[i].title, thisAnimePath, animeList[i].bgmid, animeList[i].id)
-                    printAnimeCardDetail(animeList[i].id, animeList[i].bgmid)
-                }
+                console.log(data);
+                PrintAnimeList($(`#${containerId}`),data.data)
+
             }
-            function notFound(){
+            function notFound() {
                 $("#search-result-container").append(`
                 <div class='alert alert-secondary mx-3'>\\アッカリ～ン!/ <br>没有在番剧库内找到相关的番组...</div>
                 `)

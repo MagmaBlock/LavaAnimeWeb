@@ -10,8 +10,8 @@ $(document).ready(() => {
 
     var navbarHtml =
         `
-<nav class="navbar navbar-light shadow-lg fixed-bottom border-top border-2 rounded-top p-1"
-    style=" background-color: #f1f2f6">
+<nav class="navbar navbar-light shadow-lg fixed-bottom border-top border-1 rounded-top p-2"
+    style="backdrop-filter: blur(6px) brightness(0.7); background-color: rgba(250, 250, 250, 0.7);">
     <div class="container-fluid row-cols-${navbarHtmlcols}">
         <a id="home" class="text-center text-decoration-none col text-secondary" href="/home.html">
             <i class="bi bi-house fs-5"></i>

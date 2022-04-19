@@ -6,489 +6,54 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>熔岩番剧库 - 播放列表页 | LavaAnime</title>
-    <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/jquery/3.6.0/jquery.min.js"></script>
-    <link href="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"
-        crossorigin="anonymous">
-    <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstarp-icon/1.7.2/bootstrap-icons.css">
-    <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/clipboard/2.0.9/clipboard.min.js"></script>
-    <script src="./js/getUrlParams.js" crossorigin="anonymous"></script>
-    <script src="./js/mySort.js" crossorigin="anonymous"></script>
+    <!-- jQuery -->
+    <script src="https://cdn.5t5.top/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link href="https://cdn.5t5.top/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.5t5.top/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.5t5.top/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Clipboard.js -->
+    <script src="https://cdn.5t5.top/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+    <!-- Axios -->
+    <script src="https://cdn.5t5.top/ajax/libs/axios/0.26.1/axios.min.js"></script>
+    <!-- Assets -->
     <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
+    </link>
+    <script src="./js/getUrlParams.js" crossorigin="anonymous"></script>
     <script src="./js/DPlayer.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./js/muiplayer/mui-player.min.css" />
+    <script type="text/javascript" src="./js/muiplayer/mui-player.min.js"></script>
+    <script type="text/javascript" src="./js/muiplayer/mui-player-desktop-plugin.min.js"></script>
+    <script src="./js/AnimeListPage.js"></script>
     </link>
 
-    <script>
-        $(document).ready(function () {
-            const animeApiUrl = "https://pan.5t5.top/api/v3/share/list/jqMFl" // 熔岩云盘分享链接根目录, 需要是API链接。
-            const agefansDomain = "www.agemys.com"
-
-            console.log('地址栏参数数据: ', getUrlParams());
-            if (getUrlParams().path == undefined) {
-                console.log("地址栏不含参数! ")
-                backParams = ''
-                AnimePath = '未找到番组'
-                thisId = ''
-                $(`#views`).empty().append(` 没人观看过此番组, 因为它不存在. 😢`)
-                $('#rating-box, #show-more, #more-link').hide()
-                $("#la-list-container").append("<div style='opacity: 85%;' class='alert alert-warning'><span>错误: 未能从地址栏取得番组信息。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
-                $("#loading").fadeOut()
-            }
-            else {
-                thisAnimeYear = decodeURIComponent(getUrlParams().path).split('/')[1].replace('年', '') // 从 path 剥离出年份不带年
-                thisAnimeMonth = decodeURIComponent(getUrlParams().path).split('/')[2] // 从 path 剥离出月份
-                backParams = 'year=' + thisAnimeYear + '&' + 'month=' + thisAnimeMonth
-                console.log('返回主页的参数: ', backParams);
-                AnimePath = decodeURIComponent(getUrlParams().path)
-
-                thisId = (decodeURIComponent(getUrlParams().path).match("\\d+$")[0]).toString()
-
-                console.log("从地址栏取得 BgmID:  ", thisId);
-
-                $.ajax({ // 获取播放量
-                    url: 'https://anime-api.5t5.top/v1/view/get/' + getUrlParams().id,
-                    success: function (data) {
-                        console.log('成功获取播放量: ', data)
-                        if (data.code == 0) {
-                            $(`#views`).empty().append(` 播放 ${data.data} 次`)
-                        }
-                        else {
-                            console.log('更新播放量失败: ', data)
-                            $(`#views`).empty().append(` 获取失败`)
-                        }
-                    }
-                })
-
-                var leftViews = 2; // 一次打开页面后, 可以增加的播放量上限
-                function addView() {
-                    if (leftViews > 0) {
-                        $.ajax({ // 增加并获取播放量
-                            url: 'https://anime-api.5t5.top/v1/view/add/' + getUrlParams().id,
-                            success: function (data) {
-                                console.log('成功增加播放量: ', data, ' 剩余播放量: ', leftViews)
-                                if (data.code == 0) {
-                                    $(`#views`).empty().append(` 播放 ${data.data} 次`)
-                                    leftViews--
-                                }
-                                else {
-                                    console.log('更新播放量失败: ', data)
-                                    $(`#views`).empty().append(` 获取失败`)
-                                }
-                            }
-                        })
-                    }
-                }
-
-                // 获取字典并开始生成列表
-                $.ajax({
-                    url: "./assets/dict.json",
-                    success: (result) => {
-                        dict = result
-                        getAnimeList(dict)
-                        console.log("成功取得关键词词典: ", dict)
-                    }
-                })
-
-                // 获取 Bangumi API 然后填充数据
-                $.ajax({
-                    url: "https://bgm-api.5t5.top/v0/subjects/" + thisId,
-                    success: result => {
-                        bgmInfo = result
-                        var backgroundUrl = bgmInfo.images.large.replace("lain.bgm.tv", "anime-img.5t5.top") + '/bg'
-                        console.log('成功从番组计划API取得数据', result)
-                        console.log(bgmInfo.images.large.replace("lain.bgm.tv", "anime-img.5t5.top") + '/bg')
-                        $("#bg").css("background-image", "url(" + backgroundUrl + ")") // 设置背景图
-                        $("#bangumi").attr("href", "https://bgm.tv/subject/" + thisId) // 设置番组计划链接
-                        if (bgmInfo.name_cn == undefined || bgmInfo.name_cn == '') { bgmInfo.name_cn = bgmInfo.name } // 如果没有中文名, 则使用原名
-                        $('#name_cn').append(`${bgmInfo.name_cn}`) // 填充中文名
-                        $('#name').append(`${bgmInfo.name}`) // 填充原名
-                        $('#platform').append(`${bgmInfo.platform}`) // 填充番组放送平台
-                        $('#rating').append(` 评分 ${bgmInfo.rating.score}`) // 填充评分
-                        if (bgmInfo.rating.score <= 5) { // 如果评分低于 5 则添加红色提示
-                            $('#rating').empty().append(` 评分较差 ${bgmInfo.rating.score}`).css('color', 'red')
-                        }
-                        if (bgmInfo.rating.score >= 8) { // 如果评分高于 8 则添加优秀
-                            $('#rating').empty().append(` 评分极佳 ${bgmInfo.rating.score}`)
-                        }
-                        if (bgmInfo.rating.score >= 7 && bgmInfo.rating.score < 8) { // 如果评分在 7-8 之间则添加不错
-                            $('#rating').empty().append(` 评分优秀 ${bgmInfo.rating.score}`)
-                        }
-                        if (bgmInfo.eps == undefined || bgmInfo.eps == 0) { $('#eps').append(` 总 ${bgmInfo.total_episodes} 话`) }
-                        else { $('#eps').append(` 总 ${bgmInfo.eps} 话`) }
-                        $('#tags-hide').hide() // 隐藏标记量较少的标签
-                        $('#show-more').on('click', function () { // 点击显示更多标签
-                            $('#tags-hide').fadeIn()
-                            $('#show-more').hide()
-                        })
-                        for (let i = 0; i < bgmInfo.tags.length; i++) { // 填充标签
-                            if (i <= bgmInfo.tags.length / 3 ) {
-                                $('#tags').append(`<span class="badge bg-secondary text-wrap">${bgmInfo.tags[i].name} ${bgmInfo.tags[i].count}</span> `)
-                            }
-                            else {
-                                $('#tags-hide').append(`<span class="badge bg-secondary">${bgmInfo.tags[i].name} ${bgmInfo.tags[i].count}</span> `)
-                            }
-                        }
-                        if ($('#tags')[0].innerHTML == '') { // 如果已有的标签实在太少了，则显示所有标签
-                            $('#tags-hide').show()
-                            $('#show-more').hide()
-                        }
-                    }
-                })
-
-                var relations = []
-                $.ajax({
-                    url: `https://bgm-api.5t5.top/v0/subjects/${thisId}/subjects`,
-                    success: result => {
-                        for (i in result) {
-                            if (result[i].type == 2) {
-                                relations.push(result[i])
-                            }
-                        }
-                        console.log('获得本作关联作品:', relations);
-                        for (let j = 0; j < relations.length; j++) {
-                            $.ajax({
-                                url: 'https://anime-api.5t5.top/v1/search/bgm/' + relations[j].id,
-                                success: result2 => {
-                                    console.log('验证关联:', result2, relations[j].name_cn, relations[j].id);
-                                    if (result2.code == 0) {
-                                        let thisName, animeLink
-                                        if (relations[j].name_cn) { thisName = relations[j].name_cn }
-                                        else { thisName = relations[j].name }
-                                        if (result2.data.length == 1) { // 如果搜索结果只有一个
-                                            animeLink = './anime.html?path=' + encodeURIComponent(`/${result2.data[0].year}/${result2.data[0].month}/${result2.data[0].name}`) + '&id=' + result2.data[0].id
-                                        }
-                                        else {
-                                            animeLink = `./search.html?bgm=${encodeURIComponent(relations[j].id)}`
-                                        }
-                                        let html = `
-                                        <a class="mb-2 me-1 mt-1 btn btn-outline-primary" href="${animeLink}">
-                                        <span class="lead" style="font-size: 16px;">${thisName}</span>
-                                        <div class="fw-light text-secondary" style="font-size: 12px;">${relations[j].relation}</div></a>
-                                        `
-                                        $('#relations').append(html)
-
-                                    }
-                                }
-                            })
-                        }
-                    }
-                })
-
-                // 获取 Agefans 数据, 数据来自 https://github.com/czy0729/Bangumi-Static/
-                $.ajax({
-                    url: "https://anime-img.5t5.top/api/agefans/anime.min.json",
-                    beforeSend: () => { $("#agefans").empty().append('<div class="spinner-grow spinner-grow-sm" role="status"></div> 正在加载 Agefans 番剧列表...') },
-                    success: result => {
-                        var agefansData = result
-                        var agefansId = ''
-                        for (var i = 0; i < agefansData.length; i++) {
-                            if (agefansData[i].id == thisId) {
-                                console.log('解析到当前 Bangumi ID 对应的 Agefans 数据: ', agefansData[i])
-                                $("#agefans").empty().append('<i class="bi bi-link-45deg"></i> 去 Agefans 观看')
-                                $("#agefans").attr("href", `https://${agefansDomain}/detail/${agefansData[i].a}`)
-                                agefansId = agefansData[i].a
-                            }
-                        }
-                        if (agefansId == '') {
-                            $("#agefans").empty().append('<i class="bi bi-slash-circle"></i> 暂未在 Agefans 找到此番剧')
-                        }
-                    },
-                    error: () => {
-                        $("#agefans").empty().append('<i class="bi bi-slash-circle"></i>Agefans API 故障')
-                    }
-                })
-            }
-
-
-            $("#goback").attr("href", "/index.html?" + backParams) // 返回主页的链接
-            $("#la-path").empty().append(decodeURI(AnimePath).replace('/', '').replace(/(\/)/g, '<i class="bi bi-arrow-right-short"></i>')) // 填充副标题
-
-
-
-
-            // 从网盘取得文件列表
-            function getAnimeList() {
-                $.ajax({
-                    url: animeApiUrl + AnimePath,
-                    success: function (result) {
-                        console.log("熔岩云盘回复: ", result)
-                        // 剥壳
-                        if (result.code == 404) {
-                            $("#la-list-container").append("<div style='opacity: 85%;' class='alert alert-warning'><span>熔岩云盘返回了 404, 您的链接可能有误或番组不存在。<br>出现此错误可能是因为此界面的链接异常。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
-                            $("#loading").fadeOut()
-
-                        }
-                        objects = result.data.objects
-                        if (objects.length == 0) {
-                            let airDate
-                            if (bgmInfo.date) { // 如果 Bangumi 有提供放送日期, 则提取放送日期
-                                airDate = bgmInfo.date
-                            }
-                            else { // 如果没有放送日期
-                                airDate = "未知 / 暂未定档"
-                            }
-                            setTimeout(() => {
-                                $("#la-list-container").append("<div style='opacity: 85%;' class='alert alert-info'><span>熔岩云盘返回列表为空, 此番组目录下尚无任何资源! <br>" + "请确认此作品已经开始连载, 根据 Bangumi Wiki, 本作的开始放送日期为: " + airDate + "<br><a class='alert-link' href='./index.html'>返回主页</a></span></div>")
-                                $("#loading").fadeOut()
-                                $('#rating-box').hide() // 如果没有资源(通常是未开播), 则隐藏评分框
-                            }, 1500);
-
-                        }
-                        if (objects.length > 0) {
-                            // 用自定义排序函数用 name 排序
-                            mySort(objects, "name")
-                            console.log(objects)
-                            // 开始循环
-                            for (var i = 0; i < objects.length; i++) {
-                                // 如果这个数组描述的是一个文件类型的
-                                if (objects[i].type == "file") {
-                                    var fileName = objects[i].name
-                                    var fileId = objects[i].id
-                                    printAnimeList(fileName, fileId)
-                                    // 1秒后隐藏loading
-                                    setTimeout(() => {
-                                        $("#loading").fadeOut()
-                                    }, 1000);
-                                }
-                            }
-                        }
-
-                    },
-                    error: (result) => {
-                        $("#la-list-container").append("<div style='opacity: 85%;' class='alert alert-warning'><span>熔岩云盘未返回值或返回错误, 您的链接可能有误或熔岩云盘出现异常。<br><a class='alert-link' href='/list.html'>返回主页</a></span></div>")
-                    }
-                })
-            }
-
-            // 向列表追加生成的列表的函数
-            function printAnimeList(fileName, fileId) {
-                // 取得文件后缀名
-                if (fileName.match(/\./)) {
-                    var fileType = fileName.split('.').pop()
-                }
-
-                // 从字典将匹配的关键字替换为可视化标签
-                tagedName = fileName
-                for (i = 0; i < dict.length; i++) {
-                    // 新建一个正则变量
-                    fromRegExp = new RegExp(dict[i].from, 'gi')
-                    // 生成的标签的html
-                    toHtml = ' <span class="badge ' + dict[i].class + '">' + dict[i].to + '</span> '
-                    // 进行替换
-                    tagedName = tagedName.replace(fromRegExp, toHtml)
-                }
-                // 标签替换完成后, 再空格所有的 '[' ']'
-                tagedName = tagedName.replace(/\[|\]/g, " ")
-
-                // 生成新的html
-                var rawNameByfileId = fileId + '-name'
-                var newListObj = "<button style='opacity:0.85' id='" + fileId + "' type='button' data-bs-toggle='modal' data-bs-target='#la-player' class='la-list-anime list-group-item list-group-item-action'>" + tagedName + '<br><div id="' + rawNameByfileId + '" class="text-secondary fw-lighter" style="font-size: 12px">' + fileName + "</div></button>"
-                // 追加html
-                $("#la-list-container").append(newListObj)
-                // 再给每个列表项增加点击时事件
-                $("#" + fileId).click(function () {
-                    // 加载中提示
-                    $("#la-player-header").empty().append("正在等待熔岩云盘返回播放链接...")
-                    $("#la-player-body").empty().append("<p>请稍等, 这段文字通常活不过 1 秒...<br>但是若持续看到此提示可能是熔岩云盘出现异常或您的网络连接不稳定! </p>")
-                    // 生成当前文件的变量
-                    thisName = $('#' + rawNameByfileId)[0].innerText
-                    thisId = $(this)[0].id
-                    $.ajax({
-                        url: "https://anime-api.5t5.top/v1/file/url/" + thisId,
-                        success: function (result) {
-                            console.log(`打开了 ${fileType} 格式的文件。`);
-
-                            if (result.code !== 0) {
-                                console.error(`取得直链时发生错误: `, result);
-                                result.data = { 'url': result.message }
-                            }
-                            var mp4HelpMessage =
-                                `
-                            <p id="mp4HelpMessage" class="mb-0"><p class="text-secondary" style="font-size: 14px">
-                                黑屏 / 无法播放？可能是浏览器不支持 H.265 编码, 
-                                <br>请使用下方的按钮调用外部播放器。
-                            </p></p>
-                            `
-                            var mkvHelpMessage =
-                                `
-                            <div id="mkvHelpMessage" class="mb-1">
-                                浏览器不支持当前格式 (MKV), 请使用外部播放器来播放。
-                                <div class="text-secondary" style="font-size: 14px">
-                                    这是由于大部分均无法支持 H.265 格式及 MKV 格式内封的字幕。需要调用您设备上的播放软件播放。
-                                    <br>同时也可以复制链接后使用弹弹 Play 播放效果更佳。
-                                </div>
-                                <a class="text-decoration-none fw-bold" href="./help.html">>> 查看外部播放器安装使用帮助 <<<a/>
-                            </div>
-                            `
-                            var mkvPlayerBtn =
-                                `
-                            <a id="mkvPlayerBtn" class="btn btn-sm btn-outline-primary mb-4 mt-0">强制用浏览器打开（不支持内封字幕和 HEVC）</a>
-                            `
-                            var otherPlayers =
-                                `
-                            <h5 class="mb-3">外部播放器</h5>
-                            <div class="row row-cols-5" id="otherPlayers">
-                                <a class="text-decoration-none text-secondary" href="ddplay:${result.data.url}">
-                                    <img class="img-fluid mx-auto d-block" style="width: 60%; padding: 2px;" src="./assets/dandanplay.webp" alt="DandanPlay"/>
-                                    <div class="text-center" style="font-size: 12px;">
-                                        弹弹Play (Win)
-                                    </div>
-                                </a>
-                                <a class="text-decoration-none text-secondary" href="potplayer://${result.data.url}">
-                                    <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/PotPlayer.svg" alt="PotPlayer"/>
-                                    <div class="text-center" style="font-size: 12px;">
-                                        PotPlayer
-                                    </div>
-                                </a>
-                                <a class="text-decoration-none text-secondary" href="vlc://${result.data.url}">
-                                    <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/vlc.svg" alt="VLC"/>
-                                    <div class="text-center" style="font-size: 12px;">
-                                        VLC
-                                    </div>
-                                </a>
-                                <a class="text-decoration-none text-secondary" href="iina://weblink?url=${result.data.url}">
-                                    <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/iina.svg" alt="IINA"/>
-                                    <div class="text-center" style="font-size: 12px;">
-                                        IINA
-                                    </div>
-                                </a>
-                                <a class="text-decoration-none text-secondary" href="${result.data.url}">
-                                    <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/link.svg" alt="IINA"/>
-                                    <div class="text-center" style="font-size: 12px;">
-                                        下载
-                                    </div>
-                                </a>
-                            </div>
-                            `
-
-                            var urlLabel =
-                                `
-                            <div id="urlLabel" class="mt-3">
-                                <h5 class="mb-3">直链 (点击复制) <span id="copy-success" class=""> ✅ 复制成功! </span></h5> 
-                                <button style="max-width: 100%" class="copy btn btn-sm btn-outline-primary text-truncate" data-clipboard-text="${result.data.url}">${result.data.url}</button>
-                            </div>
-                            `
-                            var downloadBtn =
-                                `
-                            <div class="row row-cols-3 mt-3">
-                                <div> </div>
-                                <a class="text-decoration-none text-secondary" href="${result.data.url}">
-                                    <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/link.svg" alt="IINA"/>
-                                    <div class="text-center" style="font-size: 12px;">
-                                        下载
-                                    </div>
-                                </a>
-                                <div> </div>
-                            </div>
-                                `
-
-                            // 标题栏加名字
-                            $("#la-player-header").empty().append(thisName)
-                            const dp = new DPlayer({
-                                container: document.getElementById('dplayer'),
-                                video: { url: result.data.url, screenshot: true, autoplay: true, hotkey: true },
-                            })
-                            if (fileType == 'mp4') {
-                                $("#la-player-body").empty().append(mp4HelpMessage + otherPlayers + urlLabel) // 加入播放器
-                                if (result.code == 0) addView()
-                            }
-                            if (fileType == 'mkv') {
-                                dp.destroy()
-                                $("#la-player-body").empty().append(mkvHelpMessage + mkvPlayerBtn + otherPlayers + urlLabel)
-                                $('#otherPlayers, #urlLabel').click(() => {
-                                    if (result.code == 0) addView()
-                                })
-                                $("#mkvPlayerBtn").click(() => { // 强制用浏览器打开
-                                    $("#mkvHelpMessage").empty() // 清空提示
-                                    $('#mkvPlayerBtn').remove()
-                                    if (result.code == 0) addView()
-                                    const dp = new DPlayer({
-                                        container: document.getElementById('dplayer'),
-                                        video: { url: result.data.url, screenshot: true, autoplay: true, hotkey: true },
-                                    })
-                                })
-                            }
-                            if (fileType == 'torrent') {
-                                dp.destroy()
-                                $("#la-player-body").empty().append("您打开了一个种子文件, 若有需要, 可点击下方按钮下载。" + "<br>" + urlLabel)
-                            }
-
-                            if (fileType == 'zip' || fileType == '7z' || fileType == 'rar') {
-                                dp.destroy()
-                                $("#la-player-body").empty().append(`您打开了一个压缩包, 若有需要, 可点击下方按钮下载。<br>${downloadBtn}${urlLabel}`)
-                            }
-                            if (fileType == 'png' || fileType == 'jpg' || fileType == 'jpeg' || fileType == 'gif' || fileType == 'webp') {
-                                dp.destroy()
-                                $("#la-img-view").empty().append('<img class="img-fluid " src="' + result.data.url + '">')
-                                $("#la-player-body").empty().append("您打开了一张图片。")
-                            }
-                            if (fileType == 'txt') {
-                                dp.destroy()
-                                $("#la-player-body").empty().append("您打开了一个文本文档, 若有需要, 可点击下方按钮下载。" + "<br>" + downloadBtn + urlLabel)
-                            }
-                            if (fileType == 'ass') {
-                                dp.destroy()
-                                $("#la-player-body").empty().append("您打开了一个外挂字幕, 若有需要, 可点击下方按钮下载。" + "<br>" + downloadBtn + urlLabel)
-                            }
-                            if (fileType == undefined) {
-                                dp.destroy()
-                                $("#la-player-body").empty().append("您打开了一个未知文件, 若有需要, 可点击下方按钮下载。" + "<br>" + downloadBtn + urlLabel)
-                            }
-
-                            // 为播放器增加关闭时销毁事件
-                            var lavaAnimeModalPlayer = document.getElementById('la-player')
-                            lavaAnimeModalPlayer.addEventListener('hide.bs.modal', function (event) {
-                                dp.destroy()
-                                $("#la-img-view").empty()
-                            })
-
-                            // 增加剪贴板复制
-                            $("#copy-success").hide()
-                            var clipboard = new ClipboardJS('.copy', {
-                                container: document.getElementById('la-player')
-                            });
-
-                            clipboard.on('success', function (e) {
-                                console.info('复制操作:', e.action);
-                                console.info('文本:', e.text);
-                                console.info('触发器:', e.trigger);
-                                $("#copy-success").fadeIn()
-                                setTimeout(() => { $("#copy-success").fadeOut() }, 3000)
-
-                            });
-
-                            clipboard.on('error', function (e) {
-                                console.error('复制操作失败:', e.action);
-                                console.error('触发器:', e.trigger);
-                            });
-
-                        }
-                    })
-
-                })
-            }
-
-
-
-        })
-    </script>
 </head>
 
 <body id="bg" style="background-attachment: fixed; background-position: center; background-size: cover;">
-    <nav class="navbar navbar-light bg-light shadow fixed-top">
+
+
+    <div id="loading" class="spinner-border position-absolute bottom-0 end-0 m-2" style="z-index: 10000;"></div>
+    <nav class="navbar navbar-light shadow fixed-top"
+        style="backdrop-filter: blur(6px); background-color: rgba(240, 240, 240, 0.7);">
         <div class="container-fluid">
-            <a class="navbar-brand" id="goback">
-                <i class="bi bi-chevron-left mx-1"></i>
-                <span>返回索引页</span>
+            <div class="navbar-brand" id="goback">
+                <i class="bi bi-chevron-left mx-2"></i>
+                <span>返回上一页</span>
+            </div>
+            <a href="/index.html" class="navbar-brand" id="home">
+                <i class="bi bi-house"></i>
             </a>
-
-            <div id="loading" class="spinner-border position-absolute top-0 end-0 m-2"></div>
-
         </div>
     </nav>
+    <script>
+        $('#goback').on('click', () => {
+            window.history.back()
+        })
+    </script>
     <div class="container" style="margin-top: 72px;">
-        <div class="my-2 list-group" style="opacity: 85%;">
+
+        <!-- 头部 -->
+        <div id="la-anime-header" class="my-2 list-group" style="opacity: 85%;">
             <div class="list-group-item">
                 <div id="la-path" style="font-size: 14px;" class="fw-lighter text-truncate"></div>
             </div>
@@ -531,7 +96,6 @@
 
         <!-- 列表容器 -->
         <div id="la-list-container" class="list-group mb-3"></div>
-
         <!-- 弹出的 “播放器” -->
         <div id="la-player" class="modal fade" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -541,6 +105,7 @@
                         <button type="button" id="la-player-close" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
+                    <!-- 播放器容器 -->
                     <div id="dplayer"></div>
                     <div id="la-img-view"></div>
                     <div id="la-player-body" class="modal-body"></div>

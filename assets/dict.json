@@ -216,7 +216,7 @@
     },
     {
         "from": "[^A-Za-z0-9]LavaAnime[^A-Za-z0-9]",
-        "to": "熔岩番剧库独家",
+        "to": "熔岩动画",
         "class": "bg-primary"
     },
     {
@@ -242,6 +242,11 @@
     {
         "from": "[^A-Za-z0-9]Henshin[^A-Za-z0-9]",
         "to": "Henshin 压制组",
+        "class": "bg-primary"
+    },
+    {
+        "from": "[^A-Za-z0-9](MingYSub|MingY)[^A-Za-z0-9]",
+        "to": "MingYSub",
         "class": "bg-primary"
     },
     {
@@ -442,6 +447,11 @@
     {
         "from": "V2|\\[v2\\]",
         "to": "第2版字幕",
+        "class": "bg-info text-dark"
+    },
+    {
+        "from": "[^A-Za-z0-9]Final[^A-Za-z0-9]",
+        "to": "最终版本",
         "class": "bg-info text-dark"
     },
     {
