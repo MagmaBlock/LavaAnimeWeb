@@ -6,71 +6,126 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>熔岩番剧库 - 主页 | LavaAnime</title>
-    <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/jquery/3.6.0/jquery.min.js"></script>
-    <link href="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"
-        crossorigin="anonymous">
-    <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstarp-icon/1.7.2/bootstrap-icons.css">
-    <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/clipboard/2.0.9/clipboard.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://cdn.5t5.top/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link href="https://cdn.5t5.top/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.5t5.top/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.5t5.top/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Clipboard.js -->
+    <script src="https://cdn.5t5.top/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+    <!-- Axios -->
+    <script src="https://cdn.5t5.top/ajax/libs/axios/0.26.1/axios.min.js"></script>
     <!-- Assets -->
     <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
     </link>
-
+    <script src="./js/PrintAnimeList.js" crossorigin="anonymous"></script>
     <script src="./js/Navbar.js" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            const config = {
+                "api": { "url": "http://localhost:8090" }
+            }
+
+            const collections = [
+                {
+                    id: '2022-4',
+                    title: '2022年4月新番',
+                    subtitle: '2022年4月新番开播！熔岩番剧库 21 部作品在线看',
+                    background: '',
+                    content: [
+                        {
+                            index: 0, title: "备受期待，热门改编",
+                            anime: [371, 332, 338, 331, 372, 359]
+                        },
+                        {
+                            index: 1, title: "续作",
+                            anime: [334, 341, 336, 339, 342, 340, 337, 357, 333]
+                        },
+                        {
+                            index: 2, title: "恋爱日常，治愈休闲",
+                            anime: [361, 374, 360, 392, 362, 335]
+                        },
+                        {
+                            index: 3, title: "持续连载、剧场版",
+                            anime: [79, 364]
+                        }
+                    ]
+                }
+            ]
+
+
+            /*
+                根据 Collections 数据生成推荐番剧列表，思路: 拿到每个 Collection 后，先遍历 content，生成一个骨架
+                再把标题等内容填入渲染为 HTML。接着再遍历 content，让异步回调将数据填入骨架。
+
+                有够麻烦的 什么时候学 Vue
+            */
+            for (let i = 0; i < collections.length; i++) { // 遍历全部番剧推荐
+
+                let thisCollection = collections[i] // 当前推荐番剧组
+                let thisCollectionContentHtml = '' // 当前推荐番剧组的内容 HTML
+                for (let j = 0; j < thisCollection.content.length; j++) { // 循环每一个正文块，生成骨架
+                    let thisCollectionBlock = thisCollection.content[j]; // 当前正文块
+                    thisCollectionContentHtml = // 这个正文块的 HTML
+                        thisCollectionContentHtml +
+                        `<h2 class="mb-3">${thisCollectionBlock.title}</h2>
+                        <div id="collectionBlock-${thisCollection.id}-${thisCollectionBlock.index}"></div>`
+                }
+                let thisCollectionHtml = // HTML 骨架
+                    `
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="display-5">
+                            ${thisCollection.title}
+                        </h1>
+                        <p class="text-muted fw-light">
+                            ${thisCollection.subtitle}
+                        </p>
+                        <div>
+                            ${thisCollectionContentHtml}
+                        </div>
+                    </div>
+                </div>
+                `
+                $('#collections').append(thisCollectionHtml) // 渲染骨架
+            }
+
+            for (let i = 0; i < collections.length; i++) {  // 第二次遍历，主要是调用 API 填入番剧
+                let thisCollection = collections[i] // 当前推荐番剧组
+                for (let j = 0; j < thisCollection.content.length; j++) { // 循环每一个正文块，填入番剧
+                    let thisCollectionBlock = thisCollection.content[j]; // 当前正文块
+                    axios({ // 调用 API 获取番剧
+                        method: 'post',
+                        url: config.api.url + '/v1/anime/id',
+                        data: thisCollectionBlock.anime
+                    }).then((result) => {
+                        let thisCollectionBlockAnimeData = result.data.data
+                        PrintAnimeList($(`#collectionBlock-${thisCollection.id}-${thisCollectionBlock.index}`), thisCollectionBlockAnimeData);
+                        $(`#collectionBlock-${thisCollection.id}-${thisCollectionBlock.index}`).removeClass('mx-2').addClass('mx-auto');
+                    })
+                }
+            }
+
+
+
+
+        });
+    </script>
 </head>
 
 <body>
     <div id="navbar"></div>
-    <div class="container mt-4">
+    <div class="container mt-4" style="margin-bottom: 100px;">
         <div class="mx-3">
             <h1 class="display-3">主页</h1>
-            <p class="fw-light">2022年4月新番开播！熔岩番剧库 21 部作品在线看</p>
+            <p class="fw-light"></p>
             <div>
-                <div id="2022-4">
-                </div>
+                <div id="collections"></div>
+
             </div>
         </div>
-        <script>
-            $(document).ready(function () {
-                $.ajax({
-                    url: "./assets/2022-4.json",
-                    success: function (result) {
-                        console.log(result)
-                        let html = ''
-                        for (i in result) {
-                            let titleHtml = `<h2>${result[i].Title}</h2>`
-                            html = html + titleHtml
-                            for (j in result[i].Anime) {
-                                let thisAnime = result[i].Anime[j].Path.split('/')[3]
-                                let bgmId = thisAnime.match("\\d+$")[0]
-                                let animeName = thisAnime.replace(thisAnime.match("\\d+$"), "").substr(0, thisAnime.replace(thisAnime.match("\\d+$"), "").length - 1);
 
-                                let animeHtml = `
-                                <div class="col-4 col-sm-3 col-lg-2 px-2 mb-2">
-                                    <a href="search.html?bgm=${bgmId}" class="text-decoration-none text-black">
-                                        <img class="rounded mb-1 shadow-sm" src="" style="object-fit: cover; width: 100%;">
-                                        <div style="font-size: small; line-height: 18px; min-height: 36px" "="">${animeName}</div>
-                                    </a>
-                                    <div class="text-secondary" style="font-size: 12px; line-height: 18px;">
-                                        <a class="text-secondary text-decoration-none" target="_blank" href="https://bgm.tv/subject/${bgmId}">
-                                            <i class="bi bi-link-45deg"></i> 番组计划
-                                        </a>
-                                    </div>
-                                </div>
-                                `
-                                html = html + animeHtml
-                            }
-                        }
-
-
-                        $("#2022-4").append(html)
-                    }
-                })
-            });
-        </script>
-
-    </div>
     </div>
 
     <span class="visually-hidden">
