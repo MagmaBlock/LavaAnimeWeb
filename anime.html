@@ -62,13 +62,20 @@
                 <div class="text-muted fw-lighter" id="name"></div>
                 <!-- 播放量评分等数据栏 -->
                 <div class="text-secondary fw-lighter fs-6">
-                    <i class="bi bi-play-btn"></i><span id="views"></span>
+                    <!-- 播放量 -->
+                    <span id="views-box">
+                        <i class="bi bi-play-btn"></i><span id="views"></span>
+                    </span>
+                    <!-- 评分 -->
                     <span id="rating-box">
                         <i class="bi bi-star"></i><span id="rating"></span>
                     </span>
-                    <i class="bi bi-view-list"></i><span id="eps"></span>
+                    <!-- 总话数 -->
+                    <span id="eps-box">
+                        <i class="bi bi-view-list"></i><span id="eps"></span>
+                    </span>
                 </div>
-                <!-- 标签栏 -->
+                <!-- 来自 Bangumi 的 Tag 栏 -->
                 <span class="fw-lighter fs-6" id="tags"></span>
                 <span class="fw-lighter btn btn-sm text-secondary p-0" style="font-size: 13px;" id="show-more"><i
                         class="bi bi-arrow-down-short"></i>显示更多</span>

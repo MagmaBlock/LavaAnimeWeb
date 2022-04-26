@@ -43,10 +43,18 @@ $(document).ready(function () {
                 $("#views").empty().append(` 播放 ${thisPageAnimeData.views} 次`)
                 // 特效，渐变展示头部卡片
                 $('#la-anime-header').fadeIn()
-                // 进行接下来的操作
-                getBangumiApi()
-                getAgefans()
-                getRelatins()
+
+                if (thisPageAnimeData.bgmid != '000000') { // 如果这个番剧是一个 Bangumi 番剧
+                    getBangumiApi() // 获取 Bangumi 番剧的 API 数据并显示在页面上
+                    getAgefans() // 获取 Agefans 番剧的数据并显示在页面上
+                    getRelatins() // 获取相关番剧的数据并显示在页面上
+                } else { // 如果这个番剧不是一个 Bangumi 番剧
+                    $('#name_cn').append(thisPageAnimeData.title)
+                    $('#rating-box, #eps-box, #show-more').hide()
+                    $('#more-link').empty().append('<span class="fw-lighter text-secondary">本作是 Bangumi 未收录番剧 （或者可能根本不是一个影视作品！）</span>')
+                    $('#bg').css('background-image', 'url(https://anime-img.5t5.top/assets/no-bgm-bg.jpg/bg)')
+                }
+                getFileList() // 打印文件列表
             })
 
         function getBangumiApi() {
@@ -54,7 +62,6 @@ $(document).ready(function () {
             axios(config.bangumiApi + thisPageAnimeData.bgmid)
                 .then((result) => {
                     thisPageBangumiData = result.data; // 此界面的 Bangumi 数据
-                    getFileList()
                     console.log('成功取得 Bangumi API Data：', thisPageBangumiData);
 
                     $("#bangumi").attr("href", "https://bgm.tv/subject/" + thisPageBangumiData.id) // 设置番组计划链接
@@ -190,9 +197,10 @@ $(document).ready(function () {
                     let fileList = result.data.data
                     console.log('成功取得文件列表：', fileList);
                     if (fileList.length == 0) { // 如果没有文件列表
+                        console.log('文件列表为空!');
                         let airDate = thisPageBangumiData.date ? thisPageBangumiData.date : '未知 / 暂未定档' // 如果 Bangumi 有提供放送日期, 则提取放送日期
                         setTimeout(() => {
-                            $("#la-list-container").append("<div style='opacity: 85%;' class='alert alert-info'><span>熔岩云盘返回列表为空, 此番组目录下尚无任何资源! <br>" + "请确认此作品已经开始连载, 根据 Bangumi Wiki, 本作的开始放送日期为: " + airDate + "<br><a class='alert-link' href='./index.html'>返回主页</a></span></div>")
+                            $("#la-list-container").append("<div style='opacity: 85%;' class='alert alert-info'><span>熔岩云盘返回列表为空, 此番组目录下尚无任何资源! <br>" + "请确认此作品已经开始连载, 根据 Bangumi Wiki, 本作的开始放送日期为: " + airDate + "<br><a class='alert-link' href='./index.html'>返回主页</a></span></div>").fadeIn()
                             $("#loading").fadeOut()
                             $('#rating-box').hide() // 如果没有资源(通常是未开播), 则隐藏评分框
                         }, 1500);
