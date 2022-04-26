@@ -98,10 +98,8 @@
                 $('#search').on('click', function () { // 点击搜索按钮
                     goSearch();
                 })
-                $('input').on('keydown', function (e) { // 按下回车键
-                    if (e.keyCode == 13) {
-                        goSearch();
-                    }
+                $('#search-label').change(function () { // 搜索框内容改变时
+                    goSearch();
                 })
                 function goSearch() {
                     let text = $('#search-label').val();
