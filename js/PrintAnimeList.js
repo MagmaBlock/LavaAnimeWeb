@@ -5,7 +5,7 @@ function PrintAnimeList(container, animeList) {
         let thisAnimeId = animeList[i].id;
         let thisAnimeTitle = animeList[i].title;
         let thisAnimePoster = animeList[i].poster;
-        let thisAnimeBgmId = animeList[i].bgmId;
+        let thisAnimeBgmId = animeList[i].bgmid;
         let thisAnimeViews = animeList[i].views;
         let newAnimeCard =
             `
