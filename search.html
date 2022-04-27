@@ -24,54 +24,59 @@
 
 <body>
     <script>
-        $(document).ready(function () {
+        $(function () {
             const config = {
                 "api": { "url": "https://anime-api.5t5.top" }
             }
 
-            const containerId = "search-result-container";
+            const containerId = "search-result-container"
             console.log(getUrlParams())
             if (getUrlParams().name) { // 如果是以名字搜索
                 $("#search-label").val(decodeURIComponent(getUrlParams().name))
-                $.ajax({
-                    url: config.api.url + '/v1/search/name/' + getUrlParams().name,
-                    success: function (data) {
-                        console.log(data);
-                        if (data.code == 0) {
-                            print(data)
-                        }
-                        if (data.code == 404) {
-                            notFound()
-                        }
-                    }
-                })
+                let haveResult = false
+                if (bgmSearch(getUrlParams().name)) haveResult = true
+                if (nameSearch(getUrlParams().name)) haveResult = true
+                if (haveResult == false) notFound()
             }
             if (getUrlParams().bgm) { // 如果是以 Bangumi ID 搜索
                 $("#search-label").val(decodeURIComponent(getUrlParams().bgm))
+                if (!bgmSearch(getUrlParams().bgm)) notFound()
+            }
+            function nameSearch(name) {
                 $.ajax({
-                    url: config.api.url + '/v1/search/bgm/' + getUrlParams().bgm,
+                    url: config.api.url + '/v1/search/name/' + name,
                     success: function (data) {
-                        console.log(data);
-                        if (data.code == 0) {
-                            print(data)
-                        }
-                        if (data.code == 404) {
-                            notFound()
-                        }
+                        console.log(data)
+                        if (data.code == 0) print(data)
+                        else return false
                     }
                 })
+                return true
             }
-            function print(data) {
-                console.log(data);
-                PrintAnimeList($(`#${containerId}`),data.data)
 
+            function bgmSearch(id) {
+                $.ajax({
+                    url: config.api.url + '/v1/search/bgm/' + id,
+                    success: function (data) {
+                        console.log(data)
+                        if (data.code == 0) print(data)
+                        else return false
+                    }
+                })
+                return true
             }
+
+            function print(data) {
+                console.log(data)
+                PrintAnimeList($(`#${containerId}`), data.data)
+            }
+
             function notFound() {
                 $("#search-result-container").append(`
                 <div class='alert alert-secondary mx-3'>\\アッカリ～ン!/ <br>没有在番剧库内找到相关的番组...</div>
                 `)
             }
-        });
+        })
     </script>
     <div id="navbar"></div>
     <div class="container mt-4">
@@ -89,36 +94,32 @@
                 <input id="search-label" type="text" class="form-control" search-by="name" placeholder="以 番剧名称 搜索">
                 <button id="search" class="btn btn-primary" type="button"><i class="bi bi-search"></i></button>
             </div>
+            <div id="bangumiAlert" class="alert alert-secondary" role="alert" style="display: none;">请输入正确的 Bangumi ID
+            </div>
             <script>
                 $('#by-name').on('click', function () { // 改为以番剧名称搜索
-                    $('input').attr('search-by', 'name').attr('placeholder', '以 番剧名称 搜索');
-                });
+                    $('input').attr('search-by', 'name').attr('placeholder', '以 番剧名称 搜索')
+                })
                 $('#by-bgm').on('click', function () { // 改为以 Bangumi ID 搜索
-                    $('input').attr('search-by', 'bgm').attr('placeholder', '以 Bangumi ID 搜索');
-                });
+                    $('input').attr('search-by', 'bgm').attr('placeholder', '以 Bangumi ID 搜索')
+                })
                 $('#search').on('click', function () { // 点击搜索按钮
-                    goSearch();
+                    goSearch()
                 })
                 $('#search-label').change(function () { // 搜索框内容改变时
-                    goSearch();
+                    goSearch()
                 })
                 function goSearch() {
                     let text = $('#search-label').val();
-                    if (text == '') {
-                        window.location.href = './search.html';
-                    }
-                    else {
-                        if ($('input').attr('search-by') == 'name') {
-                            window.location.href = './search.html?name=' + encodeURIComponent(text);
-                        }
-                        if ($('input').attr('search-by') == 'bgm') {
-                            if (text.match(/[^0-9]/)) {
-                                alert('请输入正确的 Bangumi ID');
-                            }
-                            else {
-                                window.location.href = './search.html?bgm=' + text;
-                            }
-                        }
+                    if (text == '') window.location.href = './search.html'
+                    if ($('#search-label').attr('search-by') == 'name')
+                        window.location.href = './search.html?name=' + encodeURIComponent(text)
+
+                    if ($('#search-label').attr('search-by') == 'bgm') {
+                        if (text.match(/[^0-9]/)) {
+                            $("#bangumiAlert").css("display", "inherit")
+                            $("#search-result-container").css("display", "none")
+                        } else window.location.href = './search.html?bgm=' + text
                     }
                 }
             </script>
@@ -134,8 +135,6 @@
     <script async defer data-website-id="5aad3d7c-6372-42aa-957e-ed4c945c0d08"
         src="https://umami.magma.ink/umami.js"></script>
 </body>
-
-
 
 
 </html>

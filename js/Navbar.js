@@ -51,9 +51,9 @@ $(document).ready(() => {
         else document.querySelector(".goTopButton").style.opacity = "0"
     })
 
-    document.querySelector(".goTopButton").onclick = function () {
+    $(".goTopButton").click(function () {
         $("body,html").animate({ scrollTop: '0' }, 100)
-    }
+    })
 
     $(".searchButton input").keydown(function (e) {
         if (e.keyCode == 13) {
@@ -62,9 +62,9 @@ $(document).ready(() => {
         }
     })
 
-    document.querySelector(".searchButton span").onclick = function () {
+    $(".searchButton span").click(function () {
         if (document.querySelector(".searchButton").clientWidth > 180)
             if (document.querySelector(".searchButton input").value != "")
                 window.location.href = 'https://anime.magmablock.top/search.html?name=' + document.querySelector(".searchButton input").value
-    }
+    })
 })
