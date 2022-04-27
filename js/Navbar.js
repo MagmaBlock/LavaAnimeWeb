@@ -10,6 +10,11 @@ $(document).ready(() => {
 
     var navbarHtml =
         `
+<div class="toolbar">
+    <div class="toolButton goTopButton" style="opacity: 1;"><i class="bi bi-arrow-up-circle fs-5"></i></div>
+    <div class="toolButton searchButton"><span><i class="bi bi-search fs-5"></i></span><input class="form-control" placeholder="以 番剧名称 搜索"></div>
+</div>
+
 <nav class="navbar navbar-light shadow-lg fixed-bottom border-top border-1 rounded-top p-2"
     style="backdrop-filter: blur(6px) brightness(0.7); background-color: rgba(250, 250, 250, 0.7);">
     <div class="container-fluid row-cols-${navbarHtmlcols}">
@@ -38,5 +43,28 @@ $(document).ready(() => {
 `
     $("#navbar").append(navbarHtml)
 
-    $(`#${documentFileName}`).removeClass("text-secondary").attr("href","#")
+    $(`#${documentFileName}`).removeClass("text-secondary").attr("href", "#")
+
+    $(window).scroll(function () {
+        var s = $(window).scrollTop()
+        if (s > 110) document.querySelector(".goTopButton").style.opacity = "1"
+        else document.querySelector(".goTopButton").style.opacity = "0"
+    })
+
+    document.querySelector(".goTopButton").onclick = function () {
+        $("body,html").animate({ scrollTop: '0' }, 100)
+    }
+
+    $(".searchButton input").keydown(function (e) {
+        if (e.keyCode == 13) {
+            if (document.querySelector(".searchButton input").value != "")
+                window.location.href = 'https://anime.magmablock.top/search.html?name=' + document.querySelector(".searchButton input").value
+        }
+    })
+
+    document.querySelector(".searchButton span").onclick = function () {
+        if (document.querySelector(".searchButton").clientWidth > 180)
+            if (document.querySelector(".searchButton input").value != "")
+                window.location.href = 'https://anime.magmablock.top/search.html?name=' + document.querySelector(".searchButton input").value
+    }
 })
