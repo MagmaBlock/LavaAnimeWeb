@@ -390,22 +390,22 @@
         "class": "bg-secondary"
     },
     {
-        "from": "[^A-Za-z0-9]LavaASS_CHS_CHT_JPN[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9]LavaASS[^A-Za-z0-9]CHS[^A-Za-z0-9]CHT[^A-Za-z0-9]JPN[^A-Za-z0-9]",
         "to": "熔岩番剧库整合-简繁日",
         "class": "bg-info text-dark"
     },
     {
-        "from": "[^A-Za-z0-9]LavaASS_CHS_CHT[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9]LavaASS[^A-Za-z0-9]CHS[^A-Za-z0-9]CHT[^A-Za-z0-9]",
         "to": "熔岩番剧库整合-简繁",
         "class": "bg-info text-dark"
     },
     {
-        "from": "[^A-Za-z0-9]LavaASS_CHS[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9]LavaASS[^A-Za-z0-9]CHS[^A-Za-z0-9]",
         "to": "熔岩番剧库整合-简体中文",
         "class": "bg-info text-dark"
     },
     {
-        "from": "[^A-Za-z0-9]LavaASS_CHT[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9]LavaASS[^A-Za-z0-9]CHT[^A-Za-z0-9]",
         "to": "熔岩番剧库整合-繁体中文",
         "class": "bg-info text-dark"
     },
@@ -450,7 +450,7 @@
         "class": "bg-info text-dark"
     },
     {
-        "from": "[^A-Za-z0-9]Final[^A-Za-z0-9]",
+        "from": "([|\()Final(]|\))",
         "to": "最终版本",
         "class": "bg-info text-dark"
     },
