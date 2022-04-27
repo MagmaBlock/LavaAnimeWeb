@@ -1,0 +1,45 @@
+.toolbar {
+    z-index: 1234;
+    position: fixed;
+    right: 30px;
+    bottom: 80px;
+}
+
+.toolButton {
+    margin-bottom: 20px;
+    overflow: hidden;
+    color: #6c757d;
+    width: 50px;
+    height: 50px;
+    transition: 0.8s;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgb(0 0 0 / 20%);
+    display: flex;
+    align-items: center;
+    cursor: pointer
+}
+
+.searchButton:hover {
+    width: min(350px, 80vw)
+}
+
+.searchButton span {
+    min-width: 55px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.searchButton i {
+    margin-left: 16px
+}
+
+.searchButton input {
+    width: calc(95% - 50px)
+}
+
+.goTopButton {
+    margin-left: calc(100% - 50px);
+    justify-content: center
+}
