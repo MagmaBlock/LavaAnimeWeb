@@ -446,11 +446,11 @@
     },
     {
         "from": "V2|\\[v2\\]",
-        "to": "第2版字幕",
+        "to": "第2版",
         "class": "bg-info text-dark"
     },
     {
-        "from": "([|\()Final(]|\))",
+        "from": "(\\[|\\()Final(\\]|\\))",
         "to": "最终版本",
         "class": "bg-info text-dark"
     },
