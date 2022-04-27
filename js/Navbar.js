@@ -11,7 +11,7 @@ $(document).ready(() => {
     var navbarHtml =
         `
 <div class="toolbar">
-    <div class="toolButton goTopButton" style="opacity: 1;"><i class="bi bi-arrow-up-circle fs-5"></i></div>
+    <div class="toolButton goTopButton" style="opacity: 0;"><i class="bi bi-arrow-up-circle fs-5"></i></div>
     <div class="toolButton searchButton"><span><i class="bi bi-search fs-5"></i></span><input class="form-control" placeholder="以 番剧名称 搜索"></div>
 </div>
 
