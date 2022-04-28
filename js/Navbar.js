@@ -98,19 +98,18 @@ $(document).ready(() => {
         $('#topbar, #navbar').css('background-color', 'rgba(250, 250, 250, 1)');
     }
 
-    // 点击搜索按钮
+    // 顶部搜索框的行为
     $('#search-top').on('click', function () {
         goSearch()
-    })
-    // 搜索框内容改变时
-    $('#search-label-top').change(function () {
-        goSearch()
+    }).keydown(function (e) {
+        if (e.keyCode == 13)
+            goSearch()
     })
     // 去搜索的函数
     function goSearch() {
         let text = $('#search-label-top').val()
         if (text == '') window.location.href = './search.html'
-        window.location.href = '/search.html?name=' + encodeURIComponent(text)
+        window.location.href = './search.html?name=' + encodeURIComponent(text)
     }
 
     // 检查是否需要显示回到顶部
