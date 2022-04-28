@@ -1,60 +1,131 @@
 $(document).ready(() => {
+    const navbarHtml =
+        `
+        <!-- 顶栏 -->
+        <nav id="topbar" class="navbar navbar-light shadow-sm fixed-top border-bottom border-1 rounded-bottom"
+            style="backdrop-filter: blur(6px) brightness(0.7); background-color: rgba(250, 250, 250, 0.7);">
+            <div class="container-fluid px-4" style="max-width: 1200px">
+                <!-- 左侧 -->
+                <div>
+                    <a id="home-top" class="text-decoration-none text-secondary mx-2 d-none d-md-inline" href="/home.html">
+                        <i class="bi bi-house fs-5 align-baseline"></i>
+                        <span class="d-none d-md-inline mx-1 fw-light align-text-bottom"
+                            style="font-size: 14px;">主页</span>
+                    </a>
+                    <a id="index-top" class="text-decoration-none text-secondary mx-2 d-none d-md-inline"
+                        href="/index.html">
+                        <i class="bi bi-collection fs-5 align-baseline"></i>
+                        <span class="d-none d-md-inline mx-1 fw-light align-text-bottom"
+                            style="font-size: 14px;">索引</span>
+                    </a>
+                    <a id="help-top" class="text-decoration-none text-secondary mx-2 d-none d-md-inline" href="/help.html">
+                        <i class="bi bi-question-circle fs-5 align-baseline"></i>
+                        <span class="d-none d-md-inline mx-1 fw-light align-text-bottom"
+                            style="font-size: 14px;">帮助</span>
+                    </a>
+                    <a id="weekly-top" class="text-decoration-none text-secondary mx-2" href="/weekly.html">
+                        <i class="bi bi-calendar-week fs-5 align-baseline"></i>
+                        <span class="d-none d-md-inline mx-1 fw-light align-text-bottom"
+                            style="font-size: 14px;">放送</span>
+                    </a>
+                </div>
+                <!-- 搜索框 -->
+                <form class="d-flex" style="min-width: 200px; width: 45%; max-width: 550px;">
+                    <div class="input-group">
+                        <input id="search-label-top" type="text" class="form-control form-control-sm" search-by="name"
+                            placeholder="以 番剧名称 搜索" style="font-size: 13px; background: rgba(255,255,255,0.5);">
+                        <button id="search-top" class="btn btn-sm btn-secondary border-0 align-middle" type="button"><i
+                                class="bi bi-search"></i></button>
+                    </div>
+                </form>
+                <!-- 右侧 -->
+                <div>
+                    <a id="notice-top" class="text-decoration-none text-secondary mx-2" href="#">
+                        <i class="bi bi-bell fs-5"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    
+        <!-- 底栏 -->
+        <nav id="navbar" class="navbar navbar-light shadow-lg fixed-bottom border-top border-1 rounded-top p-2 d-md-none"
+            style="backdrop-filter: blur(9px) brightness(0.7); background-color: rgba(250, 250, 250, 0.7);">
+            <!-- 底栏的容器 -->
+            <div class="container-fluid row-cols-5" style="max-width: 1320px">
+                <!-- 图标部分 -->
+                <a id="home-bottom" class="text-center text-decoration-none col text-secondary" href="/home.html"
+                    one-link-mark="yes">
+                    <i class="bi bi-house fs-5"></i>
+                    <div style="font-size: 10px;">主页</div>
+                </a>
+                <a id="search-bottom" class="text-center text-decoration-none col text-secondary" href="/search.html"
+                    one-link-mark="yes">
+                    <i class="bi bi-search fs-5"></i>
+                    <div style="font-size: 10px;">搜索</div>
+                </a>
+                <a id="index-bottom" class="text-center text-decoration-none col text-secondary" href="/index.html"
+                    one-link-mark="yes">
+                    <i class="bi bi-collection fs-5"></i>
+                    <div style="font-size: 10px;">索引</div>
+                </a>
+                <a id="help-bottom" class="text-center text-decoration-none col text-secondary" href="/help.html"
+                    one-link-mark="yes">
+                    <i class="bi bi-question-circle fs-5" "=""></i>
+                        <div style=" font-size: 10px;">帮助
+            </div>
+        </nav>
+    
+`
+    const toolBar = `
+        <div class="toolbar">
+            <div class="toolButton goTopButton" style="opacity: 0;"><i class="bi bi-arrow-up-circle fs-5"></i></div>
+            <div class="toolButton searchButton"><span><i class="bi bi-search fs-5"></i></span><input class="form-control" placeholder="以 番剧名称 搜索"></div>
+        </div>
+`
+
+    // 插入顶栏
+    $("#navbar").append(navbarHtml, toolBar).css('height', '40')
 
     // 用 / 把 URL 拆开，取出文档名，剔除参数。
-    var documentFileName = location.href.split('/')
+    let documentFileName = location.href.split('/')
     documentFileName = documentFileName[documentFileName.length - 1].split(".html")[0]
+    // 点亮当前界面的图标
+    $(`#${documentFileName}-bottom, #${documentFileName}-top`).removeClass("text-secondary").attr("href", "#")
 
-    // [底栏设置]
-    // 底栏图标数：
-    var navbarHtmlcols = 5
+    // 检查浏览器是否为 FireFox，然后关掉高斯模糊所需的透明
+    if (navigator.userAgent.match('Firefox')) {
+        console.log('发现 Firefox，正在禁用顶栏底栏透明...');
+        $('#topbar, #navbar').css('background-color', 'rgba(250, 250, 250, 1)');
+    }
 
-    var navbarHtml =
-        `
-<div class="toolbar">
-    <div class="toolButton goTopButton" style="opacity: 0;"><i class="bi bi-arrow-up-circle fs-5"></i></div>
-    <div class="toolButton searchButton"><span><i class="bi bi-search fs-5"></i></span><input class="form-control" placeholder="以 番剧名称 搜索"></div>
-</div>
+    // 点击搜索按钮
+    $('#search-top').on('click', function () {
+        goSearch()
+    })
+    // 搜索框内容改变时
+    $('#search-label-top').change(function () {
+        goSearch()
+    })
+    // 去搜索的函数
+    function goSearch() {
+        let text = $('#search-label-top').val()
+        if (text == '') window.location.href = './search.html'
+        window.location.href = '/search.html?name=' + encodeURIComponent(text)
+    }
 
-<nav class="navbar navbar-light shadow-lg fixed-bottom border-top border-1 rounded-top p-2"
-    style="backdrop-filter: blur(9px) brightness(0.7); background-color: rgba(250, 250, 250, 0.7);">
-    <div class="container-fluid row-cols-${navbarHtmlcols}" style="max-width: 1320px">
-        <a id="home" class="text-center text-decoration-none col text-secondary" href="/home.html">
-            <i class="bi ${location.href.indexOf("home.html") != -1 ? "bi-house-fill" : "bi-house"} fs-5"></i>
-            <div style="font-size: 10px;">主页</div>
-        </a>
-        <a id="search" class="text-center text-decoration-none col text-secondary" href="/search.html">
-            <i class="bi ${location.href.indexOf("search.html") != -1 ? "bi-search" : "bi-search"} fs-5"></i>
-            <div style="font-size: 10px;">搜索</div>
-        </a>
-        <a id="weekly" class="text-center text-decoration-none col text-secondary" href="/weekly.html">
-            <i class="bi ${location.href.indexOf("weekly.html") != -1 ? "bi-calendar-week-fill" : "bi-calendar-week"} fs-5"></i>
-            <div style="font-size: 10px;">放送</div>
-        </a>
-        <a id="index" class="text-center text-decoration-none col text-secondary" href="/index.html">
-            <i class="bi ${location.href.indexOf("index.html") != -1 ? "bi-collection-fill" : "bi-collection"} fs-5"></i>
-            <div style="font-size: 10px;">索引</div>
-        </a>
-        <a id="help" class="text-center text-decoration-none col text-secondary" href="/help.html">
-        <i class="bi ${location.href.indexOf("help.html") != -1 ? "bi-question-circle-fill" : "bi-question-circle"} fs-5""></i>
-            <div style="font-size: 10px;">帮助</div>
-        </a>
-    </div>
-</nav>
-`
-    $("#navbar").append(navbarHtml)
-
-    $(`#${documentFileName}`).removeClass("text-secondary").attr("href", "#")
-
+    // 检查是否需要显示回到顶部
     $(window).scroll(function () {
         var s = $(window).scrollTop()
-        if (s > 110) document.querySelector(".goTopButton").style.opacity = "1"
-        else document.querySelector(".goTopButton").style.opacity = "0"
+        if (s > 1000) $(".goTopButton").css('opacity', "1")
+        else $(".goTopButton").css('opacity', "0")
     })
 
+    // 回顶部按钮的行为
     $(".goTopButton").click(function () {
         $("body,html").animate({ scrollTop: '0' }, 100)
     })
 
+    // 搜索框的行为
     $(".searchButton input").keydown(function (e) {
         if (e.keyCode == 13) {
             if (document.querySelector(".searchButton input").value != "")
@@ -62,11 +133,13 @@ $(document).ready(() => {
         }
     })
 
+    // 点击搜索框的行为
     $(".searchButton span").click(function () {
         if (document.querySelector(".searchButton").clientWidth > 180)
             if (document.querySelector(".searchButton input").value != "")
                 window.location.href = 'https://anime.magmablock.top/search.html?name=' + document.querySelector(".searchButton input").value
     })
 
+    // 根据设置判断是否需要隐藏右下角按钮
     $(".toolbar").css("display", localStorage.getItem("hideToolBar") == "true" ? "none" : "")
 })

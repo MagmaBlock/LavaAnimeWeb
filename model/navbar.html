@@ -20,90 +20,86 @@
 </head>
 
 <body>
-    <style>
 
-    </style>
-
+    <!-- 一个背景 div -->
     <div style="background-image: url(../img/top/navbar-back.jpg); height: 150px; width: 100%; background-size: 100%;"
         class="shadow-sm border-2 border-bottom">
     </div>
 
-    <nav class="navbar navbar-light shadow-sm fixed-top border-bottom border-1 rounded-bottom"
+    <!-- 顶栏 -->
+    <nav id="topbar" class="navbar navbar-light shadow-sm fixed-top border-bottom border-1 rounded-bottom"
         style="backdrop-filter: blur(6px) brightness(0.7); background-color: rgba(250, 250, 250, 0.7);">
-        <div class="container-fluid px-4" style="max-width: 1100px">
+        <div class="container-fluid px-4" style="max-width: 1200px">
+            <!-- 左侧 -->
             <div>
-                <a id="weekly" class="text-decoration-none text-secondary" href="/weekly.html">
-                    <i class="bi bi-calendar-week fs-5"></i>
-                    <label class="d-none d-md-inline" style="margin-left: 11px;">每周放送</label>
+                <a id="home-top" class="text-decoration-none text-secondary mx-2 d-none d-md-inline" href="/home.html">
+                    <i class="bi bi-house fs-5 align-baseline"></i>
+                    <span class="d-none d-md-inline mx-1 fw-light align-text-bottom"
+                        style="font-size: 14px;">主页</span>
+                </a>
+                <a id="index-top" class="text-decoration-none text-secondary mx-2 d-none d-md-inline"
+                    href="/index.html">
+                    <i class="bi bi-collection fs-5 align-baseline"></i>
+                    <span class="d-none d-md-inline mx-1 fw-light align-text-bottom"
+                        style="font-size: 14px;">索引</span>
+                </a>
+                <a id="help-top" class="text-decoration-none text-secondary mx-2 d-none d-md-inline" href="/help.html">
+                    <i class="bi bi-question-circle fs-5 align-baseline"></i>
+                    <span class="d-none d-md-inline mx-1 fw-light align-text-bottom"
+                        style="font-size: 14px;">帮助</span>
+                </a>
+                <a id="weekly-top" class="text-decoration-none text-secondary mx-2" href="/weekly.html">
+                    <i class="bi bi-calendar-week fs-5 align-baseline"></i>
+                    <span class="d-none d-md-inline mx-1 fw-light align-text-bottom"
+                        style="font-size: 14px;">放送</span>
                 </a>
             </div>
-            <!-- <a class="navbar-brand text-secondary fw-light align-middle" style="font-size: 18px; " href="#">熔岩番剧库</a> -->
-            <form class="d-flex" style="min-width: 200px; width: 70%; max-width: 750px;">
+            <!-- 搜索框 -->
+            <form class="d-flex" style="min-width: 200px; width: 45%; max-width: 550px;">
                 <div class="input-group">
-                    <input id="search-label" type="text" class="form-control form-control-sm" search-by="name"
+                    <input id="search-label-top" type="text" class="form-control form-control-sm" search-by="name"
                         placeholder="以 番剧名称 搜索" style="font-size: 13px; background: rgba(255,255,255,0.5);">
-                    <button id="search" class="btn btn-sm btn-secondary border-0 align-middle" type="button"><i
+                    <button id="search-top" class="btn btn-sm btn-secondary border-0 align-middle" type="button"><i
                             class="bi bi-search"></i></button>
                 </div>
             </form>
-
+            <!-- 右侧 -->
             <div>
-                <a id="weekly" class="text-decoration-none text-secondary " href="/weekly.html">
+                <a id="notice-top" class="text-decoration-none text-secondary mx-2" href="#">
                     <i class="bi bi-bell fs-5"></i>
                 </a>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </div>
     </nav>
 
-
-    <div id="navbar">
-
-        <nav class="navbar navbar-light shadow-lg fixed-bottom border-top border-1 rounded-top p-2"
-            style="backdrop-filter: blur(9px) brightness(0.7); background-color: rgba(250, 250, 250, 0.7);">
-            <div class="container-fluid row-cols-5" style="max-width: 1320px">
-                <a id="home" class="text-center text-decoration-none col text-secondary" href="/home.html"
-                    one-link-mark="yes">
-                    <i class="bi bi-house fs-5"></i>
-                    <div style="font-size: 10px;">主页</div>
-                </a>
-                <a id="search" class="text-center text-decoration-none col text-secondary" href="/search.html"
-                    one-link-mark="yes">
-                    <i class="bi bi-search fs-5"></i>
-                    <div style="font-size: 10px;">搜索</div>
-                </a>
-                <a id="weekly" class="text-center text-decoration-none col" href="#" one-link-mark="yes">
-                    <i class="bi bi-calendar-week-fill fs-5"></i>
-                    <div style="font-size: 10px;">放送</div>
-                </a>
-                <a id="index" class="text-center text-decoration-none col text-secondary" href="/index.html"
-                    one-link-mark="yes">
-                    <i class="bi bi-collection fs-5"></i>
-                    <div style="font-size: 10px;">索引</div>
-                </a>
-                <a id="help" class="text-center text-decoration-none col text-secondary" href="/help.html"
-                    one-link-mark="yes">
-                    <i class="bi bi-question-circle fs-5" "=""></i>
-                    <div style=" font-size: 10px;">帮助
-            </div>
+    <!-- 底栏 -->
+    <nav id="navbar" class="navbar navbar-light shadow-lg fixed-bottom border-top border-1 rounded-top p-2 d-md-none"
+        style="backdrop-filter: blur(9px) brightness(0.7); background-color: rgba(250, 250, 250, 0.7);">
+        <!-- 底栏的容器 -->
+        <div class="container-fluid row-cols-5" style="max-width: 1320px">
+            <!-- 图标部分 -->
+            <a id="home-bottom" class="text-center text-decoration-none col text-secondary" href="/home.html"
+                one-link-mark="yes">
+                <i class="bi bi-house fs-5"></i>
+                <div style="font-size: 10px;">主页</div>
             </a>
-    </div>
+            <a id="search-bottom" class="text-center text-decoration-none col text-secondary" href="/search.html"
+                one-link-mark="yes">
+                <i class="bi bi-search fs-5"></i>
+                <div style="font-size: 10px;">搜索</div>
+            </a>
+            <a id="index-bottom" class="text-center text-decoration-none col text-secondary" href="/index.html"
+                one-link-mark="yes">
+                <i class="bi bi-collection fs-5"></i>
+                <div style="font-size: 10px;">索引</div>
+            </a>
+            <a id="help-bottom" class="text-center text-decoration-none col text-secondary" href="/help.html"
+                one-link-mark="yes">
+                <i class="bi bi-question-circle fs-5" "=""></i>
+                    <div style=" font-size: 10px;">帮助
+        </div>
     </nav>
-    </div>
+
 </body>
 
 </html>
