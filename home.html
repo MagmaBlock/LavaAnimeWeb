@@ -19,9 +19,11 @@
     <!-- Assets -->
     <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
     <link href="./style/toolbar.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="./style/homepage.css" rel="stylesheet" crossorigin="anonymous">
     </link>
     <script src="./js/PrintAnimeList.js" crossorigin="anonymous"></script>
     <script src="./js/Navbar.js" crossorigin="anonymous"></script>
+    <script src="./js/homepage.js" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
             const config = {
@@ -109,8 +111,6 @@
             }
 
 
-
-
         });
     </script>
 </head>
@@ -120,6 +120,23 @@
     <div class="container mt-4" style="margin-bottom: 100px;">
         <div class="mx-3">
             <h1 class="display-3">主页</h1>
+
+            <!-- 轮播图 -->
+            <div id="headerPic" class="carousel slide" data-bs-ride="carousel">
+                <ol class="carousel-indicators"></ol>
+                <div class="carousel-inner" style="border-radius: 11px;"></div>
+                <a class="carousel-control-prev" href="#headerPic" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">前一个</span>
+                </a>
+                <a class="carousel-control-next" href="#headerPic" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">后一个</span>
+                </a>
+            </div>
+
+
+
             <p class="fw-light"></p>
             <div>
                 <div id="collections"></div>

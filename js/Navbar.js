@@ -67,4 +67,6 @@ $(document).ready(() => {
             if (document.querySelector(".searchButton input").value != "")
                 window.location.href = 'https://anime.magmablock.top/search.html?name=' + document.querySelector(".searchButton input").value
     })
+
+    $(".toolbar").css("display", localStorage.getItem("hideToolBar") == "true" ? "none" : "")
 })

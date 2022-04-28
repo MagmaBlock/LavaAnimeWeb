@@ -30,10 +30,8 @@
 
                     for (let i = 0; i < result.length; i++) {
                         var weekTitleHtml =
-                            `
-                            <h3 class="display-6">${result[i].weekday.cn} <small class="text-muted">${result[i].weekday.ja}</small></h3>
-                                <div id="week-${result[i].weekday.id}" class="mb-2"></div>
-                            `
+                            `<h3 class="display-6">${result[i].weekday.cn} <small class="text-muted">${result[i].weekday.ja}</small></h3>
+                                <div id="week-${result[i].weekday.id}" class="mb-2"></div>`
                         $("#weekly-container").append(weekTitleHtml)
                         for (let r = 0; r < result[i].items.length; r++) {
                             // 排除不完善条目
@@ -46,6 +44,7 @@
 
                             if (result[i].items[r].collection == undefined) var doing = 0
                             else var doing = result[i].items[r].collection.doing
+                            if (localStorage.getItem("listHide") == "true" && doing < localStorage.getItem("listHideValue")) continue // 放送列表隐藏
                             // console.log(nameCn,score,doing)
                             var weekListHtml =
                                 `

@@ -34,36 +34,42 @@
             if (getUrlParams().name) { // 如果是以名字搜索
                 $("#search-label").val(decodeURIComponent(getUrlParams().name))
                 let haveResult = false
-                if (bgmSearch(getUrlParams().name)) haveResult = true
-                if (nameSearch(getUrlParams().name)) haveResult = true
-                if (haveResult == false) notFound()
+                if (!bgmSearch(getUrlParams().name) && !nameSearch(getUrlParams().name)) notFound()
             }
             if (getUrlParams().bgm) { // 如果是以 Bangumi ID 搜索
                 $("#search-label").val(decodeURIComponent(getUrlParams().bgm))
                 if (!bgmSearch(getUrlParams().bgm)) notFound()
             }
             function nameSearch(name) {
+                let successFlag = false
                 $.ajax({
                     url: config.api.url + '/v1/search/name/' + name,
+                    async: false,
                     success: function (data) {
-                        console.log(data)
-                        if (data.code == 0) print(data)
-                        else return false
+                        console.log(data.code)
+                        if (data.code == 0) {
+                            print(data)
+                            successFlag = true
+                        }
                     }
                 })
-                return true
+                return successFlag
             }
 
             function bgmSearch(id) {
+                let successFlag = false
                 $.ajax({
                     url: config.api.url + '/v1/search/bgm/' + id,
+                    async: false,
                     success: function (data) {
-                        console.log(data)
-                        if (data.code == 0) print(data)
-                        else return false
+                        console.log(data.code)
+                        if (data.code == 0) {
+                            print(data)
+                            successFlag = true
+                        }
                     }
                 })
-                return true
+                return successFlag
             }
 
             function print(data) {

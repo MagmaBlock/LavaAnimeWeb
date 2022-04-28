@@ -1,8 +1,8 @@
 .toolbar {
-    z-index: 1234;
+    z-index: 1005;
     position: fixed;
     right: 30px;
-    bottom: 80px;
+    bottom: 70px;
 }
 
 .toolButton {
@@ -11,17 +11,17 @@
     color: #6c757d;
     width: 50px;
     height: 50px;
-    transition: 0.8s;
+    transition: 0.6s;
     background: white;
     border-radius: 10px;
     box-shadow: 0 0 12px rgb(0 0 0 / 20%);
     display: flex;
     align-items: center;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .searchButton:hover {
-    width: min(350px, 80vw)
+    width: min(350px, 80vw);
 }
 
 .searchButton span {
@@ -32,14 +32,33 @@
 }
 
 .searchButton i {
-    margin-left: 16px
+    margin-left: 16px;
 }
 
 .searchButton input {
-    width: calc(95% - 50px)
+    width: calc(95% - 50px);
 }
 
 .goTopButton {
     margin-left: calc(100% - 50px);
-    justify-content: center
+    justify-content: center;
+}
+
+.settingsButton {
+    min-width: 20px;
+    max-width: 50px;
+    min-height: 20px;
+    max-height: 50px;
+    width: 10vw;
+    height: 10vw;
+    margin-bottom: 0;
+    justify-content: center;
+}
+
+.settingsList{
+    text-align: left;
+    padding: 5px;
+}
+.settingsList label{
+    padding-top: 3px;
 }

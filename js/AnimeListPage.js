@@ -204,8 +204,7 @@ $(document).ready(function () {
                             $("#loading").fadeOut()
                             $('#rating-box').hide() // 如果没有资源(通常是未开播), 则隐藏评分框
                         }, 1500);
-                    }
-                    else {
+                    } else {
                         // 获取字典并开始生成列表
                         axios('./assets/dict.json')
                             .then((result) => {

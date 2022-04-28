@@ -19,6 +19,7 @@
     <!-- Assets -->
     <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
     <link href="./style/toolbar.css" rel="stylesheet" crossorigin="anonymous">
+    <style>.page-item{cursor: pointer;}</style>
     </link>
     <script src="./js/getUrlParams.js" crossorigin="anonymous"></script>
     <script src="./js/PrintAnimeList.js" crossorigin="anonymous"></script>
@@ -61,7 +62,7 @@
                             yearsBtnHtml += thisYearHtml
                         }
                         $("#years").empty().append(yearsBtnHtml) // 插入按钮
-                        $('.year-btn').on('click', function () { // 年份按钮点击事件、
+                        $('.year-btn').on('click', function () { // 年份按钮点击事件
                             $(this).addClass('active').siblings().removeClass('active') // 激活此按钮
                             let clickedYear = this.id.replace('year-', '')
                             getTypeList(clickedYear);

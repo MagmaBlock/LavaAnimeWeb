@@ -13,6 +13,7 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://s-sh-2164-assets.oss.dogecdn.com/cdn/bootstarp-icon/1.7.2/bootstrap-icons.css">
     <script src="https://s-sh-2164-assets.oss.dogecdn.com/cdn/clipboard/2.0.9/clipboard.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.7/dist/sweetalert2.all.min.js"></script>
     <!-- Assets -->
     <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
     <link href="./style/toolbar.css" rel="stylesheet" crossorigin="anonymous">
@@ -24,7 +25,14 @@
     <div id="navbar"></div>
     <div class="container mt-4 mb-5">
         <div class="mx-3">
-            <h1 class="display-3">帮助</h1>
+            <div style="display: flex; align-items: center;">
+                <h1 class="display-3">帮助</h1>
+                <div style="margin-left: 25px;">
+                    <div class="toolButton settingsButton">
+                        <i class="bi bi-gear fs-5"></i>
+                    </div>
+                </div>
+            </div>
             <div>
                 <h5 class="lead my-3">外部播放器使用指南</h5>
                 <div class="accordion-item fw-light">
@@ -270,6 +278,46 @@
     </span>
     <script async defer data-website-id="5aad3d7c-6372-42aa-957e-ed4c945c0d08"
         src="https://umami.magma.ink/umami.js"></script>
+    <script>
+        $(".settingsButton").click(function () {
+            let settingsHtml = `<div class="settingsList"style="font-size: 1em;">
+            <input class="form-check-input" type="checkbox" id="hideToolBar" ${localStorage.getItem("hideToolBar") == "true" ? "checked" : ""}>
+            <label class="form-check-label" id="hideToolBarLabel" style="cursor: pointer; width: 87%">隐藏右下角工具栏</label>
+            <br>
+            <input class="form-check-input" type="checkbox" style="margin-top: 15px" id="listHideValue" ${localStorage.getItem("listHide") == "true" ? "checked" : ""}>
+            <label class="form-check-label" id="listHideValueLabel" style="cursor: pointer; width: 87%; margin-top: 10px">放送列表隐藏 10 人以下在看的番剧</label></div>
+            </div>`
+
+            Swal.fire({
+                title: '设置',
+                html: settingsHtml,
+                confirmButtonText: '确定',
+                footer: `<div style="text-align: center;font-size: 1em;">熔岩番剧库</a></div>`,
+            })
+            // 隐藏右下角工具栏
+            $("#hideToolBar").change(function () {
+                localStorage.setItem("hideToolBar", (localStorage.getItem("hideToolBar") == "true") ? "false" : "true")
+            })
+
+            $("#hideToolBarLabel").click(function () {
+                $("#hideToolBar").prop("checked", !$("#hideToolBar").prop("checked"))
+                localStorage.setItem("hideToolBar", (localStorage.getItem("hideToolBar") == "true") ? "false" : "true")
+            })
+            // 放送列表隐藏
+            localStorage.setItem("listHideValue", 10)
+            $("#listHideValue").change(function () {
+                localStorage.setItem("listHide", (localStorage.getItem("listHide") == "true") ? "false" : "true")
+            })
+
+            $("#listHideValueLabel").click(function () {
+                $("#listHideValue").prop("checked", !$("#listHideValue").prop("checked"))
+                localStorage.setItem("listHide", (localStorage.getItem("listHide") == "true") ? "false" : "true")
+            })
+
+        })
+
+
+    </script>
 </body>
 
 

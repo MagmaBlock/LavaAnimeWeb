@@ -1,0 +1,10 @@
+
+.head-pic{
+    object-fit: cover;
+    object-position: center 25%;
+    max-height: 520px;
+    height: 30em;
+}
+.carousel-caption{
+    text-shadow: #111 0 0 5px;
+}

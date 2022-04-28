@@ -1,0 +1,26 @@
+[
+    {
+        "pic": "./img/background.jpg",
+        "url": "",
+        "title": "熔岩番剧库",
+        "subtitle": ""
+    },
+    {
+        "pic": "./img/Spy x Family.jpg",
+        "url": "./anime.html?la=332",
+        "title": "间谍过家家",
+        "subtitle": "间谍、杀手、超能力者组成的家庭，哇库哇库"
+    },
+    {
+        "pic": "./img/Paripi Koumei.png",
+        "url": "./anime.html?la=338",
+        "title": "派对浪客诸葛孔明",
+        "subtitle": "轻松拿捏樱花妹，因为我是中国军师.jpg"
+    },
+    {
+        "pic": "./img/Summer Time Rendering.png",
+        "url": "./anime.html?la=371",
+        "title": "夏日重现",
+        "subtitle": "悬疑轮回神作预定"
+    }
+]
