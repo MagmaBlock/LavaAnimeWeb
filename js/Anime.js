@@ -4,10 +4,6 @@
 
 
 
-
-
-
-
 // 总函数，向指定容器打印番组卡片
 function printAnimeList(containerId, year, month) {
     // 从云盘取目录列表
@@ -31,7 +27,6 @@ function printAnimeList(containerId, year, month) {
         printAnimeCardTable(containerId, animeListNameAndId[i].animeName, animeList[i].path + '/' + animeList[i].name, animeListNameAndId[i].bgmId, animeList[i].id)
         printAnimeCardDetail(animeList[i].id, animeListNameAndId[i].bgmId)
     }
-
 
 }
 

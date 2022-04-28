@@ -2,7 +2,6 @@
 axios('./assets/headerPic.json')
     .then((result) => {
         dict = result.data
-        console.log('成功取得词典：', dict);
         $(".carousel-indicators").append(`<li data-bs-target="#headerPic" data-bs-slide-to="0" class="active"></li>`)
         for (let i = 1; i < dict.length; i++) 
             $(".carousel-indicators").append(`<li data-bs-target="#headerPic" data-bs-slide-to="${i}"></li>`)
