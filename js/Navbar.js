@@ -17,7 +17,7 @@ $(document).ready(() => {
 
 <nav class="navbar navbar-light shadow-lg fixed-bottom border-top border-1 rounded-top p-2"
     style="backdrop-filter: blur(9px) brightness(0.7); background-color: rgba(250, 250, 250, 0.7);">
-    <div class="container-fluid row-cols-${navbarHtmlcols}">
+    <div class="container-fluid row-cols-${navbarHtmlcols}" style="max-width: 1320px">
         <a id="home" class="text-center text-decoration-none col text-secondary" href="/home.html">
             <i class="bi ${location.href.indexOf("home.html") != -1 ? "bi-house-fill" : "bi-house"} fs-5"></i>
             <div style="font-size: 10px;">主页</div>
