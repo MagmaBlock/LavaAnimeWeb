@@ -21,13 +21,39 @@
     <script>
         $(document).ready(() => {
 
+            var timeData
+            $.ajax({
+                method: "get",
+                url: "https://cdn.jsdelivr.net/gh/bangumi-data/bangumi-data/data/items/2022/04.json",
+                async: false,
+                success: function (data) {
+                    // console.log(data)
+                    timeData = data
+                }
+            })
+
+            function getTimeById(id) {
+                var timeTmp = timeData.filter(function (f) {
+                    var tmp = f.sites.filter(function (sites) { return sites.site == "bangumi" })
+                    if (!tmp.length) return false
+                    var thisId = tmp[0].id
+                    if (thisId == id) return true
+                    return false
+                })
+                if (!timeTmp.length) return false
+                var timeRaw = timeTmp[0].begin
+                var d = new Date(timeRaw)
+                var hr = d.getUTCHours() + 8 >= 30 ? d.getUTCHours() + 8 - 30 : d.getUTCHours() + 8
+                return hr.toString().padStart(2,'0') + ":" + d.getUTCMinutes().toString().padStart(2,'0')
+            }
+
+
             $.ajax({
                 url: "https://bgm-api.5t5.top/calendar",
                 success: (result) => {
                     console.log(result)
 
-                    // 添加每个天的标题和容器
-
+                    // 添加每天的标题和容器
                     for (let i = 0; i < result.length; i++) {
                         var weekTitleHtml =
                             `<h3 class="display-6">${result[i].weekday.cn} <small class="text-muted">${result[i].weekday.ja}</small></h3>
@@ -51,7 +77,7 @@
                                 <a class="list-group-item list-group-item-action" href="./search.html?bgm=${result[i].items[r].id}">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1 ">${nameCn}</h5>
-                                        <small>暂无时间</small>
+                                        <small>${getTimeById(result[i].items[r].id)?getTimeById(result[i].items[r].id):"暂无时间"}</small>
                                     </div>
                                     <small>${result[i].items[r].air_date} 开始放送 | ${doing} 人在看 | ${score}</small>
                                 </a>
@@ -72,7 +98,7 @@
     <div class="container mt-4">
         <div class="mx-3">
             <h1 class="display-3">每周放送</h1>
-            <p class="fw-light">数据来自 Bangumi，仅供参考。<br>并非番剧库的更新时间，点击相关番组可在番剧库内查找。</p>
+            <p class="fw-light">数据来自 Bangumi，仅供参考。点击相关番组可在番剧库内查找。<br>右侧所示时间采用日本电视台的 30 小时制，并非番剧库的更新时间。</p>
         </div>
         <div id="weekly-container" class="list-group mx-3"></div>
 
