@@ -44,9 +44,7 @@
         </div>
     </nav>
     <script>
-        $('#goback').on('click', () => {
-            window.history.back()
-        })
+        $('#goback').click(() => { window.location.href = document.referrer })
     </script>
     <div class="container" style="margin-top: 72px;">
 

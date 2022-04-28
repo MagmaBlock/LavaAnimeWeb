@@ -255,13 +255,13 @@
         "class": "bg-secondary"
     },
     {
-        "from": "[^A-Za-z0-9]2160p[^A-Za-z0-9]",
-        "to": "2160P(2K)",
+        "from": "[^A-Za-z0-9]2160p|3840(X|×)2160[^A-Za-z0-9]",
+        "to": "2160P(4K)",
         "class": "bg-secondary"
     },
     {
-        "from": "[^A-Za-z0-9]1440p[^A-Za-z0-9]",
-        "to": "1440P",
+        "from": "[^A-Za-z0-9]1440p|2560(X|×)1440[^A-Za-z0-9]",
+        "to": "1440P(2K)",
         "class": "bg-secondary"
     },
     {
