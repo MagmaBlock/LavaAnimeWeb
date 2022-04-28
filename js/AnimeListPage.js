@@ -11,7 +11,7 @@ $(document).ready(function () {
         "bangumiApi": "https://bgm-api.5t5.top/v0/subjects/"
     }
 
-    console.log('地址栏参数数据: ', getUrlParams());
+    console.log('地址栏参数数据: ', getUrlParams())
 
     if (getUrlParams().la == undefined) {
         console.log("地址栏不含参数! ")
@@ -31,7 +31,7 @@ $(document).ready(function () {
         axios(config.api.url + '/v1/anime/id/' + thisPageId)
             .then((result) => {
                 thisPageAnimeData = result.data.data
-                console.log('成功取得番剧库 API 数据：', thisPageAnimeData);
+                console.log('成功取得番剧库 API 数据：', thisPageAnimeData)
                 // 填充路径
                 let arrowIcon = ' <i class="bi bi-arrow-right-short"></i> '
                 let pathHtml = thisPageAnimeData.year + arrowIcon + thisPageAnimeData.type + arrowIcon + thisPageAnimeData.name
@@ -62,7 +62,7 @@ $(document).ready(function () {
             axios(config.bangumiApi + thisPageAnimeData.bgmid)
                 .then((result) => {
                     thisPageBangumiData = result.data; // 此界面的 Bangumi 数据
-                    console.log('成功取得 Bangumi API Data：', thisPageBangumiData);
+                    console.log('成功取得 Bangumi API Data：', thisPageBangumiData)
 
                     $("#bangumi").attr("href", "https://bgm.tv/subject/" + thisPageBangumiData.id) // 设置番组计划链接
                     if (thisPageBangumiData.name_cn == undefined || thisPageBangumiData.name_cn == '') { // 如果没有中文名, 则使用原名
@@ -111,7 +111,7 @@ $(document).ready(function () {
             axios("https://anime-img.5t5.top/api/agefans/anime.min.json")
                 .then((result) => {
                     let agefansData = result.data
-                    console.log('成功取得 Agefans Data：', agefansData);
+                    console.log('成功取得 Agefans Data：', agefansData)
                     let agefansId = ''
                     for (var i = 0; i < agefansData.length; i++) {
                         if (agefansData[i].id == thisPageAnimeData.bgmid) {
@@ -126,7 +126,7 @@ $(document).ready(function () {
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log(error)
                     if (error) $("#agefans").empty().append('<i class="bi bi-slash-circle"></i> Agefans API 故障')
                 })
         }
@@ -135,7 +135,7 @@ $(document).ready(function () {
             axios(config.api.url + '/v1/anime/relations/' + thisPageAnimeData.bgmid)
                 .then((result) => {
                     let relationsData = result.data.data
-                    console.log('成功取得关联数据：', relationsData);
+                    console.log('成功取得关联数据：', relationsData)
                     for (let i = 0; i < relationsData.length; i++) {
                         axios(config.api.url + '/v1/anime/bgm/' + relationsData[i].id)
                             .then((result) => {
@@ -163,15 +163,12 @@ $(document).ready(function () {
                                 }
                             })
                     }
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
+                }).catch((error) => { console.error(error) })
         }
 
 
 
-        var leftViews = 2; // 一次打开页面后, 可以增加的播放量上限
+        var leftViews = 2 // 一次打开页面后, 可以增加的播放量上限
         function addView() {
             if (leftViews > 0) {
                 axios(config.api.url + '/v1/view/add/' + getUrlParams().la)
@@ -181,8 +178,7 @@ $(document).ready(function () {
                         if (data.code == 0) {
                             $(`#views`).empty().append(` 播放 ${data.data} 次`)
                             leftViews--
-                        }
-                        else {
+                        } else {
                             console.log('更新播放量失败: ', data)
                             $(`#views`).empty().append(` 获取失败`)
                         }
@@ -195,9 +191,9 @@ $(document).ready(function () {
             axios(config.api.url + '/v1/anime/list/' + thisPageId)
                 .then((result) => {
                     let fileList = result.data.data
-                    console.log('成功取得文件列表：', fileList);
+                    console.log('成功取得文件列表：', fileList)
                     if (fileList.length == 0) { // 如果没有文件列表
-                        console.log('文件列表为空!');
+                        console.log('文件列表为空!')
                         let airDate = thisPageBangumiData.date ? thisPageBangumiData.date : '未知 / 暂未定档' // 如果 Bangumi 有提供放送日期, 则提取放送日期
                         setTimeout(() => {
                             $("#la-list-container").append("<div style='opacity: 85%;' class='alert alert-info'><span>熔岩云盘返回列表为空, 此番组目录下尚无任何资源! <br>" + "请确认此作品已经开始连载, 根据 Bangumi Wiki, 本作的开始放送日期为: " + airDate + "<br><a class='alert-link' href='./index.html'>返回主页</a></span></div>").fadeIn()
@@ -209,7 +205,7 @@ $(document).ready(function () {
                         axios('./assets/dict.json')
                             .then((result) => {
                                 dict = result.data
-                                console.log('成功取得词典：', dict);
+                                console.log('成功取得词典：', dict)
                                 for (let i = 0; i < fileList.length; i++) {
                                     let thisFile = fileList[i]
                                     printAnimeList(thisFile, i)
@@ -220,7 +216,7 @@ $(document).ready(function () {
         }
     }
     function printAnimeList(thisFile, thisFileId) { // i 用作 HTML ID
-        // console.log('开始生成番剧列表: ', thisFile);
+        // console.log('开始生成番剧列表: ', thisFile)
 
         let thisFileName = thisFile.name
         let thisFileSize = thisFile.size
@@ -391,21 +387,21 @@ $(document).ready(function () {
         $("#copy-success").hide()
         var clipboard = new ClipboardJS('.copy', {
             container: document.getElementById('la-player')
-        });
+        })
 
         clipboard.on('success', function (e) {
-            console.info('复制操作:', e.action);
-            console.info('文本:', e.text);
-            console.info('触发器:', e.trigger);
+            console.info('复制操作:', e.action)
+            console.info('文本:', e.text)
+            console.info('触发器:', e.trigger)
             $("#copy-success").fadeIn()
             setTimeout(() => { $("#copy-success").fadeOut() }, 3000)
 
-        });
+        })
 
         clipboard.on('error', function (e) {
-            console.error('复制操作失败:', e.action);
-            console.error('触发器:', e.trigger);
-        });
+            console.error('复制操作失败:', e.action)
+            console.error('触发器:', e.trigger)
+        })
 
     }
 

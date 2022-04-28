@@ -99,10 +99,10 @@
                                 let clickedYear = thisYear
                                 let clickedType = this.id.replace('type-', '')
                                 let backParams = `year=${thisYearNumber}&type=${clickedType}`
-                                history.pushState({}, {}, `index.html?${backParams}`); // 更新地址栏
+                                history.pushState({}, {}, `index.html?${backParams}`) // 更新地址栏
                                 getAnimeList(clickedYear, clickedType)
                                 $('#posters').hide()
-                                setTimeout(() => { $('#posters').fadeIn(300) }, 500); // 番剧列表动画
+                                setTimeout(() => { $('#posters').fadeIn(300) }, 500) // 番剧列表动画
                             })
                             $(`#type-${defaultType}`).click() // 点击一次默认类
                             defaultType = ''
@@ -121,7 +121,7 @@
                     }
                 })
                     .then((result) => {
-                        console.log(result.data.data);
+                        // console.log(result.data.data)
                         let thisTypeAnimeList = result.data.data
                         PrintAnimeList($('#posters'), thisTypeAnimeList)
                     })

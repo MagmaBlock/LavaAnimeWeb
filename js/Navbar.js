@@ -16,26 +16,26 @@ $(document).ready(() => {
 </div>
 
 <nav class="navbar navbar-light shadow-lg fixed-bottom border-top border-1 rounded-top p-2"
-    style="backdrop-filter: blur(6px) brightness(0.7); background-color: rgba(250, 250, 250, 0.7);">
+    style="backdrop-filter: blur(9px) brightness(0.7); background-color: rgba(250, 250, 250, 0.7);">
     <div class="container-fluid row-cols-${navbarHtmlcols}">
         <a id="home" class="text-center text-decoration-none col text-secondary" href="/home.html">
-            <i class="bi bi-house fs-5"></i>
+            <i class="bi ${location.href.indexOf("home.html") != -1 ? "bi-house-fill" : "bi-house"} fs-5"></i>
             <div style="font-size: 10px;">主页</div>
         </a>
         <a id="search" class="text-center text-decoration-none col text-secondary" href="/search.html">
-            <i class="bi bi-search fs-5"></i>
+            <i class="bi ${location.href.indexOf("search.html") != -1 ? "bi-search" : "bi-search"} fs-5"></i>
             <div style="font-size: 10px;">搜索</div>
         </a>
         <a id="weekly" class="text-center text-decoration-none col text-secondary" href="/weekly.html">
-            <i class="bi bi-calendar-week fs-5"></i>
+            <i class="bi ${location.href.indexOf("weekly.html") != -1 ? "bi-calendar-week-fill" : "bi-calendar-week"} fs-5"></i>
             <div style="font-size: 10px;">放送</div>
         </a>
         <a id="index" class="text-center text-decoration-none col text-secondary" href="/index.html">
-            <i class="bi bi-collection fs-5"></i>
+            <i class="bi ${location.href.indexOf("index.html") != -1 ? "bi-collection-fill" : "bi-collection"} fs-5"></i>
             <div style="font-size: 10px;">索引</div>
         </a>
         <a id="help" class="text-center text-decoration-none col text-secondary" href="/help.html">
-            <i class="bi bi-question-circle-fill fs-5"></i>
+        <i class="bi ${location.href.indexOf("help.html") != -1 ? "bi-question-circle-fill" : "bi-question-circle"} fs-5""></i>
             <div style="font-size: 10px;">帮助</div>
         </a>
     </div>

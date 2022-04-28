@@ -116,7 +116,7 @@
                     goSearch()
                 })
                 function goSearch() {
-                    let text = $('#search-label').val();
+                    let text = $('#search-label').val()
                     if (text == '') window.location.href = './search.html'
                     if ($('#search-label').attr('search-by') == 'name')
                         window.location.href = './search.html?name=' + encodeURIComponent(text)

@@ -65,7 +65,6 @@
                 有够麻烦的 什么时候学 Vue
             */
             for (let i = 0; i < collections.length; i++) { // 遍历全部番剧推荐
-
                 let thisCollection = collections[i] // 当前推荐番剧组
                 let thisCollectionContentHtml = '' // 当前推荐番剧组的内容 HTML
                 for (let j = 0; j < thisCollection.content.length; j++) { // 循环每一个正文块，生成骨架
@@ -76,42 +75,34 @@
                         <div id="collectionBlock-${thisCollection.id}-${thisCollectionBlock.index}"></div>`
                 }
                 let thisCollectionHtml = // HTML 骨架
-                    `
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="display-5">
-                            ${thisCollection.title}
-                        </h1>
-                        <p class="text-muted fw-light">
-                            ${thisCollection.subtitle}
-                        </p>
-                        <div>
-                            ${thisCollectionContentHtml}
+                    `<div class="card">
+                        <div class="card-body">
+                            <h1 class="display-5">${thisCollection.title}</h1>
+                            <p class="text-muted fw-light">${thisCollection.subtitle}</p>
+                            <div>${thisCollectionContentHtml}</div>
                         </div>
-                    </div>
-                </div>
-                `
+                    </div>`
                 $('#collections').append(thisCollectionHtml) // 渲染骨架
             }
 
             for (let i = 0; i < collections.length; i++) {  // 第二次遍历，主要是调用 API 填入番剧
                 let thisCollection = collections[i] // 当前推荐番剧组
                 for (let j = 0; j < thisCollection.content.length; j++) { // 循环每一个正文块，填入番剧
-                    let thisCollectionBlock = thisCollection.content[j]; // 当前正文块
+                    let thisCollectionBlock = thisCollection.content[j] // 当前正文块
                     axios({ // 调用 API 获取番剧
                         method: 'post',
                         url: config.api.url + '/v1/anime/id',
                         data: thisCollectionBlock.anime
                     }).then((result) => {
                         let thisCollectionBlockAnimeData = result.data.data
-                        PrintAnimeList($(`#collectionBlock-${thisCollection.id}-${thisCollectionBlock.index}`), thisCollectionBlockAnimeData);
-                        $(`#collectionBlock-${thisCollection.id}-${thisCollectionBlock.index}`).removeClass('mx-2').addClass('mx-auto');
+                        PrintAnimeList($(`#collectionBlock-${thisCollection.id}-${thisCollectionBlock.index}`), thisCollectionBlockAnimeData)
+                        $(`#collectionBlock-${thisCollection.id}-${thisCollectionBlock.index}`).removeClass('mx-2').addClass('mx-auto')
                     })
                 }
             }
 
 
-        });
+        })
     </script>
 </head>
 
@@ -136,11 +127,9 @@
             </div>
 
 
-
             <p class="fw-light"></p>
             <div>
                 <div id="collections"></div>
-
             </div>
         </div>
 
@@ -152,8 +141,6 @@
     <script async defer data-website-id="5aad3d7c-6372-42aa-957e-ed4c945c0d08"
         src="https://umami.magma.ink/umami.js"></script>
 </body>
-
-
 
 
 </html>

@@ -44,7 +44,7 @@
                 var timeRaw = timeTmp[0].begin
                 var d = new Date(timeRaw)
                 var hr = d.getUTCHours() + 8 >= 30 ? d.getUTCHours() + 8 - 30 : d.getUTCHours() + 8
-                return hr.toString().padStart(2,'0') + ":" + d.getUTCMinutes().toString().padStart(2,'0')
+                return hr.toString().padStart(2, '0') + ":" + d.getUTCMinutes().toString().padStart(2, '0')
             }
 
 
@@ -77,7 +77,7 @@
                                 <a class="list-group-item list-group-item-action" href="./search.html?bgm=${result[i].items[r].id}">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1 ">${nameCn}</h5>
-                                        <small>${getTimeById(result[i].items[r].id)?getTimeById(result[i].items[r].id):"暂无时间"}</small>
+                                        <small>${getTimeById(result[i].items[r].id) ? getTimeById(result[i].items[r].id) : "暂无时间"}</small>
                                     </div>
                                     <small>${result[i].items[r].air_date} 开始放送 | ${doing} 人在看 | ${score}</small>
                                 </a>
