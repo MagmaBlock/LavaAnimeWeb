@@ -26,15 +26,19 @@
 </head>
 
 <body id="bg" style="background-attachment: fixed; background-position: center; background-size: cover;">
-
+    <!-- 加载图标 -->
     <div id="loading" class="spinner-border position-absolute bottom-0 end-0 m-2" style="z-index: 10000;"></div>
+    <!-- 顶栏 -->
     <nav class="navbar navbar-light shadow fixed-top"
         style="backdrop-filter: blur(9px); background-color: rgba(240, 240, 240, 0.7);">
+        <!-- 顶栏容器 -->
         <div class="container-fluid" style="max-width: 1320px; ">
+            <!-- 返回图标 -->
             <div id="goback" class="navbar-brand" style="cursor:pointer">
                 <i class="bi bi-chevron-left mx-2"></i>
                 <span>返回上一页</span>
             </div>
+            <!-- Home Icon -->
             <a href="/index.html" class="navbar-brand" id="home">
                 <i class="bi bi-house"></i>
             </a>
@@ -43,14 +47,17 @@
     <script>
         $('#goback').click(() => { window.location.href = document.referrer })
     </script>
+    <!-- Main Container -->
     <div class="container" style="margin-top: 72px;">
-
         <!-- 头部 -->
         <div id="la-anime-header" class="my-2 list-group" style="opacity: 85%;">
+            <!-- 番剧路径块 -->
             <div class="list-group-item">
                 <div id="la-path" style="font-size: 14px;" class="fw-lighter text-truncate"></div>
             </div>
+            <!-- 信息块 -->
             <div class="list-group-item ">
+                <!-- 标题行 -->
                 <span class="lead fs-4" id="name_cn"></span> <span class="text-muted fw-lighter" id="platform"></span>
                 <div class="text-muted fw-lighter" id="name"></div>
                 <!-- 播放量评分等数据栏 -->
@@ -70,19 +77,16 @@
                 </div>
                 <!-- 来自 Bangumi 的 Tag 栏 -->
                 <span class="fw-lighter fs-6" id="tags"></span>
+                <!-- 显示更多按钮 -->
                 <span class="fw-lighter btn btn-sm text-secondary p-0" style="font-size: 13px;" id="show-more"><i
                         class="bi bi-arrow-down-short"></i>显示更多</span>
+                <!-- 隐藏的 Tag 容器 -->
                 <span class="fw-lighter fs-6" id="tags-hide"></span>
                 <!-- 外部链接栏 -->
                 <div id="more-link" class="my-1">
-                    <style>
-                        #relations {
-                            white-space: nowrap;
-                            overflow-x: scroll;
-                            overflow-y: hidden;
-                        }
-                    </style>
-                    <div id="relations"></div>
+                    <!-- 关联番剧 -->
+                    <div id="relations" style="white-space: nowrap; overflow-x: scroll; overflow-y: hidden;"></div>
+                    <!-- 外部链接 -->
                     <a id="agefans" target="_blank" class="fw-lighter fs-6 text-decoration-none"></a> <a
                         href="https://github.com/czy0729/Bangumi-Static" class="text-decoration-none text-secondary"
                         target="_blank" style="font-size: 12px;">(API By czy0729)</a><br>
@@ -92,21 +96,25 @@
             </div>
         </div>
 
-
         <!-- 列表容器 -->
         <div id="la-list-container" class="list-group mb-3"></div>
+
         <!-- 弹出的 “播放器” -->
         <div id="la-player" class="modal fade" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="text-break modal-header">
+                        <!-- 标题 -->
                         <h5 id="la-player-header" class="modal-title"></h5>
+                        <!-- 关闭 -->
                         <button type="button" id="la-player-close" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <!-- 播放器容器 -->
                     <div id="dplayer"></div>
+                    <!-- 若为图片时的容器 -->
                     <div id="la-img-view"></div>
+                    <!-- 播放器下方内容的容器 -->
                     <div id="la-player-body" class="modal-body"></div>
                 </div>
             </div>

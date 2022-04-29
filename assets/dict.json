@@ -245,6 +245,11 @@
         "class": "bg-primary"
     },
     {
+        "from": "[^A-Za-z0-9]LPSub[^A-Za-z0-9]",
+        "to": "离谱Sub",
+        "class": "bg-primary"
+    },
+    {
         "from": "[^A-Za-z0-9](MingYSub|MingY)[^A-Za-z0-9]",
         "to": "MingYSub",
         "class": "bg-primary"
@@ -435,7 +440,7 @@
         "class": "bg-info text-dark"
     },
     {
-        "from": "[^A-Za-z0-9](GB_CN|GB|SC|CHS)[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9](GB_CN|GB|SC|CHS|CH)[^A-Za-z0-9]",
         "to": "简体中文",
         "class": "bg-info text-dark"
     },
