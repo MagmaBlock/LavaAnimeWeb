@@ -277,7 +277,7 @@ $(document).ready(function () {
             `
             <h5 class="mb-3">外部播放器</h5>
             <div class="row row-cols-5" id="otherPlayers">
-                <a class="text-decoration-none text-secondary" href="ddplay:${encodeURIComponent(thisFileUrl)}">
+                <a class="text-decoration-none text-secondary" href="ddplay:${encodeURIComponent(thisFileUrl + "|filePath=" + thisFileName)}">
                     <img class="img-fluid mx-auto d-block" style="width: 60%; padding: 2px;" src="./assets/dandanplay.webp" alt="DandanPlay"/>
                     <div class="text-center" style="font-size: 12px;">弹弹Play (Win)</div>
                 </a>
