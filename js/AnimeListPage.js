@@ -255,57 +255,81 @@ $(document).ready(function () {
         // 模板
         var mp4HelpMessage =
             `
-            <p id="mp4HelpMessage" class="mb-0"><p class="text-secondary" style="font-size: 14px">
-                黑屏 / 无法播放？可能是浏览器不支持 H.265 编码, <br>请使用下方的按钮调用外部播放器。
+            <p id="mp4HelpMessage" class="mb-0"><p class="text-secondary fw-light" style="font-size: 14px">
+                黑屏 / 无法播放？可能是浏览器不支持 HEVC 编码, <br>请使用下方的按钮调用外部播放器。
             </p></p>
             `
         var mkvHelpMessage =
             `
-            <div id="mkvHelpMessage" class="mb-1">
+            <div id="mkvHelpMessage" class="mb-1 fw-light">
                 浏览器不支持当前格式 (MKV), 请使用外部播放器来播放。
                 <div class="text-secondary" style="font-size: 14px">
-                    这是由于大部分均无法支持 H.265 格式及 MKV 格式内封的字幕。需要调用您设备上的播放软件播放。
-                    <br>同时也可以复制链接后使用弹弹 Play 播放效果更佳。
+                    这是由于大部分浏览器均无法支持 HEVC 格式及 MKV 格式内封的字幕。
+                    <br>需要调用您设备上的播放软件播放。
                 </div>
-                <a class="text-decoration-none fw-bold" href="./help.html">>> 查看外部播放器安装使用帮助 <<<a/>
+                <a class="text-decoration-none" href="./help.html">查看外部播放器安装使用帮助<a/>
             </div>
-            <a id="mkvPlayerBtn" class="btn btn-sm btn-outline-primary mb-4 mt-0">强制用浏览器打开（不支持内封字幕和 HEVC）</a>
+            <a id="mkvPlayerBtn" class="btn btn-sm btn-outline-secondary mb-4 mt-0">强制用浏览器打开（不支持内封字幕和 HEVC）</a>
             `
-        var mkvPlayerBtn =
-            ``
         var otherPlayers =
             `
-            <h5 class="mb-3">外部播放器</h5>
-            <div class="row row-cols-5" id="otherPlayers">
-                <a class="text-decoration-none text-secondary" href="ddplay:${encodeURIComponent(thisFileUrl + "|filePath=" + thisFileName)}">
-                    <img class="img-fluid mx-auto d-block" style="width: 60%; padding: 2px;" src="./assets/dandanplay.webp" alt="DandanPlay"/>
-                    <div class="text-center" style="font-size: 12px;">弹弹Play (Win)</div>
-                </a>
-                <a class="text-decoration-none text-secondary" href="potplayer://${thisFileUrl}">
-                    <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/PotPlayer.svg" alt="PotPlayer"/>
-                    <div class="text-center" style="font-size: 12px;">PotPlayer</div>
-                </a>
-                <a class="text-decoration-none text-secondary" href="vlc://${thisFileUrl}">
-                    <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/vlc.svg" alt="VLC"/>
-                    <div class="text-center" style="font-size: 12px;">VLC</div>
-                </a>
-                <a class="text-decoration-none text-secondary" href="iina://weblink?url=${thisFileUrl}">
-                    <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/iina.svg" alt="IINA"/>
-                    <div class="text-center" style="font-size: 12px;">IINA</div>
-                </a>
-                <a class="text-decoration-none text-secondary" href="${thisFileUrl}">
-                    <img class="img-fluid mx-auto d-block" style="width: 60%;" src="./assets/download.svg" alt="IINA"/>
-                    <div class="text-center" style="font-size: 12px;">下载</div>
-                </a>
+            <h5 class="mb-2">外部播放</h5>
+            <div class="container-fluid p-0" id="otherPlayers">
+                <!-- 列表 -->
+                <ul class="list-group list-group-flush">
+                    <!-- 弹弹 -->
+                    <li class="list-group-item px-0">
+                        <a href="ddplay:${encodeURIComponent(thisFileUrl + "|filePath=" + thisFileName)}" class="text-decoration-none">
+                            <img src="../assets/dandanplay.webp" style="height: 30px;" class="mx-1">
+                            <span class="text-secondary fw-light align-middle mx-1">弹弹Play (Windows) <span class="badge bg-secondary ms-2">现已支持弹幕</span></span>
+                        </a>
+                    </li>
+                    <!-- Pot / VLC -->
+                    <li class="list-group-item px-0 d-flex">
+                        <a href="potplayer://${thisFileUrl}" class="text-decoration-none w-50">
+                            <img src="../assets/PotPlayer.svg" style="height: 30px;" class="mx-1">
+                            <span class="text-secondary fw-light align-middle mx-1">PotPlayer</span>
+                        </a>
+                        <a href="vlc://${thisFileUrl}" class="text-decoration-none w-50">
+                            <img src="../assets/vlc.svg" style="height: 30px;" class="mx-1">
+                            <span class="text-secondary fw-light align-middle mx-1">VLC</span>
+                        </a>
+                    </li>
+                    <!-- IINA / Download -->
+                    <li class="list-group-item px-0 d-flex">
+                        <a href="iina://weblink?url=${thisFileUrl}" class="text-decoration-none w-50">
+                            <img src="../assets/iina.svg" style="height: 30px;" class="mx-1">
+                            <span class="text-secondary fw-light align-middle mx-1">IINA</span>
+                        </a>
+                        <a href="${thisFileUrl}" class="text-decoration-none w-50">
+                            <img src="../assets/download.svg" style="height: 30px;" class="mx-1">
+                            <span class="text-secondary fw-light align-middle mx-1">下载</span>
+                        </a>
+                    </li>
+                    <!-- 复制直链 -->
+                    <li class="list-group-item px-0" style="cursor:pointer" id="urlLabel">
+                        <div class="text-decoration-none">
+                            <img src="../assets/link.svg" style="height: 30px;" class="mx-1">
+                            <span class="text-secondary fw-light align-middle mx-1 copy" data-clipboard-text="${thisFileUrl}">复制直链 <span
+                                id="copy-info" class="badge bg-secondary ms-2">点击复制</span></span>
+                        </div>
+                    </li>
+                </ul>
             </div>
             `
 
         var urlLabel =
             `
-            <div id="urlLabel" class="mt-3">
-                <h5 class="mb-3">直链 (点击复制) <span id="copy-success" class=""> ✅ 复制成功! </span></h5> 
-                <button style="max-width: 100%" class="copy btn btn-sm btn-outline-primary text-truncate" data-clipboard-text="${thisFileUrl}">${thisFileUrl}</button>
-            </div>
+            <!-- 复制直链 -->
+            <ul class="list-group list-group-flush" >
+                <li class="list-group-item px-0" style="cursor:pointer" id="urlLabel">
+                    <div class="text-decoration-none">
+                        <img src="../assets/link.svg" style="height: 30px;" class="mx-1">
+                        <span class="text-secondary fw-light align-middle mx-1 copy" data-clipboard-text="${thisFileUrl}">复制直链 <span
+                            id="copy-info" class="badge bg-secondary ms-2">点击复制</span></span>
+                    </div>
+                </li>
+            </ul>
             `
         var downloadBtn =
             `
@@ -330,13 +354,13 @@ $(document).ready(function () {
             },
         })
         if (thisFileType == 'mp4') {
-            $("#la-player-body").empty().append(mp4HelpMessage + otherPlayers + urlLabel) // 加入操作按钮
+            $("#la-player-body").empty().append(mp4HelpMessage + otherPlayers) // 加入操作按钮
             addView() // 如果视频正常，则添加播放量
         }
         if (thisFileType == 'mkv') {
             dp.destroy()
-            $("#la-player-body").empty().append(mkvHelpMessage + otherPlayers + urlLabel)
-            $('#otherPlayers, #urlLabel').click(() => { // 点击第三方播放器
+            $("#la-player-body").empty().append(mkvHelpMessage + otherPlayers)
+            $('#otherPlayers > ul > li > a, #urlLabel').click(() => { // 点击第三方播放器
                 addView()
             })
             $("#mkvPlayerBtn").click(() => { // 强制用浏览器打开
@@ -384,23 +408,24 @@ $(document).ready(function () {
         })
 
         // 增加剪贴板复制
-        $("#copy-success").hide()
         var clipboard = new ClipboardJS('.copy', {
             container: document.getElementById('la-player')
         })
 
+        // 复制成功提示
         clipboard.on('success', function (e) {
             console.info('复制操作:', e.action)
             console.info('文本:', e.text)
             console.info('触发器:', e.trigger)
-            $("#copy-success").fadeIn()
-            setTimeout(() => { $("#copy-success").fadeOut() }, 3000)
+            $("#copy-info").empty().append("复制成功").removeClass("bg-secondary").addClass('bg-success')
 
         })
 
+        // 复制失败提示
         clipboard.on('error', function (e) {
             console.error('复制操作失败:', e.action)
             console.error('触发器:', e.trigger)
+            $("#copy-info").empty().append("复制失败，请右键上方 [下载] 按钮选择复制链接").removeClass("bg-secondary").addClass('bg-danger')
         })
 
     }
