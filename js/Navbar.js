@@ -47,15 +47,15 @@ $(document).ready(() => {
                     </a>
                 </div>
                 <!-- 搜索框 -->
-                <form class="d-flex" style="min-width: 200px; width: 45%; max-width: 550px;">
+                <div class="d-flex" style="min-width: 200px; width: 45%; max-width: 550px;">
                     <div class="input-group">
-                        <input id="search-label-top" type="search" class="form-control form-control-sm border-0"
+                        <input id="search-label-top" class="form-control form-control-sm border-0"
                             style="font-size: 13px; background: rgba(180, 180, 180, 0.3);" search-by="name"
                             placeholder="以 番剧名称 搜索" autocomplete="off">
                         <button id="search-top" class="btn btn-sm btn-secondary border-0 align-middle" type="button"><i
                                 class="bi bi-search"></i></button>
                     </div>
-                </form>
+                </div>
                 <!-- 右侧 -->
                 <div>
                     <a id="notice-top" class="text-decoration-none text-secondary mx-2" href="#">
@@ -121,9 +121,11 @@ $(document).ready(() => {
     }
 
     // 顶部搜索框的行为
-    $('#search-top').on('click', function () {
+    $('#search-top').click(function () {
         goSearch()
-    }).keydown(function (e) {
+    })
+
+    $('#search-label-top').keydown(function (e) {
         if (e.keyCode == 13) goSearch()
     })
 
@@ -131,7 +133,7 @@ $(document).ready(() => {
     function goSearch() {
         let text = $('#search-label-top').val()
         if (text == '') window.location.href = './search.html'
-        window.location.href = './search.html?name=' + encodeURIComponent(text)
+        else window.location.href = './search.html?name=' + encodeURIComponent(text)
     }
 
     // 检查是否需要显示回到顶部
@@ -148,17 +150,15 @@ $(document).ready(() => {
 
     // 搜索框的行为
     $(".searchButton input").keydown(function (e) {
-        if (e.keyCode == 13)
-            if ($(".searchButton input").val() != "")
-                window.location.href = './search.html?name=' + document.querySelector(".searchButton input").value
+        if (e.keyCode == 13 && $(".searchButton input").val() != "")
+            window.location.href = './search.html?name=' + $(".searchButton input").val()
 
     })
 
     // 点击搜索框的行为
     $(".searchButton span").click(function () {
-        if ($(".searchButton")[0].clientWidth > 180)
-            if ($(".searchButton input").val() != "")
-                window.location.href = './search.html?name=' + $(".searchButton input").val()
+        if ($(".searchButton")[0].clientWidth > 180 && $(".searchButton input").val() != "")
+            window.location.href = './search.html?name=' + $(".searchButton input").val()
     })
 
     // 根据设置判断是否需要隐藏右下角按钮
