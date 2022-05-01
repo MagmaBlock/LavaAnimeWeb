@@ -103,18 +103,21 @@
             <div id="bangumiAlert" class="alert alert-secondary" role="alert" style="display: none;">请输入正确的 Bangumi ID
             </div>
             <script>
-                $('#by-name').on('click', function () { // 改为以番剧名称搜索
-                    $('input').attr('search-by', 'name').attr('placeholder', '以 番剧名称 搜索')
+                $('#by-name').click(function () { // 改为以番剧名称搜索
+                    $('#search-label').attr('search-by', 'name').attr('placeholder', '以 番剧名称 搜索')
                 })
-                $('#by-bgm').on('click', function () { // 改为以 Bangumi ID 搜索
-                    $('input').attr('search-by', 'bgm').attr('placeholder', '以 Bangumi ID 搜索')
+                $('#by-bgm').click(function () { // 改为以 Bangumi ID 搜索
+                    $('#search-label').attr('search-by', 'bgm').attr('placeholder', '以 Bangumi ID 搜索')
                 })
-                $('#search').on('click', function () { // 点击搜索按钮
+                $('#search').click(function () { // 点击搜索按钮
                     goSearch()
                 })
                 $('#search-label').change(function () { // 搜索框内容改变时
                     goSearch()
+                }).keydown(function(e){
+                    if(e.keyCode == 13) goSearch()
                 })
+
                 function goSearch() {
                     let text = $('#search-label').val()
                     if (text == '') window.location.href = './search.html'

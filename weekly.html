@@ -22,9 +22,36 @@
         $(document).ready(() => {
 
             var timeData
+            // 从 Bangumi-Data 获取
+            // $.ajax({
+            //     method: "get",
+            //     url: "./assets/202204.json",
+            //     async: false,
+            //     success: function (data) {
+            //         // console.log(data)
+            //         timeData = data
+            //     }
+            // })
+
+            // function getTimeById(id) {
+            //     var timeTmp = timeData.filter(function (f) {
+            //         var tmp = f.sites.filter(function (sites) { return sites.site == "bangumi" })
+            //         if (!tmp.length) return false
+            //         var thisId = tmp[0].id
+            //         if (thisId == id) return true
+            //         return false
+            //     })
+            //     if (!timeTmp.length) return false
+            //     var timeRaw = timeTmp[0].begin
+            //     var d = new Date(timeRaw)
+            //     var hr = d.getUTCHours() + 8 >= 30 ? d.getUTCHours() + 8 - 30 : d.getUTCHours() + 8
+            //     return hr.toString().padStart(2, '0') + ":" + d.getUTCMinutes().toString().padStart(2, '0')
+            // }
+
+            // 从 Bangumi-Timetable 获取
             $.ajax({
                 method: "get",
-                url: "./assets/202204.json",
+                url: "./assets/latest.json",
                 async: false,
                 success: function (data) {
                     // console.log(data)
@@ -34,14 +61,11 @@
 
             function getTimeById(id) {
                 var timeTmp = timeData.filter(function (f) {
-                    var tmp = f.sites.filter(function (sites) { return sites.site == "bangumi" })
-                    if (!tmp.length) return false
-                    var thisId = tmp[0].id
-                    if (thisId == id) return true
-                    return false
+                    return f.bangumiId == id
                 })
                 if (!timeTmp.length) return false
                 var timeRaw = timeTmp[0].begin
+                if (timeRaw == "") return false
                 var d = new Date(timeRaw)
                 var hr = d.getUTCHours() + 8 >= 30 ? d.getUTCHours() + 8 - 30 : d.getUTCHours() + 8
                 return hr.toString().padStart(2, '0') + ":" + d.getUTCMinutes().toString().padStart(2, '0')
