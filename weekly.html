@@ -51,14 +51,14 @@
             // 从 Bangumi-Timetable 获取
             $.ajax({
                 method: "get",
-                url: "./assets/latest.json",
+                url: "./assets/latest.min.json",
                 async: false,
                 success: function (data) {
                     // console.log(data)
                     timeData = data
                 }
             })
-
+            
             function getTimeById(id) {
                 var timeTmp = timeData.filter(function (f) {
                     return f.bangumiId == id

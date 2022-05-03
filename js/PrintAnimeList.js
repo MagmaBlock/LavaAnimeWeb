@@ -1,5 +1,8 @@
+function clearAnimeList(container){
+    return container.empty().removeClass() // 清空容器
+}
 function PrintAnimeList(container, animeList) {
-    container.empty().addClass("row row-cols-auto mx-2") // 清空容器
+    clearAnimeList(container).addClass("row row-cols-auto mx-2")
 
     for (let i = 0; i < animeList.length; i++) {
         let thisAnimeId = animeList[i].id;
@@ -24,5 +27,4 @@ function PrintAnimeList(container, animeList) {
         `
         container.append(newAnimeCard);
     }
-
 }
