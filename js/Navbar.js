@@ -50,8 +50,8 @@ $(document).ready(() => {
                 <div class="d-flex" style="min-width: 200px; width: 45%; max-width: 550px;">
                     <div class="input-group">
                         <input id="search-label-top" class="form-control form-control-sm border-0"
-                            style="font-size: 13px; background: rgba(180, 180, 180, 0.3);" search-by="name"
-                            placeholder="以 番剧名称 搜索" autocomplete="off">
+                            style="font-size: 13px; background: rgba(180, 180, 180, 0.3);"
+                            placeholder="搜索 番剧名称 或 Bangumi ID" autocomplete="off">
                         <button id="search-top" class="btn btn-sm btn-secondary border-0 align-middle" type="button"><i
                                 class="bi bi-search"></i></button>
                     </div>
@@ -96,7 +96,7 @@ $(document).ready(() => {
     const toolBar =
         `<div class="toolbar">
             <div class="toolButton goTopButton" style="opacity: 0;"><i class="bi bi-arrow-up-circle fs-5"></i></div>
-            <div class="toolButton searchButton"><span><i class="bi bi-search fs-5"></i></span><input class="form-control" placeholder="以 番剧名称 搜索"></div>
+            <div class="toolButton searchButton"><span><i class="bi bi-search fs-5"></i></span><input class="form-control" placeholder="搜索 番剧名称 或 Bangumi ID"></div>
         </div>`
     const icon = {
         home: "bi-house",

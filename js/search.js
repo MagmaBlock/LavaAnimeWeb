@@ -41,6 +41,7 @@ function nameSearch(name) {
 }
 
 function bgmSearch(id) {
+    if (!(id > 0)) return false
     let successFlag = false
     $.ajax({
         url: config.api.url + '/v1/search/bgm/' + id,
