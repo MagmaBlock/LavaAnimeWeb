@@ -160,7 +160,12 @@
         "class": "bg-primary"
     },
     {
-        "from": "[^A-Za-z0-9]Nekomoe kissaten|Mmch\\.sub[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9]Mmch\\.sub[^A-Za-z0-9]",
+        "to": "喵萌茶会字幕组",
+        "class": "bg-primary"
+    },
+    {
+        "from": "[^A-Za-z0-9]Nekomoe kissaten[^A-Za-z0-9]",
         "to": "喵萌奶茶屋",
         "class": "bg-primary"
     },
