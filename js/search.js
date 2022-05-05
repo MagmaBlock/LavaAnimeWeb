@@ -70,7 +70,7 @@ function print(data) {
 }
 
 function notFound() {
-    clearAnimeList($(`#${containerId}`))
+    clearAnimeList($(`#${containerId}`)).removeClass()
     $("#search-result-container").append(`
     <div class='alert alert-secondary mx-3'>\\アッカリ～ン!/ <br>没有在番剧库内找到相关的番组...</div>
     `)
