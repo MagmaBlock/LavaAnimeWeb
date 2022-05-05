@@ -62,3 +62,22 @@
 .settingsList label{
     padding-top: 3px;
 }
+
+#topbar div div:nth-child(1) a,
+            #notice-top {
+                transition: 0.3s;
+            }
+    
+            #topbar div div:nth-child(1) a.text-secondary:hover,
+            #notice-top:hover {
+                color: #303030 !important;
+            }
+    
+            #search-label-top,
+            #search-top {
+                transition: 0.3s;
+            }
+    
+            #search-label-top:hover {
+                background: rgba(255, 255, 255, 0.8) !important;
+            }

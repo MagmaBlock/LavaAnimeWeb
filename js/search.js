@@ -1,19 +1,27 @@
 $(() => {
-    if (getUrlParams().name) {
+    if (getUrlParams().q) {
+        $("#search-label").val(decodeURIComponent(getUrlParams().q))
+        if (!bgmSearch(getUrlParams().q) && !nameSearch(getUrlParams().q)) notFound()
+    } else if (getUrlParams().name) {
         $("#search-label").val(decodeURIComponent(getUrlParams().name))
         if (!bgmSearch(getUrlParams().name) && !nameSearch(getUrlParams().name)) notFound()
+    } else if (getUrlParams().bgm) {
+        console.log("使用旧版 Bangumi ID 搜索：", getUrlParams().bgm)
+        console.log("注意：此方法将被移除！")
+        $("#search-label").val(decodeURIComponent(getUrlParams().bgm))
+        if (!bgmSearch(getUrlParams().bgm)) notFound()
     }
 })
 
 function goSearch() {
     let text = $('#search-label').val()
     if (text) {
-        let url = './search.html?name=' + encodeURIComponent(text)
+        let url = './search.html?q=' + encodeURIComponent(text)
         if (history.pushState) {
             window.history.pushState(null, null, url)
             // console.log(getUrlParams())
-            $("#search-label").val(decodeURIComponent(getUrlParams().name))
-            if (!bgmSearch(getUrlParams().name) && !nameSearch(getUrlParams().name)) notFound()
+            $("#search-label").val(decodeURIComponent(getUrlParams().q))
+            if (!bgmSearch(getUrlParams().q) && !nameSearch(getUrlParams().q)) notFound()
         } else window.location.href = url // 如果不支持，使用旧的解决方案
     }
 }
@@ -30,7 +38,6 @@ function nameSearch(name) {
         url: config.api.url + '/v1/search/name/' + name,
         async: false,
         success: function (data) {
-            console.log(data.code)
             if (data.code == 0) {
                 print(data)
                 successFlag = true
@@ -47,7 +54,6 @@ function bgmSearch(id) {
         url: config.api.url + '/v1/search/bgm/' + id,
         async: false,
         success: function (data) {
-            console.log(data.code)
             if (data.code == 0) {
                 PrintAnimeList($(`#${containerId}`), data.data)
                 // print(data)

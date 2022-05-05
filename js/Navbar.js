@@ -2,27 +2,6 @@ $(document).ready(() => {
     const navbarHtml =
         `
         <!-- 顶栏 -->
-        <style>
-            #topbar div div:nth-child(1) a,
-            #notice-top {
-                transition: 0.3s;
-            }
-    
-            #topbar div div:nth-child(1) a.text-secondary:hover,
-            #notice-top:hover {
-                color: #303030 !important;
-            }
-    
-            #search-label-top,
-            #search-top {
-                transition: 0.3s;
-            }
-    
-            #search-label-top:hover {
-                background: rgba(255, 255, 255, 0.8) !important;
-            }
-        </style>
-    
         <nav id="topbar" class="navbar navbar-light shadow-sm fixed-top border-bottom border-1 rounded-bottom"
             style="backdrop-filter: blur(9px) brightness(0.85); background-color: rgba(255, 255, 255, 0.7);">
             <div class="container-fluid px-4" style="max-width: 1320px">
@@ -133,7 +112,7 @@ $(document).ready(() => {
     function goSearch() {
         let text = $('#search-label-top').val()
         if (text == '') window.location.href = './search.html'
-        else window.location.href = './search.html?name=' + encodeURIComponent(text)
+        else window.location.href = './search.html?q=' + encodeURIComponent(text)
     }
 
     // 检查是否需要显示回到顶部
@@ -151,14 +130,14 @@ $(document).ready(() => {
     // 搜索框的行为
     $(".searchButton input").keydown(function (e) {
         if (e.keyCode == 13 && $(".searchButton input").val() != "")
-            window.location.href = './search.html?name=' + $(".searchButton input").val()
+            window.location.href = './search.html?q=' + $(".searchButton input").val()
 
     })
 
     // 点击搜索框的行为
     $(".searchButton span").click(function () {
         if ($(".searchButton")[0].clientWidth > 180 && $(".searchButton input").val() != "")
-            window.location.href = './search.html?name=' + $(".searchButton input").val()
+            window.location.href = './search.html?q=' + $(".searchButton input").val()
     })
 
     // 根据设置判断是否需要隐藏右下角按钮

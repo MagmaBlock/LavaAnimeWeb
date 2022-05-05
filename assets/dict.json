@@ -1,5 +1,15 @@
 [
     {
+        "from": "[^A-Za-z0-9]DMHY[^A-Za-z0-9]",
+        "to": "動漫花園",
+        "class": "bg-primary"
+    },
+    {
+        "from": "[^A-Za-z0-9]SHIGURE[^A-Za-z0-9]",
+        "to": "時雨初空",
+        "class": "bg-primary"
+    },
+    {
         "from": "[^A-Za-z0-9]HYSUB[^A-Za-z0-9]",
         "to": "幻樱字幕组",
         "class": "bg-primary"
@@ -12,11 +22,6 @@
     {
         "from": "[^A-Za-z0-9]FZSD[^A-Za-z0-9]",
         "to": "风之圣殿",
-        "class": "bg-primary"
-    },
-    {
-        "from": "[^A-Za-z0-9]Mmch\\.sub[^A-Za-z0-9]",
-        "to": "喵萌茶会字幕组",
         "class": "bg-primary"
     },
     {
@@ -62,6 +67,16 @@
     {
         "from": "[^A-Za-z0-9]SumiSora[^A-Za-z0-9]",
         "to": "澄空学园",
+        "class": "bg-primary"
+    },
+    {
+        "from": "[^A-Za-z0-9]YUI-7[^A-Za-z0-9]",
+        "to": "西农YUI汉化组",
+        "class": "bg-primary"
+    },
+    {
+        "from": "[^A-Za-z0-9]Skymoon-Raws[^A-Za-z0-9]",
+        "to": "天月動漫&發佈組",
         "class": "bg-primary"
     },
     {
@@ -140,12 +155,12 @@
         "class": "bg-primary"
     },
     {
-        "from": "[^A-Za-z0-9]JYFanSub|KTXP|JYSUB[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9]JYFanSub|KTXP|JYSUB|JYFANSUB[^A-Za-z0-9]",
         "to": "极影字幕社",
         "class": "bg-primary"
     },
     {
-        "from": "[^A-Za-z0-9]Nekomoe kissaten[^A-Za-z0-9]",
+        "from": "[^A-Za-z0-9]Nekomoe kissaten|Mmch\\.sub[^A-Za-z0-9]",
         "to": "喵萌奶茶屋",
         "class": "bg-primary"
     },
