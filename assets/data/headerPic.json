@@ -1,0 +1,32 @@
+[
+    {
+        "pic": "./img/headerPic/LavaAnime.jpg",
+        "url": "",
+        "title": "熔岩番剧库 LavaAnimeLib",
+        "subtitle": ""
+    },
+    {
+        "pic": "./img/headerPic/Spy x Family.jpg",
+        "url": "./anime.html?la=332",
+        "title": "间谍过家家 Spy x Family",
+        "subtitle": "间谍、杀手、超能力者组成的家庭！WakuWaku"
+    },
+    {
+        "pic": "./img/headerPic/Deaimon.jpg",
+        "url": "./anime.html?la=361",
+        "title": "相合之物 であいもん",
+        "subtitle": "以京都为舞台，日式点心，将人与人连接起来的温暖故事"
+    },
+    {
+        "pic": "./img/headerPic/Paripi Koumei.jpg",
+        "url": "./anime.html?la=338",
+        "title": "派对浪客诸葛孔明 パリピ孔明",
+        "subtitle": "天才军师转生，发生在东京涩谷的音乐之旅"
+    },
+    {
+        "pic": "./img/headerPic/Summer Time Rendering.jpg",
+        "url": "./anime.html?la=371",
+        "title": "夏日重现 サマータイムレンダ",
+        "subtitle": "悬疑轮回神作预定"
+    }
+]

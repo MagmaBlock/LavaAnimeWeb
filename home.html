@@ -24,115 +24,29 @@
     <script src="./js/PrintAnimeList.js" crossorigin="anonymous"></script>
     <script src="./js/Navbar.js" crossorigin="anonymous"></script>
     <script src="./js/homepage.js" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function () {
-            const config = {
-                "api": { "url": "https://anime-api.5t5.top" }
-            }
-
-            const collections = [
-                {
-                    id: '2022-4',
-                    title: '2022年4月新番',
-                    subtitle: '2022年4月新番开播！熔岩番剧库 23 部作品在线看',
-                    background: '',
-                    content: [
-                        {
-                            index: 0, title: "备受期待，热门改编",
-                            anime: [371, 332, 338, 331, 372, 359]
-                        },
-                        {
-                            index: 1, title: "续作",
-                            anime: [334, 341, 336, 339, 342, 340, 337, 357, 333]
-                        },
-                        {
-                            index: 2, title: "恋爱日常，治愈休闲",
-                            anime: [361, 374, 360, 392, 362, 335]
-                        },
-                        {
-                            index: 3, title: "持续连载、剧场版",
-                            anime: [79, 364]
-                        }
-                    ]
-                }
-            ]
-
-
-            /*
-                根据 Collections 数据生成推荐番剧列表，思路: 拿到每个 Collection 后，先遍历 content，生成一个骨架
-                再把标题等内容填入渲染为 HTML。接着再遍历 content，让异步回调将数据填入骨架。
-
-                有够麻烦的 什么时候学 Vue
-            */
-            for (let i = 0; i < collections.length; i++) { // 遍历全部番剧推荐
-                let thisCollection = collections[i] // 当前推荐番剧组
-                let thisCollectionContentHtml = '' // 当前推荐番剧组的内容 HTML
-                for (let j = 0; j < thisCollection.content.length; j++) { // 循环每一个正文块，生成骨架
-                    let thisCollectionBlock = thisCollection.content[j]; // 当前正文块
-                    thisCollectionContentHtml = // 这个正文块的 HTML
-                        thisCollectionContentHtml +
-                        `<h2 class="mb-3">${thisCollectionBlock.title}</h2>
-                        <div id="collectionBlock-${thisCollection.id}-${thisCollectionBlock.index}"></div>`
-                }
-                let thisCollectionHtml = // HTML 骨架
-                    `<div class="card">
-                        <div class="card-body">
-                            <h1 class="display-5">${thisCollection.title}</h1>
-                            <p class="text-muted fw-light">${thisCollection.subtitle}</p>
-                            <div>${thisCollectionContentHtml}</div>
-                        </div>
-                    </div>`
-                $('#collections').append(thisCollectionHtml) // 渲染骨架
-            }
-
-            for (let i = 0; i < collections.length; i++) {  // 第二次遍历，主要是调用 API 填入番剧
-                let thisCollection = collections[i] // 当前推荐番剧组
-                for (let j = 0; j < thisCollection.content.length; j++) { // 循环每一个正文块，填入番剧
-                    let thisCollectionBlock = thisCollection.content[j] // 当前正文块
-                    axios({ // 调用 API 获取番剧
-                        method: 'post',
-                        url: config.api.url + '/v1/anime/id',
-                        data: thisCollectionBlock.anime
-                    }).then((result) => {
-                        let thisCollectionBlockAnimeData = result.data.data
-                        PrintAnimeList($(`#collectionBlock-${thisCollection.id}-${thisCollectionBlock.index}`), thisCollectionBlockAnimeData)
-                        $(`#collectionBlock-${thisCollection.id}-${thisCollectionBlock.index}`).removeClass('mx-2').addClass('mx-auto')
-                    })
-                }
-            }
-
-
-        })
-    </script>
 </head>
 
 <body>
+    <!-- 顶栏和底栏 -->
     <div id="navbar"></div>
-    <div class="container mt-4" style="margin-bottom: 100px;">
-        <div class="mx-3">
-            <h1 class="display-3">主页</h1>
-
-            <!-- 轮播图 -->
-            <div id="headerPic" class="carousel slide" data-bs-ride="carousel">
-                <ol class="carousel-indicators"></ol>
-                <div class="carousel-inner" style="border-radius: 11px;"></div>
-                <a class="carousel-control-prev" href="#headerPic" role="button" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">前一个</span>
-                </a>
-                <a class="carousel-control-next" href="#headerPic" role="button" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">后一个</span>
-                </a>
-            </div>
-
-
-            <p class="fw-light"></p>
-            <div>
-                <div id="collections"></div>
-            </div>
+    <!-- 轮播图 -->
+    <div id="headerpicture" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <!-- 这里是内容 -->
         </div>
+        <!-- 切页按钮 -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#headerpicture" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#headerpicture" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
 
+    <!-- 容器 -->
+    <div class="container mt-4" style="margin-bottom: 300px;">
+        <!-- 番剧推荐 -->
+        <div id="collections"></div>
     </div>
 
     <span class="visually-hidden">
