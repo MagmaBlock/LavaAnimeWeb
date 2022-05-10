@@ -4,57 +4,58 @@ const config = {
     "bangumiApi": "https://bgm-api.5t5.top/v0/subjects/"
 }
 
-var thisPageId 
+var thisPageId
 
-$(document).ready(function () {
+$(document).ready(async function () {
 
     // 特效
     $("#la-list-container").hide()
     $('#la-anime-header').hide()
 
     console.log('地址栏参数数据: ', getUrlParams())
-    if (getUrlParams().la != undefined) {
+    if (getUrlParams().la != undefined) { // 如果有 la ID, 则获取该界面的数据
         thisPageId = getUrlParams().la // 此界面的 ID
-        axios(config.api.url + '/v1/anime/id/' + thisPageId)
-            .then((result) => {
-                if (result.data.code == 0) {
-                    thisPageAnimeData = result.data.data
-                    console.log('成功取得番剧库 API 数据：', thisPageAnimeData)
-                    // 填充路径
-                    let arrowIcon = '<i class="bi bi-arrow-right-short"></i>'
-                    let pathHtml = thisPageAnimeData.year + arrowIcon + thisPageAnimeData.type + arrowIcon + thisPageAnimeData.name
-                    $("#la-path").empty().append(pathHtml)
-                    // 修改背景图
-                    backgroundUrl = thisPageAnimeData.poster.replace('/poster', '/bg')
-                    $("#bg").css("background-image", "url(" + backgroundUrl + ")")
-                    // 填充播放量
-                    $("#views").empty().append(` 播放 ${thisPageAnimeData.views} 次`)
-                    // 特效，渐变展示头部卡片
-                    $('#la-anime-header').fadeIn()
+        thisPageAnimeDataRaw = (await axios(config.api.url + '/v1/anime/id/' + thisPageId)).data;
+        thisPageAnimeData = thisPageAnimeDataRaw.data
+        console.log('成功取得 API Data：', thisPageAnimeData);
+        if (thisPageAnimeDataRaw.code == 0) { // 如果获取成功
+            // 填充路径
+            let arrowIcon = '<i class="bi bi-arrow-right-short"></i>'
+            let pathHtml = thisPageAnimeData.year + arrowIcon + thisPageAnimeData.type + arrowIcon + thisPageAnimeData.name
+            $("#la-path").empty().append(pathHtml)
+            // 修改背景图
+            if (thisPageAnimeData.poster != undefined) {
+                backgroundUrl = thisPageAnimeData.poster.replace('/poster', '/bg')
+                $("#bg").css("background-image", "url(" + backgroundUrl + ")")
+            }
+            // 填充播放量
+            $("#views").empty().append(` 播放 ${thisPageAnimeData.views} 次`)
+            // 特效，渐变展示头部卡片
+            $('#la-anime-header').fadeIn()
 
-                    if (thisPageAnimeData.bgmid != '000000') { // 如果这个番剧是一个 Bangumi 番剧
-                        getBangumiApi() // 获取 Bangumi 番剧的 API 数据并显示在页面上
-                        getAgefans() // 获取 Agefans 番剧的数据并显示在页面上
-                        getRelatins() // 获取相关番剧的数据并显示在页面上
-                    } else { // 如果这个番剧不是一个 Bangumi 番剧
-                        $('#name_cn').append(thisPageAnimeData.title)
-                        $('#rating-box, #eps-box, #show-more').hide()
-                        $('#more-link').empty().append('<span class="fw-lighter text-secondary">本作是 Bangumi 未收录番剧 （或者可能根本不是一个影视作品！）</span>')
-                        $('#bg').css('background-image', 'url(https://anime-img.5t5.top/assets/no-bgm-bg.jpg/bg)')
-                    }
-                    getFileList() // 打印文件列表
-                } else {
-                    AnimePath = '未找到番组'
-                    thisId = ''
-                    $(`#views`).empty().append(` 没人观看过此番组, 因为它不存在. 😢`)
-                    $('#rating-box, #show-more, #more-link').hide()
-                    $("#la-list-container").append("<div style='opacity: 85%;' class='alert alert-warning'><span>错误: 未取得番组信息。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
-                    $("#loading").fadeOut()
+            if (thisPageAnimeData.bgmid != '000000') { // 如果这个番剧是一个 Bangumi 番剧
+                getBangumiApi() // 获取 Bangumi 番剧的 API 数据并显示在页面上
+                getAgefans() // 获取 Agefans 番剧的数据并显示在页面上
+                getRelatins() // 获取相关番剧的数据并显示在页面上
+            } else { // 如果这个番剧不是一个 Bangumi 番剧
+                $('#name_cn').append(thisPageAnimeData.title)
+                $('#rating-box, #eps-box, #show-more').hide()
+                $('#more-link').empty().append('<span class="fw-lighter text-secondary">本作是 Bangumi 未收录番剧 （或者可能根本不是一个影视作品！）</span>')
+                $('#bg').css('background-image', 'url(https://anime-img.5t5.top/assets/no-bgm-bg.jpg/bg)')
+            }
+            getFileList() // 打印文件列表
+        } else { // code != 0
+            AnimePath = '未找到番组'
+            thisId = ''
+            $(`#views`).empty().append(` 没人观看过此番组, 因为它不存在. 😢`)
+            $('#rating-box, #show-more, #more-link').hide()
+            $("#la-list-container").append("<div style='opacity: 85%;' class='alert alert-warning'><span>错误: 未取得番组信息。<a class='alert-link' href='./index.html'>返回主页</a></span></div>")
+            $("#loading").fadeOut()
 
-                    $("#la-list-container").fadeIn()
-                    $('#la-anime-header').fadeIn()
-                }
-            })
+            $("#la-list-container").fadeIn()
+            $('#la-anime-header').fadeIn()
+        }
+
     } else if (getUrlParams().bgm != undefined) {
         var thisPageBgmId = getUrlParams().bgm // 此界面的 ID
         axios(config.api.url + '/v1/anime/bgm/' + thisPageBgmId)
@@ -110,7 +111,7 @@ $(document).ready(function () {
         $("#la-list-container").fadeIn()
         $('#la-anime-header').fadeIn()
     }
-    
+
 })
 
 function getBangumiApi() {
