@@ -142,4 +142,22 @@ $(document).ready(() => {
 
     // 根据设置判断是否需要隐藏右下角按钮
     $(".toolbar").css("display", localStorage.getItem("hideToolBar") == "true" ? "none" : "")
+
+    const statistics = `
+    <img src="https://www.bfcounter.vip/generatepic?userid=ce1d3f3b-ce67-4319-8222-e751f8262b2e"
+        alt="Page Counter" class="visually-hidden">
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?c3b6ee9c2eff1642f7465f8e97766227";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <script async defer 
+        data-website-id="5aad3d7c-6372-42aa-957e-ed4c945c0d08"
+        src="https://umami.magma.ink/umami.js"></script>
+    `
+    $("body").append(statistics)
 })
