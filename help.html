@@ -279,9 +279,6 @@
     <script>
         $(".settingsButton").click(function () {
             let settingsHtml = `<div class="settingsList"style="font-size: 1em;">
-            <input class="form-check-input" type="checkbox" id="hideToolBar" ${localStorage.getItem("hideToolBar") == "true" ? "checked" : ""}>
-            <label class="form-check-label" id="hideToolBarLabel" style="cursor: pointer; width: 87%">隐藏右下角工具栏</label>
-            <br>
             <input class="form-check-input" type="checkbox" style="margin-top: 15px" id="listHideValue" ${localStorage.getItem("listHide") == "true" ? "checked" : ""}>
             <label class="form-check-label" id="listHideValueLabel" style="cursor: pointer; width: 87%; margin-top: 10px">放送列表隐藏 10 人以下在看的番剧</label></div>
             </div>`
@@ -291,15 +288,6 @@
                 html: settingsHtml,
                 confirmButtonText: '确定',
                 footer: `<div style="text-align: center;font-size: 1em;">熔岩番剧库</a></div>`,
-            })
-            // 隐藏右下角工具栏
-            $("#hideToolBar").change(function () {
-                localStorage.setItem("hideToolBar", (localStorage.getItem("hideToolBar") == "true") ? "false" : "true")
-            })
-
-            $("#hideToolBarLabel").click(function () {
-                $("#hideToolBar").prop("checked", !$("#hideToolBar").prop("checked"))
-                localStorage.setItem("hideToolBar", (localStorage.getItem("hideToolBar") == "true") ? "false" : "true")
             })
             // 放送列表隐藏
             localStorage.setItem("listHideValue", 10)

@@ -73,10 +73,7 @@ $(document).ready(() => {
         </nav>`
 
     const toolBar =
-        `<div class="toolbar">
-            <div class="toolButton goTopButton" style="opacity: 0;"><i class="bi bi-arrow-up-circle fs-5"></i></div>
-            <!-- <div class="toolButton searchButton"><span><i class="bi bi-search fs-5"></i></span><input class="form-control" placeholder="搜索 番剧名称 或 Bangumi ID"></div> -->
-        </div>`
+        `<div class="toolbar"><div class="toolButton goTopButton" style="opacity: 0;"><i class="bi bi-arrow-up-circle fs-5"></i></div></div>`
     const icon = {
         home: "bi-house",
         index: "bi-collection",
@@ -127,7 +124,6 @@ $(document).ready(() => {
         $("body,html").animate({ scrollTop: '0' }, 100)
     })
 
-    // 搜索框的行为
     $(".searchButton input").keydown(function (e) {
         if (e.keyCode == 13 && $(".searchButton input").val() != "")
             window.location.href = './search.html?q=' + $(".searchButton input").val()
