@@ -48,6 +48,8 @@
         }
     </style>
 
+
+    <!-- 顶栏 -->
     <nav id="topbar" class="navbar navbar-light shadow-sm fixed-top border-bottom border-1 rounded-bottom"
         style="backdrop-filter: blur(9px) brightness(0.85); background-color: rgba(255, 255, 255, 0.7);">
         <div class="container-fluid px-4" style="max-width: 1320px">
@@ -72,19 +74,23 @@
                 </a>
             </div>
             <!-- 搜索框 -->
-            <form class="d-flex" style="min-width: 200px; width: 45%; max-width: 550px;">
+            <div class="d-flex" style="min-width: 200px; width: 45%; max-width: 550px;">
                 <div class="input-group">
-                    <input id="search-label-top" type="search" class="form-control form-control-sm border-0"
-                        style="font-size: 13px; background: rgba(180, 180, 180, 0.3);" search-by="name"
-                        placeholder="以 番剧名称 搜索" autocomplete="off">
+                    <input id="search-label-top" class="form-control form-control-sm border-0"
+                        style="font-size: 13px; background: rgba(180, 180, 180, 0.3);"
+                        placeholder="搜索 番剧名称 或 Bangumi ID" autocomplete="off">
                     <button id="search-top" class="btn btn-sm btn-secondary border-0 align-middle" type="button"><i
                             class="bi bi-search"></i></button>
                 </div>
-            </form>
+            </div>
             <!-- 右侧 -->
             <div>
-                <a id="notice-top" class="text-decoration-none text-secondary mx-2" href="#">
-                    <i class="bi bi-bell fs-5"></i>
+                <a id="notice-top" class="text-decoration-none text-secondary mx-2" target="_blank" href="https://wj.qq.com/s2/10287403/f4eb/">
+                    <i class="bi bi-bell fs-5 position-relative">
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle rounded-circle bg-secondary p-1 opacity-75">
+                    </i>
+
                 </a>
             </div>
         </div>

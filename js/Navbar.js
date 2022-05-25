@@ -1,7 +1,6 @@
 $(document).ready(() => {
     const navbarHtml =
-        `
-        <!-- 顶栏 -->
+        `<!-- 顶栏 -->
         <nav id="topbar" class="navbar navbar-light shadow-sm fixed-top border-bottom border-1 rounded-bottom"
             style="backdrop-filter: blur(9px) brightness(0.85); background-color: rgba(255, 255, 255, 0.7);">
             <div class="container-fluid px-4" style="max-width: 1320px">
@@ -37,8 +36,12 @@ $(document).ready(() => {
                 </div>
                 <!-- 右侧 -->
                 <div>
-                    <a id="notice-top" class="text-decoration-none text-secondary mx-2" href="#">
-                        <i class="bi bi-bell fs-5"></i>
+                    <a id="notice-top" class="text-decoration-none text-secondary mx-2" target="_blank" href="https://wj.qq.com/s2/10287403/f4eb/">
+                        <i class="bi bi-bell fs-5 position-relative">
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle rounded-circle bg-secondary p-1 opacity-75">
+                        </i>
+    
                     </a>
                 </div>
             </div>
