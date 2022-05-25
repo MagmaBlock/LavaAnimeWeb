@@ -1,577 +1,592 @@
 [
     {
-        "from": "[^A-Za-z0-9]DMHY[^A-Za-z0-9]",
+        "from": "DMHY",
         "to": "動漫花園",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]SHIGURE[^A-Za-z0-9]",
+        "from": "SHIGURE",
         "to": "時雨初空",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]HYSUB[^A-Za-z0-9]",
+        "from": "HYSUB",
         "to": "幻樱字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]BeanSub[^A-Za-z0-9]",
+        "from": "BeanSub",
         "to": "豌豆字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]FZSD[^A-Za-z0-9]",
+        "from": "FZSD",
         "to": "风之圣殿",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]FLsnow[^A-Za-z0-9]",
+        "from": "FLsnow",
         "to": "雪飘工作室",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]WMSUB[^A-Za-z0-9]",
+        "from": "WMSUB",
         "to": "风车字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]DBD-Raws[^A-Za-z0-9]",
+        "from": "DBD-Raws",
         "to": "DBD制作组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9](UHA-WINGS|UHA-WING)[^A-Za-z0-9]",
+        "from": "(UHA-WINGS|UHA-WING)",
         "to": "悠哈璃羽字幕社",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]SweetSub[^A-Za-z0-9]",
+        "from": "SweetSub",
         "to": "SweetSub 字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]MMSUB[^A-Za-z0-9]",
+        "from": "MMSUB",
         "to": "MMSUB",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]LoliHouse[^A-Za-z0-9]",
+        "from": "LoliHouse",
         "to": "LoliHouse 压制组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]SFEO-Raws[^A-Za-z0-9]",
+        "from": "SFEO-Raws",
         "to": "SFEO-Raws 压制组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]SumiSora[^A-Za-z0-9]",
+        "from": "SumiSora",
         "to": "澄空学园",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]YUI-7[^A-Za-z0-9]",
+        "from": "YUI-7",
         "to": "西农YUI汉化组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]Skymoon-Raws[^A-Za-z0-9]",
+        "from": "Skymoon-Raws",
         "to": "天月動漫&發佈組",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]PCSUB[^A-Za-z0-9]",
+        "from": "PCSUB",
         "to": "波洛咖啡厅",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]Kamigami[^A-Za-z0-9]",
+        "from": "Kamigami",
         "to": "诸神字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]Mabors[^A-Za-z0-9]Sub[^A-Za-z0-9]",
+        "from": "Mabors( |-)Sub",
         "to": "幻之字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]DHR[^A-Za-z0-9]",
+        "from": "DHR",
         "to": "DHR动研字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]DMG[^A-Za-z0-9]",
+        "from": "DMG",
         "to": "动漫国字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]FZsub[^A-Za-z0-9]",
+        "from": "FZsub",
         "to": "F宅字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]Xrip[^A-Za-z0-9]",
+        "from": "Xrip",
         "to": "Xrip 压制组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]A\\.I\\.R\\.nesSub[^A-Za-z0-9]",
+        "from": "A\\.I\\.R\\.nesSub",
         "to": "A.I.R.nesSub 字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]NC-Raws[^A-Za-z0-9]",
+        "from": "NC-Raws",
         "to": "NC-Raws 搬运组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]NaN-Raws[^A-Za-z0-9]",
+        "from": "NaN-Raws",
         "to": "NaN-Raws 搬运组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]Lilith-Raws[^A-Za-z0-9]",
+        "from": "Lilith-Raws",
         "to": "Lilith-Raws 搬运组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]云光字幕组[^A-Za-z0-9]",
+        "from": "云光字幕组",
         "to": "云光字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]CASO[^A-Za-z0-9]",
+        "from": "CASO",
         "to": "华盟字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]Comicat[^A-Za-z0-9]",
+        "from": "Comicat",
         "to": "漫猫字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]KissSub[^A-Za-z0-9]",
+        "from": "KissSub",
         "to": "爱恋字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]JYFanSub|KTXP|JYSUB|JYFANSUB[^A-Za-z0-9]",
+        "from": "JYFanSub|KTXP|JYSUB|JYFANSUB",
         "to": "极影字幕社",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]Nekomoe kissaten[^A-Za-z0-9]",
+        "from": "Nekomoe kissaten",
         "to": "喵萌奶茶屋",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]Mmch\\.sub[^A-Za-z0-9]",
+        "from": "Mmch\\.sub",
         "to": "喵萌茶会字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]sakurato\\.sub|Sakurato[^A-Za-z0-9]",
+        "from": "sakurato\\.sub|Sakurato",
         "to": "桜都字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]STYHSub[^A-Za-z0-9]",
+        "from": "STYHSub",
         "to": "霜庭云花字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]Airota[^A-Za-z0-9]",
+        "from": "Airota|Ariota",
         "to": "千夏字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]SZW[^A-Za-z0-9]",
+        "from": "SZW",
         "to": "森之屋动漫",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]SAIO-Raws[^A-Za-z0-9]",
+        "from": "SAIO-Raws",
         "to": "SAIO-Raws 压制组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]VCB-Studio[^A-Za-z0-9]",
+        "from": "VCB-Studio|VCB-S",
         "to": "VCB-Studio 压制组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
         "from": "熔岩番剧库|LavaAnimeLib",
         "to": "熔岩番剧库",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]异域-11番小队[^A-Za-z0-9]",
+        "from": "异域-11番小队",
         "to": "异域-11番小队",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]XKSub[^A-Za-z0-9]",
+        "from": "XKSub",
         "to": "星空字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]ZeroSub[^A-Za-z0-9]",
+        "from": "ZeroSub",
         "to": "ZeroSub",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]CoolComic404[^A-Za-z0-9]",
+        "from": "CoolComic404",
         "to": "酷漫404",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]orion origin[^A-Za-z0-9]",
+        "from": "orion origin",
         "to": "猎户不鸽发布组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]MCE[^A-Za-z0-9]",
+        "from": "MCE",
         "to": "MCE 汉化组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]LavaAnime[^A-Za-z0-9]",
+        "from": "LavaAnime",
         "to": "熔岩动画",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]igsub[^A-Za-z0-9]",
+        "from": "igsub",
         "to": "爱咕字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]GST[^A-Za-z0-9]",
+        "from": "GST",
         "to": "GST 搬运组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]LxyLab",
+        "from": "LxyLab",
         "to": "LxyLab 字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]LKSUB[^A-Za-z0-9]",
+        "from": "LKSUB",
         "to": "轻之国度字幕组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]Henshin[^A-Za-z0-9]",
+        "from": "Henshin",
         "to": "Henshin 压制组",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9]LPSub[^A-Za-z0-9]",
+        "from": "LPSub",
         "to": "离谱Sub",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9](MingYSub|MingY)[^A-Za-z0-9]",
+        "from": "(MingYSub|MingY)",
         "to": "MingYSub",
-        "class": "bg-primary"
+        "class": "group"
     },
     {
-        "from": "[^A-Za-z0-9](1080p|1920(X|×)1080)[^A-Za-z0-9]",
+        "from": "WOLF\\&RH",
+        "to": "WOLF&RH 字幕组",
+        "class": "group"
+    },
+    {
+        "from": "Hakugetsu",
+        "to": "白月字幕组",
+        "class": "group"
+    },
+    {
+        "from": "夏沐字幕组",
+        "to": "夏沐字幕组",
+        "class": "group"
+    },
+    {
+        "from": "(1080p|1920(X|×)(1080|816))",
         "to": "1080P",
-        "class": "bg-secondary"
+        "class": "quality"
     },
     {
-        "from": "[^A-Za-z0-9]2160p|3840(X|×)2160[^A-Za-z0-9]",
+        "from": "2160p|3840(X|×)2160",
         "to": "2160P(4K)",
-        "class": "bg-secondary"
+        "class": "quality"
     },
     {
-        "from": "[^A-Za-z0-9]1440p|2560(X|×)1440[^A-Za-z0-9]",
+        "from": "1440p|2560(X|×)1440",
         "to": "1440P(2K)",
-        "class": "bg-secondary"
+        "class": "quality"
     },
     {
-        "from": "[^A-Za-z0-9](720p|1280(X|×)720)[^A-Za-z0-9]",
+        "from": "(720p|1280(X|×)720)",
         "to": "720P",
-        "class": "bg-secondary"
+        "class": "quality"
     },
     {
-        "from": "[^A-Za-z0-9]60fps[^A-Za-z0-9]",
+        "from": "60fps",
         "to": "60FPS",
-        "class": "bg-secondary"
+        "class": "quality"
     },
     {
-        "from": "[^A-Za-z0-9](AVC|x264|h264)[^A-Za-z0-9]",
+        "from": "(AVC|x264|h264)",
         "to": "AVC",
-        "class": "bg-secondary"
+        "class": "quality"
     },
     {
-        "from": "[^A-Za-z0-9](HEVC|x265|H265)[^A-Za-z0-9]",
+        "from": "(HEVC|x265|H265)",
         "to": "HEVC",
-        "class": "bg-secondary"
+        "class": "quality"
     },
     {
-        "from": "[^A-Za-z0-9]ma10p[^A-Za-z0-9]",
+        "from": "ma10p",
         "to": "Ma10p",
-        "class": "bg-secondary"
+        "class": "quality"
     },
     {
-        "from": "[^A-Za-z0-9]8bit[^A-Za-z0-9]",
+        "from": "8bit",
         "to": "8bit 色深",
-        "class": "bg-secondary"
+        "class": "quality"
     },
     {
-        "from": "[^A-Za-z0-9]Hi10p|10bit[^A-Za-z0-9]",
+        "from": "Hi10p|10bit",
         "to": "10位色",
-        "class": "bg-secondary"
+        "class": "quality"
     },
     {
-        "from": "[^A-Za-z0-9]yuv420p10[^A-Za-z0-9]",
+        "from": "yuv420p10",
         "to": "YUV-4:2:0 10bit",
-        "class": "bg-secondary"
+        "class": "quality"
     },
     {
-        "from": "[^A-Za-z0-9](\\d(aac|acc))|((aac|acc)(x|×)\\d)[^A-Za-z0-9]",
-        "to": "多音轨AA<span></span>C",
-        "class": "bg-secondary"
-    },
-    {
-        "from": "[^A-Za-z0-9](ACC|AAC)[^A-Za-z0-9]",
+        "from": "(\\d(aac|acc))|((aac|acc)(x|×)\\d)|(ACC|AAC)",
         "to": "AAC",
-        "class": "bg-secondary"
+        "class": "quality"
     },
     {
-        "from": "[^A-Za-z0-9]FLAC(x|×)\\d[^A-Za-z0-9]",
-        "to": "多音轨无损F<span></span>lac",
-        "class": "bg-secondary"
+        "from": "FLAC(x|×)\\d|\\dFLAC|FLAC",
+        "to": "多音轨无损Flac",
+        "class": "quality"
     },
     {
-        "from": "[^A-Za-z0-9]flac[^A-Za-z0-9]",
-        "to": "无损Flac",
-        "class": "bg-secondary"
-    },
-    {
-        "from": "[^A-Za-z0-9](opus|OPUSx2)[^A-Za-z0-9]",
+        "from": "OPUS(x|×)\\d|\\dOPUS|OPUS",
         "to": "OPUS",
-        "class": "bg-secondary"
+        "class": "quality"
     },
     {
-        "from": "[^A-Za-z0-9](web-dl|webrip)[^A-Za-z0-9]",
+        "from": "mp4",
+        "to": "MP4",
+        "class": "quality"
+    },
+    {
+        "from": "mkv",
+        "to": "MKV",
+        "class": "quality"
+    },
+    {
+        "from": "webrip|web",
         "to": "网络源",
-        "class": "bg-secondary"
+        "class": "source"
     },
     {
-        "from": "[^A-Za-z0-9](bdrip|BD)[^A-Za-z0-9]",
+        "from": "BDRip|BD",
         "to": "蓝光盘源",
-        "class": "bg-success"
+        "class": "source"
     },
     {
-        "from": "[^A-Za-z0-9](AT-X)[^A-Za-z0-9]",
+        "from": "AT-X",
         "to": "AT-X",
-        "class": "bg-success"
+        "class": "source"
     },
     {
-        "from": "[^A-Za-z0-9](movie)[^A-Za-z0-9]",
-        "to": "剧场版",
-        "class": "bg-success"
-    },
-    {
-        "from": "[^A-Za-z0-9](OVA)[^A-Za-z0-9]",
-        "to": "OVA",
-        "class": "bg-success"
-    },
-    {
-        "from": "[^A-Za-z0-9](SP)[^A-Za-z0-9]",
-        "to": "SP",
-        "class": "bg-success"
-    },
-    {
-        "from": "[^A-Za-z0-9](NCOP)[^A-Za-z0-9]",
-        "to": "素材 - 无字 OP",
-        "class": "bg-success"
-    },
-    {
-        "from": "[^A-Za-z0-9](NCED)[^A-Za-z0-9]",
-        "to": "素材 - 无字 ED",
-        "class": "bg-success"
-    },
-    {
-        "from": "[^A-Za-z0-9]b-global[^A-Za-z0-9]",
+        "from": "B-Global",
         "to": "哔哩哔哩国际",
-        "class": "bg-secondary"
+        "class": "source"
     },
     {
-        "from": "[^A-Za-z0-9](bilibili|BL)[^A-Za-z0-9]",
-        "to": "⚠️ 疑似B站大陆源 ⚠️",
-        "class": "bg-danger"
+        "from": "bilibili|BL",
+        "to": "可能为B站大陆源",
+        "class": "source"
     },
     {
-        "from": "[^A-Za-z0-9](acfun|AC)[^A-Za-z0-9]",
-        "to": "疑似A站源",
-        "class": "bg-secondary"
+        "from": "(acfun|AC)",
+        "to": "Acfun源",
+        "class": "source"
     },
     {
-        "from": "\\[Baha\\]|\\(Baha",
+        "from": "Baha",
         "to": "巴哈姆特动漫疯",
-        "class": "bg-secondary"
+        "class": "source"
     },
     {
-        "from": "[^A-Za-z0-9]LavaASS[^A-Za-z0-9]CHS[^A-Za-z0-9]CHT[^A-Za-z0-9]JPN[^A-Za-z0-9]",
-        "to": "熔岩番剧库整合-简繁日",
-        "class": "bg-info text-dark"
+        "from": "(movie)",
+        "to": "剧场版",
+        "class": "version"
     },
     {
-        "from": "[^A-Za-z0-9]LavaASS[^A-Za-z0-9]CHS[^A-Za-z0-9]CHT[^A-Za-z0-9]",
-        "to": "熔岩番剧库整合-简繁",
-        "class": "bg-info text-dark"
+        "from": "(OVA)",
+        "to": "OVA",
+        "class": "version"
     },
     {
-        "from": "[^A-Za-z0-9]LavaASS[^A-Za-z0-9]CHS[^A-Za-z0-9]",
-        "to": "熔岩番剧库整合-简体中文",
-        "class": "bg-info text-dark"
+        "from": "SP",
+        "to": "SP",
+        "class": "version"
     },
     {
-        "from": "[^A-Za-z0-9]LavaASS[^A-Za-z0-9]CHT[^A-Za-z0-9]",
-        "to": "熔岩番剧库整合-繁体中文",
-        "class": "bg-info text-dark"
+        "from": "NCOP",
+        "to": "素材 - 无字 OP",
+        "class": "version"
     },
     {
-        "from": "[^A-Za-z0-9]JPSC|CHS_JP|简体双语[^A-Za-z0-9]",
+        "from": "NCED",
+        "to": "素材 - 无字 ED",
+        "class": "version"
+    },
+    {
+        "from": "LavaASS",
+        "to": "番剧库整合内封",
+        "class": "language"
+    },
+    {
+        "from": "JPSC|CHS_JP|简体双语",
         "to": "简日双语",
-        "class": "bg-info text-dark"
+        "class": "language"
     },
     {
-        "from": "[^A-Za-z0-9]JSTC|CHT_JP[^A-Za-z0-9]",
+        "from": "JSTC|CHT_JP",
         "to": "繁日双语",
-        "class": "bg-info text-dark"
+        "class": "language"
     },
     {
-        "from": "[^A-Za-z0-9]ENG[^A-Za-z0-9]",
+        "from": "ENG",
         "to": "英语",
-        "class": "bg-info text-dark"
+        "class": "language"
     },
     {
-        "from": "[^A-Za-z0-9](JPN|JAP|JP)[^A-Za-z0-9]",
-        "to": "日本语",
-        "class": "bg-info text-dark"
+        "from": "(JPN|JAP|JP)",
+        "to": "日语",
+        "class": "language"
     },
     {
-        "from": "[^A-Za-z0-9](TH)[^A-Za-z0-9]",
+        "from": "\\|TH\\|",
         "to": "泰语",
-        "class": "bg-info text-dark"
+        "class": "language"
     },
     {
-        "from": "[^A-Za-z0-9](GB_CN|GB|SC|CHS|CH)[^A-Za-z0-9]",
+        "from": "(GB_CN|GB|SC|CHS|CH(?=[^T])|简体中文|简体|简中)",
         "to": "简中",
-        "class": "bg-info text-dark"
+        "class": "language"
     },
     {
-        "from": "[^A-Za-z0-9](BIG5|TC|CHT)[^A-Za-z0-9]",
+        "from": "(BIG5|TC|CHT)",
         "to": "繁中",
-        "class": "bg-info text-dark"
+        "class": "language"
     },
     {
         "from": "V2|\\[v2\\]",
         "to": "第2版",
-        "class": "bg-info text-dark"
+        "class": "language"
     },
     {
-        "from": "(\\[|\\()Final(\\]|\\))",
+        "from": "V3|\\[v3\\]",
+        "to": "第3版",
+        "class": "language"
+    },
+    {
+        "from": "(?!=\\|)Final(?!=\\|)",
         "to": "最终版本",
-        "class": "bg-info text-dark"
+        "class": "language"
     },
     {
-        "from": "(?![0-9|\\[])END[^A-Za-z0-9]",
-        "to": "最终话",
-        "class": "bg-info text-dark"
+        "from": "SRT(x|×)\\d",
+        "to": "多语言SRT字幕",
+        "class": "language"
     },
     {
-        "from": "[^A-Za-z0-9]SRT[^A-Za-z0-9]",
+        "from": "SRT",
         "to": "SRT字幕",
-        "class": "bg-info text-dark"
+        "class": "language"
     },
     {
         "from": "ASS(x|×)\\d",
         "to": "多语言特效字幕",
-        "class": "bg-info text-dark"
+        "class": "language"
     },
     {
-        "from": "[^A-Za-z0-9]ASS[^A-Za-z0-9]",
+        "from": "(\\.|)(SC|chs|gb)\\.ass",
+        "to": "简中外挂特效字幕",
+        "class": "format"
+    },
+    {
+        "from": "(\\.|)(TC|cht|big5)\\.ass",
+        "to": "繁中外挂特效字幕",
+        "class": "format"
+    },
+    {
+        "from": "ASS",
         "to": "特效字幕",
-        "class": "bg-info text-dark"
+        "class": "language"
     },
     {
-        "from": "[^A-Za-z0-9]mp4[^A-Za-z0-9]",
-        "to": "MP4",
-        "class": "bg-secondary"
-    },
-    {
-        "from": "[^A-Za-z0-9]mkv[^A-Za-z0-9]",
-        "to": "MKV",
-        "class": "bg-secondary"
-    },
-    {
-        "from": "(\\.|(?!</span>) )(mp4)",
+        "from": "\\.mp4",
         "to": "MP4视频",
-        "class": "bg-dark"
+        "class": "format"
     },
     {
-        "from": "(\\.|(?!</span>) )(mkv)",
+        "from": "\\.mkv",
         "to": "MKV视频",
-        "class": "bg-dark"
+        "class": "format"
     },
     {
-        "from": "(\\.|(?!</span>) )(ass)",
+        "from": "\\.ass",
         "to": "ASS字幕文件",
-        "class": "bg-dark"
+        "class": "format"
     },
     {
-        "from": "(\\.|(?!</span>) )(txt)",
+        "from": "\\.txt",
         "to": "TXT文档",
-        "class": "bg-dark"
+        "class": "format"
     },
     {
-        "from": "(\\.|(?!</span>) )(torrent)",
+        "from": "\\.torrent",
         "to": "种子",
-        "class": "bg-dark"
+        "class": "format"
     },
     {
-        "from": "(\\.|(?!</span>) )(png|jpg|jpeg|gif|bmp|tif|svg)",
+        "from": "\\.(png|jpg|jpeg|gif|bmp|tif|svg)",
         "to": "图片",
-        "class": "bg-dark"
+        "class": "format"
     },
     {
-        "from": "(\\.|(?!</span>) )(pdf|docx|doc)",
+        "from": "\\.(pdf|docx|doc)",
         "to": "文档",
-        "class": "bg-dark"
+        "class": "format"
     },
     {
-        "from": "(\\.|(?!</span>) )(mp3|flac)",
+        "from": "\\.(mp3|flac)",
         "to": "音乐文件",
-        "class": "bg-dark"
-    },
-    {
-        "from": "(Subtitles|sub|subtitle|ass)\\.*(zip|7z|rar)",
-        "to": "外挂字幕合集包",
-        "class": "bg-warning"
-    },
-    {
-        "from": "(fonts|font)\\.*(zip|7z|rar)",
-        "to": "字体合集包",
-        "class": "bg-warning"
+        "class": "format"
     },
     {
         "from": "\\.(zip|rar|7z)",
         "to": "压缩文件",
-        "class": "bg-dark"
+        "class": "format"
+    },
+    {
+        "from": "(Subtitles|sub|subtitle|ass)\\.*(zip|7z|rar)",
+        "to": "外挂字幕合集包",
+        "class": "other"
+    },
+    {
+        "from": "(fonts|font)\\.*(zip|7z|rar)",
+        "to": "字体合集包",
+        "class": "other"
+    },
+    {
+        "from": "LavaAnimeSub",
+        "to": "熔岩动画Sub",
+        "class": "other"
     },
     {
         "from": "(-MacBook Air)",
         "to": "重复资源-请删除",
-        "class": "bg-warning"
+        "class": "other"
     },
     {
-        "from": "(招募(翻译|时轴后期|后期|时轴))|(new-ani.me)",
+        "from": "(招募(翻译|时轴后期|后期|时轴))|(new-ani.me)|((1|4|7|10|一|四|七|十)月新番)",
         "to": "",
-        "class": ""
+        "class": "other"
+    },
+    {
+        "from": "dl",
+        "to": "",
+        "class": "other"
     }
 ]

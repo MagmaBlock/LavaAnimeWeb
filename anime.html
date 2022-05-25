@@ -96,7 +96,21 @@
         </div>
 
         <!-- 列表容器 -->
-        <div id="la-list-container" class="list-group mb-3"></div>
+        <div id="la-list-container" class="list-group mb-3" style="opacity:0.85"></div>
+
+        <!-- 每个文件的模板 -->
+        <template id="file-element-template">
+            <button type="button" data-bs-toggle="modal" data-bs-target="#la-player" id="{{id}}"
+                class="la-list-anime list-group-item list-group-item-action ps-4">
+                <span
+                    class="position-absolute top-50 start-0 translate-middle badge rounded-pill bg-secondary">{{ep}}</span>
+                {{tagedName}}
+                <div id="${thisFileId}-raw" class="text-secondary fw-lighter" style="font-size: 12px">
+                    {{rawName}}
+                </div>
+            </button>
+        </template>
+
 
         <!-- 弹出的 “播放器” -->
         <div id="la-player" class="modal fade" tabindex="-1">
