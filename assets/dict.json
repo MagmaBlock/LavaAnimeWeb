@@ -310,6 +310,11 @@
         "class": "quality"
     },
     {
+        "from": "(480p|864(X|×)480)",
+        "to": "480P",
+        "class": "quality"
+    },
+    {
         "from": "60fps",
         "to": "60FPS",
         "class": "quality"
@@ -405,13 +410,18 @@
         "class": "source"
     },
     {
-        "from": "(movie)",
+        "from": "movie",
         "to": "剧场版",
         "class": "version"
     },
     {
-        "from": "(OVA)",
+        "from": "OVA",
         "to": "OVA",
+        "class": "version"
+    },
+    {
+        "from": "DVD",
+        "to": "DVD",
         "class": "version"
     },
     {
@@ -586,6 +596,11 @@
     },
     {
         "from": "dl",
+        "to": "",
+        "class": "other"
+    },
+    {
+        "from": "[A-Za-z0-9]{8}",
         "to": "",
         "class": "other"
     }
