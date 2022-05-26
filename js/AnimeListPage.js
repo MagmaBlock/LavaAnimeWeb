@@ -283,8 +283,8 @@ function printAnimeList(thisFile, thisFileId) { // i 用作 HTML ID
         // 对文件名进行标签化
         function tagName(fileName, dict) {
 
-            // 先进行简单拆分，只用 [ ] & 拆开文件名
-            let splitedFileName = fileName.split(/\[|\]|&/); // 拆分
+            // 先进行简单拆分，只用 [ ] & + 拆开文件名
+            let splitedFileName = fileName.split(/\[|\]|&|\+/); // 拆分
             for (let i = 0; i < splitedFileName.length; i++) { // 对文件名中的每个词进行判断
                 splitedFileName[i] = splitedFileName[i].trim() // 去除首尾空格
                 if (splitedFileName[i] == '') {
