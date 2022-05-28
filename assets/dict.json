@@ -598,10 +598,5 @@
         "from": "dl",
         "to": "",
         "class": "other"
-    },
-    {
-        "from": "[A-Za-z0-9]{8}",
-        "to": "",
-        "class": "other"
     }
 ]
