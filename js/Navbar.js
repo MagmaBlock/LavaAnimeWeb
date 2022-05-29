@@ -1,7 +1,7 @@
 $(document).ready(() => {
     const navbarHtml =
         `<!-- 顶栏 -->
-        <nav id="topbar" class="navbar navbar-light shadow-sm fixed-top border-bottom border-1 rounded-bottom"
+        <nav id="topbar" class="navbar navbar-light shadow-sm border-bottom border-1 rounded-bottom"
             style="backdrop-filter: blur(9px) brightness(0.85); background-color: rgba(255, 255, 255, 0.7);">
             <div class="container-fluid px-4" style="max-width: 1320px">
                 <!-- 左侧 -->
@@ -76,7 +76,7 @@ $(document).ready(() => {
         </nav>`
 
     const toolBar =
-        `<div class="toolbar"><div class="toolButton goTopButton" style="opacity: 0;"><i class="bi bi-arrow-up-circle fs-5"></i></div></div>`
+        `<div class="toolbar"><div class="toolButton goTopButton" style="display: none;"><i class="bi bi-arrow-up-circle fs-5"></i></div></div>`
     const icon = {
         home: "bi-house",
         index: "bi-collection",
@@ -118,29 +118,14 @@ $(document).ready(() => {
     // 检查是否需要显示回到顶部
     $(window).scroll(function () {
         var s = $(window).scrollTop()
-        if (s > 600) $(".goTopButton").css('opacity', "1")
-        else $(".goTopButton").css('opacity', "0")
+        if (s > 500) $(".goTopButton").show()
+        else $(".goTopButton").hide()
     })
 
     // 回顶部按钮的行为
     $(".goTopButton").click(function () {
         $("body,html").animate({ scrollTop: '0' }, 100)
     })
-
-    $(".searchButton input").keydown(function (e) {
-        if (e.keyCode == 13 && $(".searchButton input").val() != "")
-            window.location.href = './search.html?q=' + $(".searchButton input").val()
-
-    })
-
-    // 点击搜索框的行为
-    $(".searchButton span").click(function () {
-        if ($(".searchButton")[0].clientWidth > 180 && $(".searchButton input").val() != "")
-            window.location.href = './search.html?q=' + $(".searchButton input").val()
-    })
-
-    // 根据设置判断是否需要隐藏右下角按钮
-    $(".toolbar").css("display", localStorage.getItem("hideToolBar") == "true" ? "none" : "")
 
     const statistics = `
     <img src="https://www.bfcounter.vip/generatepic?userid=ce1d3f3b-ce67-4319-8222-e751f8262b2e"

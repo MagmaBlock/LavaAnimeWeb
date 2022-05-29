@@ -18,3 +18,14 @@
 ::-webkit-scrollbar-track {
     background-color: transparent;
 }
+
+html {
+    scrollbar-gutter: stable;
+}
+
+.fixed-top {
+    position: fixed;
+    top: 0;
+    z-index: 1030;
+    width: 100vw;
+}
