@@ -53,7 +53,7 @@ $(document).ready(() => {
                     <div id="collectionBlock-${thisCollection.id}-${thisCollectionBlock.index}" class="LavaAnimeCollectionBlock mb-3"></div>`
             }
             let thisCollectionHtml = // HTML 骨架
-                `<div class="card">
+                `<div class="card mb-3">
                     <div class="card-body">
                         <h1 class="display-5">${thisCollection.title}</h1>
                         <p class="text-muted fw-light">${thisCollection.subtitle}</p>
