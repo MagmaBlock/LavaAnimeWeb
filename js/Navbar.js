@@ -1,6 +1,6 @@
 $(document).ready(() => {
-    const navbarHtml =
-        `<!-- 顶栏 -->
+  const navbarHtml =
+    `<!-- 顶栏 -->
         <nav id="topbar" class="navbar navbar-light shadow-sm border-bottom border-1 rounded-bottom"
             style="backdrop-filter: blur(9px) brightness(0.85); background-color: rgba(255, 255, 255, 0.7);">
             <div class="container-fluid px-4" style="max-width: 1320px">
@@ -75,59 +75,63 @@ $(document).ready(() => {
             </div>
         </nav>`
 
-    const toolBar =
-        `<div class="toolbar"><div class="toolButton goTopButton" style="display: none;"><i class="bi bi-arrow-up-circle fs-5"></i></div></div>`
-    const icon = {
-        home: "bi-house",
-        index: "bi-collection",
-        weekly: "bi-calendar-week",
-        help: "bi-question-circle"
-    }
-    // 插入顶栏
-    $("#navbar").append(navbarHtml, toolBar).css('height', '40')
+  const toolBar =
+    `<div class="toolbar"><div class="toolButton goTopButton" style="display: none;"><i class="bi bi-arrow-up-circle fs-5"></i></div></div>`
+  const icon = {
+    home: "bi-house",
+    index: "bi-collection",
+    weekly: "bi-calendar-week",
+    help: "bi-question-circle"
+  }
+  // 插入顶栏
+  $("#navbar").append(navbarHtml, toolBar).css('height', '40')
 
+  // 点亮应用栏图标的函数
+  function lightNavbarIcon() {
     // 用 / 把 URL 拆开，取出文档名，剔除参数。
     let documentFileName = location.href.split('/')
     documentFileName = documentFileName[documentFileName.length - 1].split(".html")[0]
-    // 点亮当前界面的图标
     $(`#${documentFileName}-bottom i, #${documentFileName}-top i`).removeClass(icon[documentFileName]).addClass(icon[documentFileName] + '-fill')
     $(`#${documentFileName}-bottom, #${documentFileName}-top`).removeClass("text-secondary").attr("href", "#")
+  }
+  lightNavbarIcon();
+  setTimeout(() => lightNavbarIcon(), 500); // 500ms 后再执行一次因为首页刚加载进来 url 里面没有文档名
 
-    // 检查浏览器是否为 FireFox，然后关掉高斯模糊所需的透明
-    if (navigator.userAgent.match('Firefox')) {
-        console.log('发现 Firefox，正在禁用顶栏底栏透明...');
-        $('#topbar, #navbar').css('background-color', 'rgba(255, 255, 255, 1)');
-    }
+  // 检查浏览器是否为 FireFox，然后关掉高斯模糊所需的透明
+  if (navigator.userAgent.match('Firefox')) {
+    console.log('发现 Firefox，正在禁用顶栏底栏透明...');
+    $('#topbar, #navbar').css('background-color', 'rgba(255, 255, 255, 1)');
+  }
 
-    // 顶部搜索框的行为
-    $('#search-top').click(function () {
-        goSearch()
-    })
+  // 顶部搜索框的行为
+  $('#search-top').click(function () {
+    goSearch()
+  })
 
-    $('#search-label-top').keydown(function (e) {
-        if (e.keyCode == 13) goSearch()
-    })
+  $('#search-label-top').keydown(function (e) {
+    if (e.keyCode == 13) goSearch()
+  })
 
-    // 去搜索的函数
-    function goSearch() {
-        let text = $('#search-label-top').val()
-        if (text == '') window.location.href = './search.html'
-        else window.location.href = './search.html?q=' + encodeURIComponent(text)
-    }
+  // 去搜索的函数
+  function goSearch() {
+    let text = $('#search-label-top').val()
+    if (text == '') window.location.href = './search.html'
+    else window.location.href = './search.html?q=' + encodeURIComponent(text)
+  }
 
-    // 检查是否需要显示回到顶部
-    $(window).scroll(function () {
-        var s = $(window).scrollTop()
-        if (s > 500) $(".goTopButton").show()
-        else $(".goTopButton").hide()
-    })
+  // 检查是否需要显示回到顶部
+  $(window).scroll(function () {
+    var s = $(window).scrollTop()
+    if (s > 500) $(".goTopButton").show()
+    else $(".goTopButton").hide()
+  })
 
-    // 回顶部按钮的行为
-    $(".goTopButton").click(function () {
-        $("body,html").animate({ scrollTop: '0' }, 100)
-    })
+  // 回顶部按钮的行为
+  $(".goTopButton").click(function () {
+    $("body,html").animate({ scrollTop: '0' }, 100)
+  })
 
-    const statistics = `
+  const statistics = `
     <img src="https://www.bfcounter.vip/generatepic?userid=ce1d3f3b-ce67-4319-8222-e751f8262b2e"
         alt="Page Counter" class="visually-hidden">
     <script>
@@ -143,5 +147,5 @@ $(document).ready(() => {
         data-website-id="5aad3d7c-6372-42aa-957e-ed4c945c0d08"
         src="https://umami.magma.ink/umami.js"></script>
     `
-    $("body").append(statistics)
+  $("body").append(statistics)
 })
