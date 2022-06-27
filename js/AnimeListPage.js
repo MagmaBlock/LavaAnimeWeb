@@ -4,7 +4,7 @@ const config = {
     "bangumiApi": "https://bgm-api.5t5.top/v0/subjects/"
 }
 
-var thisPageId
+var thisPageId, thisPageAnimeData, thisPageBangumiData
 
 $(document).ready(async function () {
 
@@ -23,6 +23,8 @@ $(document).ready(async function () {
             let arrowIcon = '<i class="bi bi-arrow-right-short"></i>'
             let pathHtml = thisPageAnimeData.year + arrowIcon + thisPageAnimeData.type + arrowIcon + thisPageAnimeData.name
             $("#la-path").empty().append(pathHtml)
+            // 修改网页标题
+            $('title').text($('title').text().replace("熔岩番剧库", thisPageAnimeData.title))
             // 修改背景图
             if (thisPageAnimeData.poster != undefined) {
                 backgroundUrl = thisPageAnimeData.poster.replace('/poster', '/bg')
@@ -247,7 +249,7 @@ function getFileList() {
             console.log('成功取得文件列表：', fileList)
             if (fileList.length == 0) { // 如果没有文件列表
                 console.log('文件列表为空!')
-                let airDate = thisPageBangumiData.date ? thisPageBangumiData.date : '未知 / 暂未定档' // 如果 Bangumi 有提供放送日期, 则提取放送日期
+                let airDate = thisPageAnimeData.type ? thisPageAnimeData.year + thisPageAnimeData.type : '未知 / 暂未定档' // 如果有提供放送日期, 则提取放送日期
                 setTimeout(() => {
                     $("#la-list-container").append("<div style='opacity: 85%;' class='alert alert-info'><span>熔岩云盘返回列表为空, 此番组目录下尚无任何资源! <br>" + "请确认此作品已经开始连载, 根据 Bangumi Wiki, 本作的开始放送日期为: " + airDate + "<br><a class='alert-link' href='./index.html'>返回主页</a></span></div>").fadeIn()
                     $("#loading").fadeOut()
@@ -258,11 +260,10 @@ function getFileList() {
                 axios('./assets/dict.json')
                     .then((result) => {
                         dict = result.data
-                        console.log('成功取得词典：', dict)
-                        for (let i = 0; i < fileList.length; i++) {
-                            let thisFile = fileList[i]
+                        // console.log('成功取得词典：', dict)
+                        fileList.forEach((thisFile, i)=>{
                             printAnimeList(thisFile, i)
-                        }
+                        })
                     })
             }
         })
