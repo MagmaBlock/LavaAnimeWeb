@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>熔岩番剧库 - 播放列表页 | LavaAnime</title>
+    <!-- Vue 3 -->
+    <script src="https://cdn.5t5.top/ajax/libs/vue/3.2.36/vue.global.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+    <!-- Bootstrap -->
+    <link href="https://cdn.5t5.top/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.5t5.top/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.5t5.top/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Clipboard.js -->
+    <script src="https://cdn.5t5.top/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+    <!-- Axios -->
+    <script src="https://cdn.5t5.top/ajax/libs/axios/0.26.1/axios.min.js"></script>
+    <!-- DPlayer -->
+    <script src="https://cdn.5t5.top/ajax/libs/dplayer/1.26.0/DPlayer.min.js"></script>
+    <!-- Assets -->
+    <link href="./style/scrollbar.css" rel="stylesheet" crossorigin="anonymous">
+    </link>
+    <script src="./js/getUrlParams.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <style>
+        #bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: -10;
+            transition: all 0.8s ease;
+        }
+
+        body {
+            transition: all 0.8s ease;
+        }
+    </style>
+    <div id="root">
+        <!-- 背景图片 -->
+        <div id="bg"
+            :style="{ backgroundImage: background.background, opacity: background.opacity, height: background.height}">
+        </div>
+
+        <!-- 加载图标 -->
+        <div v-if="loading" class="position-absolute bottom-0 end-0 m-2" style="z-index: 10000;">
+            <div class="spinner-border"></div>
+        </div>
+
+        <!-- 顶栏 -->
+        <nav class="navbar navbar-light shadow fixed-top"
+            style="backdrop-filter: blur(9px); background-color: rgba(240, 240, 240, 0.8);">
+            <!-- 顶栏容器 -->
+            <div class="container-fluid" style="max-width: 1320px; ">
+                <!-- 返回图标 -->
+                <div id="goback" class="navbar-brand" style="cursor:pointer" onclick="goBack()">
+                    <i class="bi bi-chevron-left mx-2"></i>
+                    <span>返回上一页</span>
+                </div>
+                <!-- Home Icon -->
+                <a href="/index.html" class="navbar-brand" id="home">
+                    <i class="bi bi-house"></i>
+                </a>
+            </div>
+        </nav>
+
+        <!-- 主容器 -->
+        <div class="container" style="margin-top: 72px;">
+
+            <!-- 头部信息块 -->
+            <div id="headerBlock" class="my-2 list-group" style="opacity: 85%;">
+                <!-- 番剧路径块 -->
+                <div class="list-group-item fw-lighter text-truncate" style="font-size: 14px;">
+                    {{ lavaAnime.year }}
+                    <i class="bi bi-arrow-right-short"></i>
+                    {{ lavaAnime.type }}
+                    <i class="bi bi-arrow-right-short"></i>
+                    {{ lavaAnime.name }}
+                </div>
+                <!-- 信息块 -->
+                <div class="list-group-item ">
+                    <!-- 标题行 -->
+                    <span class="lead fs-4 me-2">{{ lavaAnime.title }}</span>
+                    <span class="text-muted fw-lighter">{{ bangumi.platform }}</span>
+                    <div class="text-muted fw-lighter" id="name">{{ bangumi.name }}</div>
+                    <!-- 播放量评分等数据栏 -->
+                    <div class="text-secondary fw-lighter fs-6">
+                        <!-- 播放量 -->
+                        <span><i class="bi bi-play-btn me-1"></i>播放 {{ lavaAnime.views }} 次</span>
+                        <!-- 评分 -->
+                        <span><i class="bi bi-star me-1 ms-2"></i>{{ rating }}</span>
+                        <!-- 总话数 -->
+                        <span></span><i class="bi bi-view-list me-1 ms-2"></i>总 {{ bangumi.eps }} 话</span>
+                    </div>
+                    <!-- 来自 Bangumi 的 Tag 栏 -->
+                    <span class="fw-lighter fs-6">
+                        <span class="badge bg-secondary text-wrap me-1" v-for="tag in tags">
+                            {{ tag.name }} {{ tag.count }}
+                        </span>
+                    </span>
+                    <!-- 隐藏的 Tag 容器 -->
+                    <span class="fw-lighter fs-6" v-if="tagsShowMore">
+                        <span class="badge bg-secondary text-wrap me-1" v-for="tag in tagsHide">
+                            {{ tag.name }} {{ tag.count }}
+                        </span>
+                    </span>
+                    <!-- 显示更多按钮 -->
+                    <span class="fw-lighter btn btn-sm text-secondary p-0" style="font-size: 13px;"
+                        @click="tagsShowMore = true" v-if="!tagsShowMore">
+                        <i class="bi bi-arrow-down-short"></i>显示更多
+                    </span>
+                    <!-- 外部链接栏 -->
+                    <div id="more-link" class="my-1">
+                        <!-- 关联番剧 -->
+                        <div style="white-space: nowrap; overflow-x: scroll; overflow-y: hidden;">
+                            <a class="mb-2 me-1 mt-1 btn btn-outline-primary" v-for="relation in relations">
+                                <span class="lead" style="font-size: 16px;">{{ relation.lavaAnime.title }}</span>
+                                <div class="fw-light text-secondary" style="font-size: 12px;">
+                                    {{ relation.relation }}
+                                </div>
+                            </a>
+                        </div>
+                        <!-- 外部链接 -->
+                        <a :href="`https://bgm.tv/subject/${lavaAnime.bgmid}`" v-if="lavaAnime.bgmid" target="_blank"
+                            class="fw-lighter fs-6 text-decoration-none">
+                            <i class="bi bi-link-45deg"></i> 去 番组计划 查看详情
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 列表容器 -->
+            <div id="la-list-container" class="list-group mb-3" style="opacity:0.85">
+                <!-- 视频文件 -->
+                <button type="button" data-bs-toggle="modal" data-bs-target="#la-player" v-for="video in videoList"
+                    class="la-list-anime list-group-item list-group-item-action ps-4">
+                    <!-- 此视频的章节 -->
+                    <span class="position-absolute top-50 start-0 translate-middle badge rounded-pill bg-secondary">{{
+                        video.tagedName.thisFileEpisode }}</span>
+                    <!-- 此视频的发布组名称标签 -->
+                    <span class="badge bg-primary me-1" v-for="groupName in video.tagedName.groupNames">
+                        {{ groupName }}
+                    </span>
+                    <!-- 其他标签部分 -->
+                    <span v-for="tag in video.tagedName.reformedFileName">
+                        <!-- 对文字部分的处理 -->
+                        <span class="me-1" v-if="typeof tag == 'string'">
+                            {{ tag }}
+                        </span>
+                        <!-- 对标签的处理 -->
+                        <span v-if="typeof tag == 'object'" class="me-1 badge" :class="tagedClassMap[tag.type]">
+                            {{ tag.tag }}
+                        </span>
+                    </span>
+                    <div id="${thisFileId}-raw" class="text-secondary fw-lighter" style="font-size: 12px">
+                        {{ video.name }}
+                    </div>
+                </button>
+            </div>
+
+
+            <!-- 弹出的 “播放器” -->
+            <div id="la-player" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="text-break modal-header">
+                            <!-- 标题 -->
+                            <h5 id="la-player-header" class="modal-title"></h5>
+                            <!-- 关闭 -->
+                            <button type="button" id="la-player-close" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <!-- 播放器容器 -->
+                        <div id="dplayer"></div>
+                        <!-- 若为图片时的容器 -->
+                        <div id="la-img-view"></div>
+                        <!-- 播放器下方内容的容器 -->
+                        <div id="la-player-body" class="modal-body"></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script src="./js/Anime_vue.js"></script>
+
+    <!-- 统计 -->
+    <img src="https://www.bfcounter.vip/generatepic?userid=ce1d3f3b-ce67-4319-8222-e751f8262b2e" alt="Page Counter"
+        class="visually-hidden">
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?c3b6ee9c2eff1642f7465f8e97766227";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <script async defer data-website-id="5aad3d7c-6372-42aa-957e-ed4c945c0d08"
+        src="https://umami.magma.ink/umami.js"></script>
+</body>
+
+</html>
