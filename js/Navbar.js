@@ -6,12 +6,12 @@ $(document).ready(() => {
             <div class="container-fluid px-4" style="max-width: 1320px">
                 <!-- 左侧 -->
                 <div>
-                    <a id="home-top" class="text-decoration-none text-secondary mx-2 d-none d-md-inline" href="/home.html">
+                    <a id="index-top" class="text-decoration-none text-secondary mx-2 d-none d-md-inline" href="/index.html">
                         <i class="bi bi-house fs-5 align-baseline"></i>
                         <span class="d-none d-md-inline mx-1 fw-light align-text-bottom" style="font-size: 14px;">主页</span>
                     </a>
-                    <a id="index-top" class="text-decoration-none text-secondary mx-2 d-none d-md-inline"
-                        href="/index.html">
+                    <a id="list-top" class="text-decoration-none text-secondary mx-2 d-none d-md-inline"
+                        href="/list.html">
                         <i class="bi bi-collection fs-5 align-baseline"></i>
                         <span class="d-none d-md-inline mx-1 fw-light align-text-bottom" style="font-size: 14px;">索引</span>
                     </a>
@@ -53,7 +53,7 @@ $(document).ready(() => {
             <!-- 底栏的容器 -->
             <div class="container-fluid row-cols-5" style="max-width: 1320px">
                 <!-- 图标部分 -->
-                <a id="home-bottom" class="text-center text-decoration-none col text-secondary" href="/home.html"
+                <a id="index-bottom" class="text-center text-decoration-none col text-secondary" href="/index.html"
                     one-link-mark="yes">
                     <i class="bi bi-house fs-5"></i>
                     <div style="font-size: 10px;">主页</div>
@@ -63,7 +63,7 @@ $(document).ready(() => {
                     <i class="bi bi-search fs-5"></i>
                     <div style="font-size: 10px;">搜索</div>
                 </a>
-                <a id="index-bottom" class="text-center text-decoration-none col text-secondary" href="/index.html"
+                <a id="list-bottom" class="text-center text-decoration-none col text-secondary" href="/list.html"
                     one-link-mark="yes">
                     <i class="bi bi-collection fs-5"></i>
                     <div style="font-size: 10px;">索引</div>
@@ -78,8 +78,8 @@ $(document).ready(() => {
   const toolBar =
     `<div class="toolbar"><div class="toolButton goTopButton" style="display: none;"><i class="bi bi-arrow-up-circle fs-5"></i></div></div>`
   const icon = {
-    home: "bi-house",
-    index: "bi-collection",
+    index: "bi-house",
+    list: "bi-collection",
     weekly: "bi-calendar-week",
     help: "bi-question-circle"
   }
