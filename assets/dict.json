@@ -515,6 +515,11 @@
     "class": "language"
   },
   {
+    "from": "Sub",
+    "to": "字幕",
+    "class": "language"
+  },
+  {
     "from": "ASS(x|×)\\d",
     "to": "多语言特效字幕",
     "class": "language"
