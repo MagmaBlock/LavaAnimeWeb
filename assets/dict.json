@@ -1,602 +1,617 @@
 [
-    {
-        "from": "DMHY",
-        "to": "動漫花園",
-        "class": "group"
-    },
-    {
-        "from": "SHIGURE",
-        "to": "時雨初空",
-        "class": "group"
-    },
-    {
-        "from": "HYSUB",
-        "to": "幻樱字幕组",
-        "class": "group"
-    },
-    {
-        "from": "BeanSub",
-        "to": "豌豆字幕组",
-        "class": "group"
-    },
-    {
-        "from": "FZSD",
-        "to": "风之圣殿",
-        "class": "group"
-    },
-    {
-        "from": "FLsnow",
-        "to": "雪飘工作室",
-        "class": "group"
-    },
-    {
-        "from": "WMSUB",
-        "to": "风车字幕组",
-        "class": "group"
-    },
-    {
-        "from": "DBD-Raws",
-        "to": "DBD制作组",
-        "class": "group"
-    },
-    {
-        "from": "(UHA-WINGS|UHA-WING)",
-        "to": "悠哈璃羽字幕社",
-        "class": "group"
-    },
-    {
-        "from": "SweetSub",
-        "to": "SweetSub 字幕组",
-        "class": "group"
-    },
-    {
-        "from": "MMSUB",
-        "to": "MMSUB",
-        "class": "group"
-    },
-    {
-        "from": "LoliHouse",
-        "to": "LoliHouse 压制组",
-        "class": "group"
-    },
-    {
-        "from": "SFEO-Raws",
-        "to": "SFEO-Raws 压制组",
-        "class": "group"
-    },
-    {
-        "from": "SumiSora",
-        "to": "澄空学园",
-        "class": "group"
-    },
-    {
-        "from": "YUI-7",
-        "to": "西农YUI汉化组",
-        "class": "group"
-    },
-    {
-        "from": "Skymoon-Raws",
-        "to": "天月動漫&發佈組",
-        "class": "group"
-    },
-    {
-        "from": "PCSUB",
-        "to": "波洛咖啡厅",
-        "class": "group"
-    },
-    {
-        "from": "Kamigami",
-        "to": "诸神字幕组",
-        "class": "group"
-    },
-    {
-        "from": "Mabors( |-)Sub",
-        "to": "幻之字幕组",
-        "class": "group"
-    },
-    {
-        "from": "DHR",
-        "to": "DHR动研字幕组",
-        "class": "group"
-    },
-    {
-        "from": "DMG",
-        "to": "动漫国字幕组",
-        "class": "group"
-    },
-    {
-        "from": "FZsub",
-        "to": "F宅字幕组",
-        "class": "group"
-    },
-    {
-        "from": "Xrip",
-        "to": "Xrip 压制组",
-        "class": "group"
-    },
-    {
-        "from": "A\\.I\\.R\\.nesSub",
-        "to": "A.I.R.nesSub 字幕组",
-        "class": "group"
-    },
-    {
-        "from": "NC-Raws",
-        "to": "NC-Raws 搬运组",
-        "class": "group"
-    },
-    {
-        "from": "NaN-Raws",
-        "to": "NaN-Raws 搬运组",
-        "class": "group"
-    },
-    {
-        "from": "Lilith-Raws",
-        "to": "Lilith-Raws 搬运组",
-        "class": "group"
-    },
-    {
-        "from": "云光字幕组",
-        "to": "云光字幕组",
-        "class": "group"
-    },
-    {
-        "from": "CASO",
-        "to": "华盟字幕组",
-        "class": "group"
-    },
-    {
-        "from": "Comicat",
-        "to": "漫猫字幕组",
-        "class": "group"
-    },
-    {
-        "from": "KissSub",
-        "to": "爱恋字幕组",
-        "class": "group"
-    },
-    {
-        "from": "JYFanSub|KTXP|JYSUB|JYFANSUB",
-        "to": "极影字幕社",
-        "class": "group"
-    },
-    {
-        "from": "Nekomoe kissaten",
-        "to": "喵萌奶茶屋",
-        "class": "group"
-    },
-    {
-        "from": "Mmch\\.sub",
-        "to": "喵萌茶会字幕组",
-        "class": "group"
-    },
-    {
-        "from": "sakurato\\.sub|Sakurato",
-        "to": "桜都字幕组",
-        "class": "group"
-    },
-    {
-        "from": "STYHSub",
-        "to": "霜庭云花字幕组",
-        "class": "group"
-    },
-    {
-        "from": "Airota|Ariota",
-        "to": "千夏字幕组",
-        "class": "group"
-    },
-    {
-        "from": "SZW",
-        "to": "森之屋动漫",
-        "class": "group"
-    },
-    {
-        "from": "SAIO-Raws",
-        "to": "SAIO-Raws 压制组",
-        "class": "group"
-    },
-    {
-        "from": "VCB-Studio|VCB-S",
-        "to": "VCB-Studio 压制组",
-        "class": "group"
-    },
-    {
-        "from": "熔岩番剧库|LavaAnimeLib",
-        "to": "熔岩番剧库",
-        "class": "group"
-    },
-    {
-        "from": "异域-11番小队",
-        "to": "异域-11番小队",
-        "class": "group"
-    },
-    {
-        "from": "XKSub",
-        "to": "星空字幕组",
-        "class": "group"
-    },
-    {
-        "from": "ZeroSub",
-        "to": "ZeroSub",
-        "class": "group"
-    },
-    {
-        "from": "CoolComic404",
-        "to": "酷漫404",
-        "class": "group"
-    },
-    {
-        "from": "orion origin",
-        "to": "猎户不鸽发布组",
-        "class": "group"
-    },
-    {
-        "from": "MCE",
-        "to": "MCE 汉化组",
-        "class": "group"
-    },
-    {
-        "from": "LavaAnime",
-        "to": "熔岩动画",
-        "class": "group"
-    },
-    {
-        "from": "igsub",
-        "to": "爱咕字幕组",
-        "class": "group"
-    },
-    {
-        "from": "GST",
-        "to": "GST 搬运组",
-        "class": "group"
-    },
-    {
-        "from": "LxyLab",
-        "to": "LxyLab 字幕组",
-        "class": "group"
-    },
-    {
-        "from": "LKSUB",
-        "to": "轻之国度字幕组",
-        "class": "group"
-    },
-    {
-        "from": "Henshin",
-        "to": "Henshin 压制组",
-        "class": "group"
-    },
-    {
-        "from": "LPSub",
-        "to": "离谱Sub",
-        "class": "group"
-    },
-    {
-        "from": "(MingYSub|MingY)",
-        "to": "MingYSub",
-        "class": "group"
-    },
-    {
-        "from": "WOLF\\&RH",
-        "to": "WOLF&RH 字幕组",
-        "class": "group"
-    },
-    {
-        "from": "Hakugetsu",
-        "to": "白月字幕组",
-        "class": "group"
-    },
-    {
-        "from": "夏沐字幕组",
-        "to": "夏沐字幕组",
-        "class": "group"
-    },
-    {
-        "from": "(1080p|1920(X|×)(1080|816))",
-        "to": "1080P",
-        "class": "quality"
-    },
-    {
-        "from": "2160p|3840(X|×)2160",
-        "to": "2160P(4K)",
-        "class": "quality"
-    },
-    {
-        "from": "1440p|2560(X|×)1440",
-        "to": "1440P(2K)",
-        "class": "quality"
-    },
-    {
-        "from": "(720p|1280(X|×)720)",
-        "to": "720P",
-        "class": "quality"
-    },
-    {
-        "from": "(480p|864(X|×)480)",
-        "to": "480P",
-        "class": "quality"
-    },
-    {
-        "from": "60fps",
-        "to": "60FPS",
-        "class": "quality"
-    },
-    {
-        "from": "(AVC|x264|h264)",
-        "to": "AVC",
-        "class": "quality"
-    },
-    {
-        "from": "(HEVC|x265|H265)",
-        "to": "HEVC",
-        "class": "quality"
-    },
-    {
-        "from": "ma10p",
-        "to": "Ma10p",
-        "class": "quality"
-    },
-    {
-        "from": "8bit",
-        "to": "8bit 色深",
-        "class": "quality"
-    },
-    {
-        "from": "Hi10p|10bit",
-        "to": "10位色",
-        "class": "quality"
-    },
-    {
-        "from": "yuv420p10",
-        "to": "YUV-4:2:0 10bit",
-        "class": "quality"
-    },
-    {
-        "from": "(\\d(aac|acc))|((aac|acc)(x|×)\\d)|(ACC|AAC)",
-        "to": "AAC",
-        "class": "quality"
-    },
-    {
-        "from": "FLAC(x|×)\\d|\\dFLAC|FLAC",
-        "to": "多音轨无损Flac",
-        "class": "quality"
-    },
-    {
-        "from": "OPUS(x|×)\\d|\\dOPUS|OPUS",
-        "to": "OPUS",
-        "class": "quality"
-    },
-    {
-        "from": "mp4",
-        "to": "MP4",
-        "class": "quality"
-    },
-    {
-        "from": "mkv",
-        "to": "MKV",
-        "class": "quality"
-    },
-    {
-        "from": "webrip|web",
-        "to": "网络源",
-        "class": "source"
-    },
-    {
-        "from": "BDRip|BD",
-        "to": "蓝光盘源",
-        "class": "source"
-    },
-    {
-        "from": "AT-X",
-        "to": "AT-X",
-        "class": "source"
-    },
-    {
-        "from": "B-Global",
-        "to": "哔哩哔哩国际",
-        "class": "source"
-    },
-    {
-        "from": "bilibili|BL",
-        "to": "可能为B站大陆源",
-        "class": "source"
-    },
-    {
-        "from": "(acfun|AC)",
-        "to": "Acfun源",
-        "class": "source"
-    },
-    {
-        "from": "Baha",
-        "to": "巴哈姆特动漫疯",
-        "class": "source"
-    },
-    {
-        "from": "movie",
-        "to": "剧场版",
-        "class": "version"
-    },
-    {
-        "from": "OVA",
-        "to": "OVA",
-        "class": "version"
-    },
-    {
-        "from": "DVD",
-        "to": "DVD",
-        "class": "version"
-    },
-    {
-        "from": "SP",
-        "to": "SP",
-        "class": "version"
-    },
-    {
-        "from": "NCOP",
-        "to": "素材 - 无字 OP",
-        "class": "version"
-    },
-    {
-        "from": "NCED",
-        "to": "素材 - 无字 ED",
-        "class": "version"
-    },
-    {
-        "from": "LavaASS",
-        "to": "番剧库整合内封",
-        "class": "language"
-    },
-    {
-        "from": "JPSC|CHS_JP|简体双语",
-        "to": "简日双语",
-        "class": "language"
-    },
-    {
-        "from": "JSTC|CHT_JP",
-        "to": "繁日双语",
-        "class": "language"
-    },
-    {
-        "from": "ENG",
-        "to": "英语",
-        "class": "language"
-    },
-    {
-        "from": "(JPN|JAP|JP)",
-        "to": "日语",
-        "class": "language"
-    },
-    {
-        "from": "\\|TH\\|",
-        "to": "泰语",
-        "class": "language"
-    },
-    {
-        "from": "(GB_CN|GB|SC|CHS|CH(?=[^T])|简体中文|简体|简中)",
-        "to": "简中",
-        "class": "language"
-    },
-    {
-        "from": "(BIG5|TC|CHT)",
-        "to": "繁中",
-        "class": "language"
-    },
-    {
-        "from": "V2|\\[v2\\]",
-        "to": "第2版",
-        "class": "language"
-    },
-    {
-        "from": "V3|\\[v3\\]",
-        "to": "第3版",
-        "class": "language"
-    },
-    {
-        "from": "(?!=\\|)Final(?!=\\|)",
-        "to": "最终版本",
-        "class": "language"
-    },
-    {
-        "from": "SRT(x|×)\\d",
-        "to": "多语言SRT字幕",
-        "class": "language"
-    },
-    {
-        "from": "SRT",
-        "to": "SRT字幕",
-        "class": "language"
-    },
-    {
-        "from": "ASS(x|×)\\d",
-        "to": "多语言特效字幕",
-        "class": "language"
-    },
-    {
-        "from": "(\\.|)(SC|chs|gb)\\.ass",
-        "to": "简中外挂特效字幕",
-        "class": "format"
-    },
-    {
-        "from": "(\\.|)(TC|cht|big5)\\.ass",
-        "to": "繁中外挂特效字幕",
-        "class": "format"
-    },
-    {
-        "from": "ASS",
-        "to": "特效字幕",
-        "class": "language"
-    },
-    {
-        "from": "\\.mp4",
-        "to": "MP4视频",
-        "class": "format"
-    },
-    {
-        "from": "\\.mkv",
-        "to": "MKV视频",
-        "class": "format"
-    },
-    {
-        "from": "\\.ass",
-        "to": "ASS字幕文件",
-        "class": "format"
-    },
-    {
-        "from": "\\.txt",
-        "to": "TXT文档",
-        "class": "format"
-    },
-    {
-        "from": "\\.torrent",
-        "to": "种子",
-        "class": "format"
-    },
-    {
-        "from": "\\.(png|jpg|jpeg|gif|bmp|tif|svg)",
-        "to": "图片",
-        "class": "format"
-    },
-    {
-        "from": "\\.(pdf|docx|doc)",
-        "to": "文档",
-        "class": "format"
-    },
-    {
-        "from": "\\.(mp3|flac)",
-        "to": "音乐文件",
-        "class": "format"
-    },
-    {
-        "from": "\\.(zip|rar|7z)",
-        "to": "压缩文件",
-        "class": "format"
-    },
-    {
-        "from": "(Subtitles|sub|subtitle|ass)\\.*(zip|7z|rar)",
-        "to": "外挂字幕合集包",
-        "class": "other"
-    },
-    {
-        "from": "(fonts|font)\\.*(zip|7z|rar)",
-        "to": "字体合集包",
-        "class": "other"
-    },
-    {
-        "from": "LavaAnimeSub",
-        "to": "熔岩动画Sub",
-        "class": "other"
-    },
-    {
-        "from": "(-MacBook Air)",
-        "to": "重复资源-请删除",
-        "class": "other"
-    },
-    {
-        "from": "(招募(翻译|时轴后期|后期|时轴))|(new-ani.me)|((1|4|7|10|一|四|七|十)月新番)",
-        "to": "",
-        "class": "other"
-    },
-    {
-        "from": "dl",
-        "to": "",
-        "class": "other"
-    }
+  {
+    "from": "DMHY",
+    "to": "動漫花園",
+    "class": "group"
+  },
+  {
+    "from": "SHIGURE",
+    "to": "時雨初空",
+    "class": "group"
+  },
+  {
+    "from": "HYSUB",
+    "to": "幻樱字幕组",
+    "class": "group"
+  },
+  {
+    "from": "BeanSub",
+    "to": "豌豆字幕组",
+    "class": "group"
+  },
+  {
+    "from": "FZSD",
+    "to": "风之圣殿",
+    "class": "group"
+  },
+  {
+    "from": "FLsnow",
+    "to": "雪飘工作室",
+    "class": "group"
+  },
+  {
+    "from": "WMSUB",
+    "to": "风车字幕组",
+    "class": "group"
+  },
+  {
+    "from": "DBD-Raws",
+    "to": "DBD制作组",
+    "class": "group"
+  },
+  {
+    "from": "(UHA-WINGS|UHA-WING)",
+    "to": "悠哈璃羽字幕社",
+    "class": "group"
+  },
+  {
+    "from": "SweetSub",
+    "to": "SweetSub 字幕组",
+    "class": "group"
+  },
+  {
+    "from": "MMSUB",
+    "to": "MMSUB",
+    "class": "group"
+  },
+  {
+    "from": "LoliHouse",
+    "to": "LoliHouse 压制组",
+    "class": "group"
+  },
+  {
+    "from": "SFEO-Raws",
+    "to": "SFEO-Raws 压制组",
+    "class": "group"
+  },
+  {
+    "from": "SumiSora",
+    "to": "澄空学园",
+    "class": "group"
+  },
+  {
+    "from": "YUI-7",
+    "to": "西农YUI汉化组",
+    "class": "group"
+  },
+  {
+    "from": "Skymoon-Raws",
+    "to": "天月動漫&發佈組",
+    "class": "group"
+  },
+  {
+    "from": "PCSUB",
+    "to": "波洛咖啡厅",
+    "class": "group"
+  },
+  {
+    "from": "Kamigami",
+    "to": "诸神字幕组",
+    "class": "group"
+  },
+  {
+    "from": "Mabors( |-)Sub",
+    "to": "幻之字幕组",
+    "class": "group"
+  },
+  {
+    "from": "DHR",
+    "to": "DHR动研字幕组",
+    "class": "group"
+  },
+  {
+    "from": "DMG",
+    "to": "动漫国字幕组",
+    "class": "group"
+  },
+  {
+    "from": "FZsub",
+    "to": "F宅字幕组",
+    "class": "group"
+  },
+  {
+    "from": "Xrip",
+    "to": "Xrip 压制组",
+    "class": "group"
+  },
+  {
+    "from": "A\\.I\\.R\\.nesSub",
+    "to": "A.I.R.nesSub 字幕组",
+    "class": "group"
+  },
+  {
+    "from": "NC-Raws",
+    "to": "NC-Raws 搬运组",
+    "class": "group"
+  },
+  {
+    "from": "NaN-Raws",
+    "to": "NaN-Raws 搬运组",
+    "class": "group"
+  },
+  {
+    "from": "Lilith-Raws",
+    "to": "Lilith-Raws 搬运组",
+    "class": "group"
+  },
+  {
+    "from": "云光字幕组",
+    "to": "云光字幕组",
+    "class": "group"
+  },
+  {
+    "from": "CASO",
+    "to": "华盟字幕组",
+    "class": "group"
+  },
+  {
+    "from": "Comicat",
+    "to": "漫猫字幕组",
+    "class": "group"
+  },
+  {
+    "from": "KissSub",
+    "to": "爱恋字幕组",
+    "class": "group"
+  },
+  {
+    "from": "JYFanSub|KTXP|JYSUB|JYFANSUB",
+    "to": "极影字幕社",
+    "class": "group"
+  },
+  {
+    "from": "Nekomoe kissaten",
+    "to": "喵萌奶茶屋",
+    "class": "group"
+  },
+  {
+    "from": "Mmch\\.sub",
+    "to": "喵萌茶会字幕组",
+    "class": "group"
+  },
+  {
+    "from": "sakurato\\.sub|Sakurato",
+    "to": "桜都字幕组",
+    "class": "group"
+  },
+  {
+    "from": "STYHSub",
+    "to": "霜庭云花字幕组",
+    "class": "group"
+  },
+  {
+    "from": "Airota|Ariota",
+    "to": "千夏字幕组",
+    "class": "group"
+  },
+  {
+    "from": "SZW",
+    "to": "森之屋动漫",
+    "class": "group"
+  },
+  {
+    "from": "SAIO-Raws",
+    "to": "SAIO-Raws 压制组",
+    "class": "group"
+  },
+  {
+    "from": "VCB-Studio|VCB-S",
+    "to": "VCB-Studio 压制组",
+    "class": "group"
+  },
+  {
+    "from": "熔岩番剧库|LavaAnimeLib",
+    "to": "熔岩番剧库",
+    "class": "group"
+  },
+  {
+    "from": "异域-11番小队",
+    "to": "异域-11番小队",
+    "class": "group"
+  },
+  {
+    "from": "XKSub",
+    "to": "星空字幕组",
+    "class": "group"
+  },
+  {
+    "from": "ZeroSub",
+    "to": "ZeroSub",
+    "class": "group"
+  },
+  {
+    "from": "CoolComic404",
+    "to": "酷漫404",
+    "class": "group"
+  },
+  {
+    "from": "orion origin",
+    "to": "猎户不鸽发布组",
+    "class": "group"
+  },
+  {
+    "from": "MCE",
+    "to": "MCE 汉化组",
+    "class": "group"
+  },
+  {
+    "from": "LavaAnime",
+    "to": "熔岩动画",
+    "class": "group"
+  },
+  {
+    "from": "igsub",
+    "to": "爱咕字幕组",
+    "class": "group"
+  },
+  {
+    "from": "GST",
+    "to": "GST 搬运组",
+    "class": "group"
+  },
+  {
+    "from": "LxyLab",
+    "to": "LxyLab 字幕组",
+    "class": "group"
+  },
+  {
+    "from": "LKSUB",
+    "to": "轻之国度字幕组",
+    "class": "group"
+  },
+  {
+    "from": "Henshin",
+    "to": "Henshin 压制组",
+    "class": "group"
+  },
+  {
+    "from": "LPSub",
+    "to": "离谱Sub",
+    "class": "group"
+  },
+  {
+    "from": "(MingYSub|MingY)",
+    "to": "MingYSub",
+    "class": "group"
+  },
+  {
+    "from": "WOLF\\&RH",
+    "to": "WOLF&RH 字幕组",
+    "class": "group"
+  },
+  {
+    "from": "Hakugetsu",
+    "to": "白月字幕组",
+    "class": "group"
+  },
+  {
+    "from": "夏沐字幕组",
+    "to": "夏沐字幕组",
+    "class": "group"
+  },
+  {
+    "from": "KyokuSai",
+    "to": "极彩字幕组",
+    "class": "group"
+  },
+  {
+    "from": "Meowskers",
+    "to": "喵鲁字幕组",
+    "class": "group"
+  },
+  {
+    "from": "(1080p|1920(X|×)(1080|816))",
+    "to": "1080P",
+    "class": "quality"
+  },
+  {
+    "from": "2160p|3840(X|×)2160",
+    "to": "2160P(4K)",
+    "class": "quality"
+  },
+  {
+    "from": "1440p|2560(X|×)1440",
+    "to": "1440P(2K)",
+    "class": "quality"
+  },
+  {
+    "from": "(720p|1280(X|×)720)",
+    "to": "720P",
+    "class": "quality"
+  },
+  {
+    "from": "(480p|864(X|×)480)",
+    "to": "480P",
+    "class": "quality"
+  },
+  {
+    "from": "60fps",
+    "to": "60FPS",
+    "class": "quality"
+  },
+  {
+    "from": "(AVC|x264|h264)",
+    "to": "AVC",
+    "class": "quality"
+  },
+  {
+    "from": "(HEVC|x265|H265)",
+    "to": "HEVC",
+    "class": "quality"
+  },
+  {
+    "from": "ma10p",
+    "to": "Ma10p",
+    "class": "quality"
+  },
+  {
+    "from": "8bit",
+    "to": "8bit 色深",
+    "class": "quality"
+  },
+  {
+    "from": "Hi10p|10bit",
+    "to": "10位色",
+    "class": "quality"
+  },
+  {
+    "from": "yuv420p10",
+    "to": "YUV-4:2:0 10bit",
+    "class": "quality"
+  },
+  {
+    "from": "(\\d(aac|acc))|((aac|acc)(x|×)\\d)|(ACC|AAC)",
+    "to": "AAC",
+    "class": "quality"
+  },
+  {
+    "from": "FLAC(x|×)\\d|\\dFLAC|FLAC",
+    "to": "多音轨无损Flac",
+    "class": "quality"
+  },
+  {
+    "from": "OPUS(x|×)\\d|\\dOPUS|OPUS",
+    "to": "OPUS",
+    "class": "quality"
+  },
+  {
+    "from": "mp4",
+    "to": "MP4",
+    "class": "quality"
+  },
+  {
+    "from": "mkv",
+    "to": "MKV",
+    "class": "quality"
+  },
+  {
+    "from": "webrip|web",
+    "to": "网络源",
+    "class": "source"
+  },
+  {
+    "from": "BDRip|BD",
+    "to": "蓝光盘源",
+    "class": "source"
+  },
+  {
+    "from": "AT-X",
+    "to": "AT-X",
+    "class": "source"
+  },
+  {
+    "from": "B-Global",
+    "to": "哔哩哔哩国际",
+    "class": "source"
+  },
+  {
+    "from": "bilibili|BL",
+    "to": "可能为B站大陆源",
+    "class": "source"
+  },
+  {
+    "from": "(acfun|AC)",
+    "to": "Acfun源",
+    "class": "source"
+  },
+  {
+    "from": "Baha",
+    "to": "巴哈姆特动漫疯",
+    "class": "source"
+  },
+  {
+    "from": "movie",
+    "to": "剧场版",
+    "class": "version"
+  },
+  {
+    "from": "OVA",
+    "to": "OVA",
+    "class": "version"
+  },
+  {
+    "from": "DVD",
+    "to": "DVD",
+    "class": "version"
+  },
+  {
+    "from": "SP",
+    "to": "SP",
+    "class": "version"
+  },
+  {
+    "from": "NCOP",
+    "to": "素材 - 无字 OP",
+    "class": "version"
+  },
+  {
+    "from": "NCED",
+    "to": "素材 - 无字 ED",
+    "class": "version"
+  },
+  {
+    "from": "LavaASS",
+    "to": "番剧库整合内封",
+    "class": "language"
+  },
+  {
+    "from": "JPSC|CHS_JP|简体双语",
+    "to": "简日双语",
+    "class": "language"
+  },
+  {
+    "from": "JSTC|CHT_JP",
+    "to": "繁日双语",
+    "class": "language"
+  },
+  {
+    "from": "ENG",
+    "to": "英语",
+    "class": "language"
+  },
+  {
+    "from": "(JPN|JAP|JP)",
+    "to": "日语",
+    "class": "language"
+  },
+  {
+    "from": "\\|TH\\|",
+    "to": "泰语",
+    "class": "language"
+  },
+  {
+    "from": "(GB_CN|GB|SC|CHS|CH(?=[^T])|简体中文|简体|简中)",
+    "to": "简中",
+    "class": "language"
+  },
+  {
+    "from": "(BIG5|TC|CHT)",
+    "to": "繁中",
+    "class": "language"
+  },
+  {
+    "from": "V2|\\[v2\\]",
+    "to": "第2版",
+    "class": "language"
+  },
+  {
+    "from": "V3|\\[v3\\]",
+    "to": "第3版",
+    "class": "language"
+  },
+  {
+    "from": "(?!=\\|)Final(?!=\\|)",
+    "to": "最终版本",
+    "class": "language"
+  },
+  {
+    "from": "SRT(x|×)\\d",
+    "to": "多语言SRT字幕",
+    "class": "language"
+  },
+  {
+    "from": "SRT",
+    "to": "SRT字幕",
+    "class": "language"
+  },
+  {
+    "from": "ASS(x|×)\\d",
+    "to": "多语言特效字幕",
+    "class": "language"
+  },
+  {
+    "from": "(\\.|)(SC|chs|gb)\\.ass",
+    "to": "简中外挂特效字幕",
+    "class": "format"
+  },
+  {
+    "from": "(\\.|)(TC|cht|big5)\\.ass",
+    "to": "繁中外挂特效字幕",
+    "class": "format"
+  },
+  {
+    "from": "ASS",
+    "to": "特效字幕",
+    "class": "language"
+  },
+  {
+    "from": "\\.mp4",
+    "to": "MP4视频",
+    "class": "format"
+  },
+  {
+    "from": "\\.mkv",
+    "to": "MKV视频",
+    "class": "format"
+  },
+  {
+    "from": "\\.ass",
+    "to": "ASS字幕文件",
+    "class": "format"
+  },
+  {
+    "from": "\\.txt",
+    "to": "TXT文档",
+    "class": "format"
+  },
+  {
+    "from": "\\.torrent",
+    "to": "种子",
+    "class": "format"
+  },
+  {
+    "from": "\\.(png|jpg|jpeg|gif|bmp|tif|svg)",
+    "to": "图片",
+    "class": "format"
+  },
+  {
+    "from": "\\.(pdf|docx|doc)",
+    "to": "文档",
+    "class": "format"
+  },
+  {
+    "from": "\\.(mp3|flac)",
+    "to": "音乐文件",
+    "class": "format"
+  },
+  {
+    "from": "\\.(zip|rar|7z)",
+    "to": "压缩文件",
+    "class": "format"
+  },
+  {
+    "from": "(Subtitles|sub|subtitle|ass)\\.*(zip|7z|rar)",
+    "to": "外挂字幕合集包",
+    "class": "other"
+  },
+  {
+    "from": "(fonts|font)\\.*(zip|7z|rar)",
+    "to": "字体合集包",
+    "class": "other"
+  },
+  {
+    "from": "LavaAnimeSub",
+    "to": "熔岩动画Sub",
+    "class": "other"
+  },
+  {
+    "from": "(-MacBook Air)",
+    "to": "重复资源-请删除",
+    "class": "other"
+  },
+  {
+    "from": "(招募(翻译|时轴后期|后期|时轴))|(new-ani.me)|((1|4|7|10|一|四|七|十)月新番)",
+    "to": "",
+    "class": "other"
+  },
+  {
+    "from": "[A-F\\d]{8}",
+    "to": "",
+    "class": "other"
+  },
+  {
+    "from": "dl",
+    "to": "",
+    "class": "other"
+  }
 ]
