@@ -453,11 +453,14 @@ function onFileClick(thisFileName, thisFileType, thisFileUrl, thisFileTempUrl) {
             <!-- 列表 -->
             <ul class="list-group list-group-flush">
                 <!-- 弹弹 -->
-                <li class="list-group-item px-0">
-                    <a href="ddplay:${encodeURIComponent(thisFileUrl + "|filePath=" + thisFileName)}" class="text-decoration-none">
+                <li class="list-group-item px-0 d-flex">
+                    <span class="text-decoration-none w-50">
                         <img src="../assets/dandanplay.webp" style="height: 30px;" class="mx-1">
-                        <span class="text-secondary fw-light align-middle mx-1">弹弹Play (Windows) <span class="badge bg-secondary ms-2">现已支持弹幕</span></span>
-                    </a>
+                        <span class="text-secondary fw-light align-middle mx-1">弹弹Play<span class="badge bg-secondary ms-2">弹幕</span>
+                        </span>
+                    </span>
+                    <a class="text-decoration-none fw-light my-auto mx-1 w-25 text-center" href="ddplay:${encodeURIComponent(thisFileUrl + "|filePath=" + thisFileName)}" >Windows 端</a>
+                    <a class="text-decoration-none fw-light my-auto mx-1 w-25 text-center" href="intent:${thisFileUrl}#Intent;package=com.xyoye.dandanplay;end">Android 端</a>
                 </li>
                 <!-- Pot / VLC -->
                 <li class="list-group-item px-0 d-flex">
@@ -530,9 +533,12 @@ function onFileClick(thisFileName, thisFileType, thisFileUrl, thisFileTempUrl) {
     },
   })
 
+  dp.on('play', function () {
+    addView();
+  });
+
   if (thisFileType == 'mp4') {
     $("#la-player-body").empty().append(mp4HelpMessage + otherPlayers) // 加入操作按钮
-    addView() // 如果视频正常，则添加播放量
   }
   if (thisFileType == 'mkv') {
     dp.destroy()
