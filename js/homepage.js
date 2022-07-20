@@ -14,7 +14,7 @@ $(document).ready(() => {
             let href = (data[i].url) ? `href="${data[i].url}"` : ''
             html +=
                 `
-                <a class="carousel-item ${activeClass}" ${href} style="background-image: url(${data[i].pic});">
+                <a class="carousel-item ${activeClass}" ${href} style="background-image: url(${data[i].pic});" data-bs-interval="10000">
                     <img src="${data[i].pic}" class="d-block w-100">
                     <div class="carousel-caption d-block">
                         <h5>${data[i].title}</h5>

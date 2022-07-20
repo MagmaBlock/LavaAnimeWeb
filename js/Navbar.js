@@ -36,10 +36,9 @@ $(document).ready(() => {
                 </div>
                 <!-- 右侧 -->
                 <div>
-                    <a id="notice-top" class="text-decoration-none text-secondary mx-2" target="_blank" href="https://wj.qq.com/s2/10287403/f4eb/">
+                    <a id="notice-top" class="text-decoration-none text-secondary mx-2" target="_blank">
                         <i class="bi bi-bell fs-5 position-relative">
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle rounded-circle bg-secondary p-1 opacity-75">
+                          <!--  <span class="position-absolute top-0 start-100 translate-middle rounded-circle bg-secondary p-1 opacity-75"></span> -->
                         </i>
     
                     </a>
