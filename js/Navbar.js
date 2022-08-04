@@ -90,6 +90,8 @@ $(document).ready(() => {
     // 用 / 把 URL 拆开，取出文档名，剔除参数。
     let documentFileName = location.href.split('/')
     documentFileName = documentFileName[documentFileName.length - 1].split(".html")[0]
+    if (documentFileName == '') documentFileName = 'index'
+    console.log(documentFileName);
     $(`#${documentFileName}-bottom i, #${documentFileName}-top i`).removeClass(icon[documentFileName]).addClass(icon[documentFileName] + '-fill')
     $(`#${documentFileName}-bottom, #${documentFileName}-top`).removeClass("text-secondary").attr("href", "#")
   }
