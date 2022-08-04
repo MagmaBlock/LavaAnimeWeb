@@ -385,6 +385,11 @@
     "class": "quality"
   },
   {
+    "from": "TVRip|TV",
+    "to": "TV放送源",
+    "class": "source"
+  },
+  {
     "from": "webrip|web",
     "to": "网络源",
     "class": "source"
