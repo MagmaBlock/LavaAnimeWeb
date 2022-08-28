@@ -25,7 +25,7 @@ $(document).ready(() => {
                     </a>
                 </div>
                 <!-- 搜索框 -->
-                <div class="d-flex" style="min-width: 200px; width: 45%; max-width: 550px;">
+                <div class="d-flex" style="min-width: 200px; width: 35%; max-width: 550px;">
                     <div class="input-group">
                         <input id="search-label-top" class="form-control form-control-sm border-0"
                             style="font-size: 13px; background: rgba(180, 180, 180, 0.3);"
@@ -37,10 +37,7 @@ $(document).ready(() => {
                 <!-- 右侧 -->
                 <div>
                     <a id="notice-top" class="text-decoration-none text-secondary mx-2" target="_blank">
-                        <i class="bi bi-bell fs-5 position-relative">
-                          <!--  <span class="position-absolute top-0 start-100 translate-middle rounded-circle bg-secondary p-1 opacity-75"></span> -->
-                        </i>
-    
+                      <a style="font-size: 14px;" href="https://beta.magmablock.top" class="text-decoration-none fw-light">体验新版</a>
                     </a>
                 </div>
             </div>
