@@ -37,7 +37,7 @@ $(document).ready(() => {
                 <!-- 右侧 -->
                 <div>
                     <a id="notice-top" class="text-decoration-none text-secondary mx-2" target="_blank">
-                      <a style="font-size: 14px;" href="https://beta.magmablock.top" class="text-decoration-none fw-light">体验新版</a>
+                      <a style="font-size: 14px;" href="https://lavani.me" class="text-decoration-none fw-light">体验新版</a>
                     </a>
                 </div>
             </div>
