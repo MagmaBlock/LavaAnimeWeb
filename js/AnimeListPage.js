@@ -231,7 +231,7 @@ function addView() {
       .then((result) => {
         let data = result.data
         console.log('成功增加播放量: ', data, ' 剩余播放量: ', leftViews - 1)
-        if (data.code == 0) {
+        if (data.code == 200) {
           $(`#views`).empty().append(` 播放 ${data.data} 次`)
           leftViews--
         } else {
