@@ -1,7 +1,7 @@
 const config = {
   "api": { "url": "https://anime-api.5t5.top" },
   "agefansDomain": "www.agemys.com",
-  "bangumiApi": "https://bgm-api.5t5.top/v0/subjects/"
+  "bangumiApi": "https://api.bgm.tv/v0/subjects/"
 }
 
 var thisPageId, thisPageAnimeData, thisPageBangumiData

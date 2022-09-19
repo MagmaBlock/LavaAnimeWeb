@@ -2,7 +2,7 @@ function goBack() { window.location.href = document.referrer }
 const config = {
     // "api": "https://anime-api.5t5.top",
     "api": "http://192.168.0.102:8090",
-    "bangumiApi": "https://bgm-api.5t5.top"
+    "bangumiApi": "https://api.bgm.tv"
 }
 
 const app = Vue.createApp({
