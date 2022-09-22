@@ -61,7 +61,7 @@
                     timeData = data
                 }
             })
-            
+
             function getTimeById(id) {
                 var timeTmp = timeData.filter(function (f) {
                     return f.bangumiId == id
@@ -123,6 +123,10 @@
 <body>
     <div id="navbar"></div>
     <div class="container mt-4">
+        <div class="bg-success p-2 px-3 mb-2 rounded text-white bg-opacity-75">
+            <i class="bi bi-exclamation-circle-fill"></i> 当前站点将在本周内 (2022 年 09 月 25 日前) 下线，请您尽快迁移至
+            <a class="text-white" href="https://lavani.me/">新站点</a>。V1 相关服务器 API 也将在未来停止维护。
+        </div>
         <div class="mx-3">
             <h1 class="display-3">每周放送</h1>
             <p class="fw-light">数据来自 Bangumi，仅供参考。点击相关番组可在番剧库内查找。<br>右侧所示时间采用日本电视台的 30 小时制，并非番剧库的更新时间。</p>
