@@ -1,3 +1,9 @@
+## 归档提示 - 此版本已停止更新
+
+此旧版本的 Web 因代码质量不佳，杂糅，已经难以继续维护。目前已停止更新，请移步至基于 Vue 编写的 V2 前端 [MagmaBlock/LavaAnimeLibWeb](https://github.com/MagmaBlock/LavaAnimeLibWeb)
+
+此旧版本的 Web 因代码质量不佳，杂糅，已经难以继续维护。目前已停止更新，请移步至基于 Vue 编写的 V2 前端 [MagmaBlock/LavaAnimeLibWeb](https://github.com/MagmaBlock/LavaAnimeLibWeb)
+
 ## 熔岩番剧库 LavaAnime
 
 这是个人创建的一个**私有**番剧库，目标是自建一个高画质高质量的私有番剧动画小圈子～
